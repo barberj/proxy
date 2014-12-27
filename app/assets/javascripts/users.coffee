@@ -10,17 +10,17 @@ $(document).ready ->
       password = form.find("input[name='password']")
       confirm = form.find("input[name='confirm']")
       if password.get(0).value == confirm.get(0).value
-        $.ajax({
+        $.ajax(
           url: form.get(0).action,
           type: form.get(0).method.toUpperCase(),
           data: form.serialize(),
           dataType: "json"
-          success: (data, textStatus, jqXHR) ->
-            console.log 'created'
-          error: (jqXHR, textStatus, errorThrown) ->
-            #jqXHR.responseJSON
-            console.log 'error'
-        })
+        ).done( (rsp) =>
+          console.log 'created'
+        ).fail( (rsp) =>
+          #rsp.responseJSON
+          console.log "error: #{rsp.responseText}"
+        )
       else
         $(password).addClass('missing_required')
         $(confirm).addClass('missing_required')
