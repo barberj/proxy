@@ -15,9 +15,10 @@ $(document).ready ->
           type: form.get(0).method.toUpperCase(),
           data: form.serialize(),
           dataType: "json"
-          success: ->
+          success: (data, textStatus, jqXHR) ->
             console.log 'created'
-          error: ->
+          error: (jqXHR, textStatus, errorThrown) ->
+            #jqXHR.responseJSON
             console.log 'error'
         })
       else

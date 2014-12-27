@@ -11,7 +11,7 @@ class UsersController < ApplicationController
       :bad_request
     end
 
-    render json: nil, status: status
+    render json: user.errors, status: status
   end
 
 private
