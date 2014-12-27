@@ -12,6 +12,5 @@ User.create(
   last_name: 'Barber',
   email: 'barber.justin@gmail.com',
   password: 'change_me!',
-  password_confirmation: 'change_me!',
   account_id: internal.id
 )
