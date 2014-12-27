@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20141227022634) do
     t.string   "last_name",       null: false
     t.string   "email",           null: false
     t.string   "password_digest", null: false
-    t.datetime "last_login_at"
+    t.datetime "last_signin_at"
     t.integer  "account_id",      null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false

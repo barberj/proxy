@@ -9,7 +9,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :last_name, null: false
       t.string :email, null: false
       t.string :password_digest, null: false
-      t.datetime :last_login_at
+      t.datetime :last_signin_at
       t.integer :account_id, null: false
 
       t.timestamps null: false
