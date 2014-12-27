@@ -15,6 +15,10 @@ $(document).ready ->
           type: form.get(0).method.toUpperCase(),
           data: form.serialize(),
           dataType: "json"
+          success: ->
+            console.log 'created'
+          error: ->
+            console.log 'error'
         })
       else
         $(password).addClass('missing_required')
