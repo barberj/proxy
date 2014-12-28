@@ -4,14 +4,13 @@ class CreateApis < ActiveRecord::Migration
       t.string :name
       t.string :install_url, null: false
       t.string :uninstall_url, null: false
-      t.boolean :is_active
-      t.integer :account_id
+      t.boolean :is_active, default: false
+      t.integer :account_id, null: false
 
       t.timestamps null: false
     end
 
     create_table :resources do |t|
-      t.integer :api_id, null: false
       t.string :name, null: false
       t.string :search_url
       t.string :created_url
@@ -20,6 +19,19 @@ class CreateApis < ActiveRecord::Migration
       t.string :create_url
       t.string :update_url
       t.string :delete_url
+      t.integer :api_id, null: false
+
+      t.timestamps null: false
+    end
+
+    create_table :fields do |t|
+      t.string :name, null: false
+      t.string :type
+      t.string :dpath, default: '/*'
+      t.boolean :is_required, default: false
+      t.boolean :used_for_search, default: false
+      t.boolean :is_scope, default: false
+      t.integer :resource_id, null: false
 
       t.timestamps null: false
     end
