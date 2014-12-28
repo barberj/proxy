@@ -17,6 +17,7 @@ $(document).ready ->
           dataType: "json"
         ).done( (rsp) =>
           console.log 'created'
+          window.location = '/signin'
         ).fail( (rsp) =>
           #rsp.responseJSON
           console.log "error: #{rsp.responseText}"
