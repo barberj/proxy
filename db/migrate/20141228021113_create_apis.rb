@@ -1,7 +1,7 @@
 class CreateApis < ActiveRecord::Migration
   def change
     create_table :apis do |t|
-      t.string :name
+      t.string :name, null: false
       t.string :install_url, null: false
       t.string :uninstall_url, null: false
       t.boolean :is_active, default: false

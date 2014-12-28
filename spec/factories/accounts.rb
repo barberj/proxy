@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :account do
-    name "MyString"
+    after(:create) do |account|
+      create(:user, :account => account)
+    end
   end
-
 end

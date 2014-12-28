@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141227022634) do
+ActiveRecord::Schema.define(version: 20141228021113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,42 @@ ActiveRecord::Schema.define(version: 20141227022634) do
   create_table "accounts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "apis", force: :cascade do |t|
+    t.string   "name",                          null: false
+    t.string   "install_url",                   null: false
+    t.string   "uninstall_url",                 null: false
+    t.boolean  "is_active",     default: false
+    t.integer  "account_id",                    null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  create_table "fields", force: :cascade do |t|
+    t.string   "name",                            null: false
+    t.string   "type"
+    t.string   "dpath",           default: "/*"
+    t.boolean  "is_required",     default: false
+    t.boolean  "used_for_search", default: false
+    t.boolean  "is_scope",        default: false
+    t.integer  "resource_id",                     null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  create_table "resources", force: :cascade do |t|
+    t.string   "name",        null: false
+    t.string   "search_url"
+    t.string   "created_url"
+    t.string   "updated_url"
+    t.string   "read_url"
+    t.string   "create_url"
+    t.string   "update_url"
+    t.string   "delete_url"
+    t.integer  "api_id",      null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "users", force: :cascade do |t|
