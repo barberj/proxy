@@ -4,4 +4,15 @@ class Api < ActiveRecord::Base
   has_many :installed_apis, inverse_of: :api
 
    accepts_nested_attributes_for :resources
+
+  after_create :install_dev_api
+
+  def install_dev_api
+    account.installed_apis.create(
+      name: "Development #{self.name}",
+      api_id: self.id,
+      token: 'test',
+      is_dev: true
+    )
+  end
 end

@@ -43,6 +43,16 @@ ActiveRecord::Schema.define(version: 20141228021113) do
     t.datetime "updated_at",                      null: false
   end
 
+  create_table "installed_apis", force: :cascade do |t|
+    t.string   "name",                       null: false
+    t.string   "token",                      null: false
+    t.boolean  "is_dev",     default: false
+    t.integer  "api_id",                     null: false
+    t.integer  "account_id",                 null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
   create_table "resources", force: :cascade do |t|
     t.string   "name",        null: false
     t.string   "customs_url"

@@ -44,8 +44,8 @@ describe Api do
         Field.count
       }.by 1
     end
-    it 'creates an InstalledApi' do
-      expect{
+    context 'after' do
+      let(:create_api) do
         account.apis.create(
           name: 'insightly',
           install_url: 'https://remoteapi.com/install',
@@ -57,9 +57,16 @@ describe Api do
             }]
           }]
         )
-      }.to change {
-        InstalledApi.count
-      }.by 1
+      end
+      it "installs api on owner's account" do
+        expect{ create_api }.to change {
+          account.installed_apis.count
+        }.by 1
+      end
+      it "installs dev api on owner's account" do
+        create_api
+        expect(account.installed_apis.first.is_dev).to be_truthy
+      end
     end
   end
 end
