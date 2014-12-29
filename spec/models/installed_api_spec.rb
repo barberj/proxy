@@ -10,5 +10,15 @@ describe InstalledApi do
       )
       expect(installed.token).to be_present
     end
+
+    it 'defaults name' do
+      api = create_api
+      new_account = create(:account)
+      installed = new_account.installed_apis.create(
+        api: api
+      )
+
+      expect(installed.name).to eq("My RemoteApi")
+    end
   end
 end
