@@ -44,5 +44,22 @@ describe Api do
         Field.count
       }.by 1
     end
+    it 'creates an InstalledApi' do
+      expect{
+        account.apis.create(
+          name: 'insightly',
+          install_url: 'https://remoteapi.com/install',
+          uninstall_url: 'https://remoteapi.com/uninstall',
+          resources_attributes: [{
+            name: 'Contacts',
+            fields_attributes: [{
+              name: 'first_name'
+            }]
+          }]
+        )
+      }.to change {
+        InstalledApi.count
+      }.by 1
+    end
   end
 end
