@@ -8,7 +8,12 @@ Rails.application.routes.draw do
   get '/signout' => 'sessions#destroy'
 
   get '/signup' => 'users#new'
-  resource :users, :only => [:create]
+
+  namespace :api do
+    namespace :v1 do
+      resource :users, :only => [:create]
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

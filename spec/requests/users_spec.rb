@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'UsersController' do
+describe 'Users' do
 
   context 'post' do
     let(:user_data) do
@@ -12,7 +12,7 @@ describe 'UsersController' do
       }
     end
     let(:create_request) do
-      post('/users', user_data, nil)
+      post(api_v1_users_path, user_data, nil)
     end
     context 'with valid params' do
       it 'creates a user' do
