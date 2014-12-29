@@ -14,27 +14,27 @@ describe 'UsersController' do
     let(:create_request) do
       post('/users', user_data, nil)
     end
-    it 'creates a user' do
-      expect{
-        create_request
-      }.to change{
-        User.count
-      }.by(1)
-    end
-    context 'valid params' do
-      it 'returns created' do
+    context 'with valid params' do
+      it 'creates a user' do
+        expect{
+          create_request
+        }.to change{
+          User.count
+        }.by(1)
+      end
+      it 'returns created (201) status code' do
         rsp = create_request
         expect(rsp).to eq 201
       end
     end
-    context 'invalid params' do
-      it 'returns bad_request with duplicate email' do
+    context 'with invalid' do
+      it 'duplicate email returns bad_request (400) status code' do
         User.create(user_data.merge(:account_id => Account.create.id))
         user_data['email'] = user_data['email'].upcase
         rsp = create_request
         expect(rsp).to eq 400
       end
-      it 'returns bad_request with invalid email' do
+      it 'email returns bad_request (400) status code' do
         user_data['email'] = 'e'
         rsp = create_request
         expect(rsp).to eq 400
