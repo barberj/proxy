@@ -12,6 +12,7 @@ class CreateApis < ActiveRecord::Migration
 
     create_table :resources do |t|
       t.string :name, null: false
+      t.string :customs_url
       t.string :search_url
       t.string :created_url
       t.string :updated_url

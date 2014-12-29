@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20141228021113) do
 
   create_table "resources", force: :cascade do |t|
     t.string   "name",        null: false
+    t.string   "customs_url"
     t.string   "search_url"
     t.string   "created_url"
     t.string   "updated_url"

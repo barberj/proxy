@@ -23,7 +23,10 @@ describe Api do
           install_url: 'https://remoteapi.com/install',
           uninstall_url: 'https://remoteapi.com/uninstall',
           resources_attributes: [{
-            name: 'Contacts'
+            name: 'Contacts',
+            fields_attributes: [{
+              name: 'first_name'
+            }]
           }]
         )
       }.to change {
