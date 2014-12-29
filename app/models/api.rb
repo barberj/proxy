@@ -7,6 +7,8 @@ class Api < ActiveRecord::Base
 
   after_create :install_dev_api
 
+private
+
   def install_dev_api
     account.installed_apis.create(
       name: "Development #{self.name}",

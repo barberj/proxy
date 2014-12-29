@@ -45,19 +45,6 @@ describe Api do
       }.by 1
     end
     context 'after' do
-      let(:create_api) do
-        account.apis.create(
-          name: 'insightly',
-          install_url: 'https://remoteapi.com/install',
-          uninstall_url: 'https://remoteapi.com/uninstall',
-          resources_attributes: [{
-            name: 'Contacts',
-            fields_attributes: [{
-              name: 'first_name'
-            }]
-          }]
-        )
-      end
       it "installs api on owner's account" do
         expect{ create_api }.to change {
           account.installed_apis.count
