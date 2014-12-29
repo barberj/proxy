@@ -13,7 +13,6 @@ private
     account.installed_apis.create(
       name: "Development #{self.name}",
       api_id: self.id,
-      token: 'test',
       is_dev: true
     )
   end
