@@ -42,7 +42,8 @@ class CreateApis < ActiveRecord::Migration
 
     create_table :installed_apis do |t|
       t.string :name, null: false
-      t.string :token, null: false
+      t.string :local_token, null: false
+      t.string :remote_token, null: false
       t.boolean :is_dev, default: false
 
       t.integer :api_id, null: false

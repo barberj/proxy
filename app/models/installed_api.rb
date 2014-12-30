@@ -2,14 +2,17 @@ class InstalledApi < ActiveRecord::Base
   belongs_to :account, inverse_of: :installed_apis
   belongs_to :api, inverse_of: :installed_apis
 
-  before_create :generate_token, :default_name
+  before_create :generate_tokens, :default_name
 
 private
 
-  def generate_token
+  def generate_tokens
     begin
-      self.token = SecureRandom.hex
-    end while self.class.exists?(:token => token)
+      self.local_token = SecureRandom.hex
+    end while self.class.exists?(:local_token => self.local_token)
+    begin
+      self.remote_token = SecureRandom.hex
+    end while self.class.exists?(:remote_token => self.remote_token)
   end
 
   def default_name
