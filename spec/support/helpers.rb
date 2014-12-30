@@ -25,6 +25,9 @@ module Helpers
           }]
         )
       end
+      let(:local_token) do
+        account.installed_apis.first.local_token
+      end
     end
   end
 
