@@ -1,5 +1,5 @@
-class Api::V1::UsersController < Api::V1::AuthenticatedRequestsController
-  skip_before_action :authenticate!, :only => [:create]
+class Api::V1::UsersController < Api::V1::InternalApiController
+  skip_before_action :authorize!, :only => [:create]
 
   def create
     user = User.new(create_params)
