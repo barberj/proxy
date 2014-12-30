@@ -11,6 +11,14 @@ module Helpers
           uninstall_url: 'https://remoteapi.com/uninstall',
           resources_attributes: [{
             name: 'Contacts',
+            customs_url: 'https://remoteapi.com/customs',
+            search_url: 'https://remoteapi.com/search',
+            created_url: 'https://remoteapi.com/created',
+            updated_url: 'https://remoteapi.com/updated',
+            create_url: 'https://remoteapi.com/create',
+            update_url: 'https://remoteapi.com/update',
+            delete_url: 'https://remoteapi.com/delete',
+            read_url: 'https://remoteapi.com/read',
             fields_attributes: [{
               name: 'first_name'
             }]
