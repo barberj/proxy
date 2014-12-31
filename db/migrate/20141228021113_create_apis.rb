@@ -51,5 +51,34 @@ class CreateApis < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    create_table :encodings do |t|
+      t.string :name, null: false
+      t.boolean :is_default, default: false
+
+      t.integer :installed_api_id, null: false
+
+      t.timestamps null: false
+    end
+
+    create_table :encoded_resources do |t|
+      t.string :name, null: false
+
+      t.integer :encoding_id, null: false
+      t.integer :installed_api_id, null: false
+      t.integer :resource_id, null: false
+
+      t.timestamps null: false
+    end
+
+    create_table :encoded_fields  do |t|
+      t.string :name, null: false
+
+      t.integer :encoding_id, null: false
+      t.integer :installed_api_id, null: false
+      t.integer :field_id, null: false
+
+      t.timestamps null: false
+    end
   end
 end

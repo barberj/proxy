@@ -10,7 +10,6 @@ describe 'GetRequests' do
           'HTTP_AUTHENTICATION' => "Token #{local_token}"
         )
 
-        binding.pry
         expect(json['results']['job_id']).to eq 1
       end
       it 'returns accepted status (202)' do
