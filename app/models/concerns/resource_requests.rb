@@ -5,6 +5,8 @@ module ResourceRequests
   end
 
   def can_request_created?(resource)
+    binding.pry
+    puts
   end
 
   def reads_one?(resource)
