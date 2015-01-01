@@ -75,6 +75,7 @@ class CreateApis < ActiveRecord::Migration
       t.string :name, null: false
 
       t.integer :field_id, null: false
+      t.integer :encoded_resource_id, null: false
 
       t.timestamps null: false
     end

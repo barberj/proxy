@@ -41,10 +41,11 @@ ActiveRecord::Schema.define(version: 20141228021113) do
   end
 
   create_table "encoded_fields", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.integer  "field_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",                null: false
+    t.integer  "field_id",            null: false
+    t.integer  "encoded_resource_id", null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "encoded_resources", force: :cascade do |t|

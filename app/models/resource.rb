@@ -16,7 +16,7 @@ class Resource < ActiveRecord::Base
     {
       resource_id: self.id,
       name: self.name,
-    #  encoded_fields_attributes: self.fields.map(&:to_eh)
+      encoded_fields_attributes: self.fields.map(&:to_eh)
     }
   end
 end

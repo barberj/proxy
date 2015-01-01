@@ -79,12 +79,20 @@ describe Api do
           create_api
           expect(account.data_encodings.first.name).to eq "Development RemoteApi Encoding"
         end
-        it "with encoded resource name matching api" do
+        it "with encoded resource name matching api resource" do
           create_api
           encoded_resource = account.data_encodings.first.encoded_resources.first
 
           expect(encoded_resource.name).to be_present
           expect(encoded_resource.name).to eq encoded_resource.resource.name
+        end
+        it "with encoded fields name matching api fields" do
+          create_api
+          encoded_resource = account.data_encodings.first.encoded_resources.first
+          encoded_field = encoded_resource.encoded_fields.first
+
+          expect(encoded_field.name).to be_present
+          expect(encoded_field.name).to eq encoded_field.field.name
         end
       end
     end
