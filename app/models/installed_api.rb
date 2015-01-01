@@ -27,7 +27,8 @@ private
     self.data_encodings.create(
       name: "#{self.name} Encoding",
       account_id: self.account_id,
-      is_default: true
+      is_default: true,
+      encoded_resources_attributes: self.api.resources.map(&:to_eh)
     )
   end
 end

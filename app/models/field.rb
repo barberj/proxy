@@ -1,4 +1,17 @@
 class Field < ActiveRecord::Base
   belongs_to :resource, inverse_of: :fields
-  has_many :encoded_fields, inverse_of: :field
+
+  def to_h
+    {
+      id: self.id,
+      name: self.name
+    }
+  end
+
+  def to_eh
+    {
+      field_id: self.id,
+      name: self.name
+    }
+  end
 end
