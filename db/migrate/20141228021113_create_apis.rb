@@ -54,7 +54,6 @@ class CreateApis < ActiveRecord::Migration
     create_table :data_encodings do |t|
       t.string :name, null: false
       t.string :token, null: false
-      t.boolean :is_default, default: false
 
       t.integer :installed_api_id, null: false
       t.integer :account_id, null: false

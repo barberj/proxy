@@ -71,10 +71,6 @@ describe Api do
             account.installed_apis.first.data_encodings.count rescue 0
           }.by 1
         end
-        it '#is_default is true' do
-          create_api
-          expect(account.data_encodings.first.is_default).to be_truthy
-        end
         it "with name 'Development %r(.) Encoding'" do
           create_api
           expect(account.data_encodings.first.name).to eq "Development RemoteApi Encoding"
