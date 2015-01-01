@@ -74,7 +74,6 @@ class CreateApis < ActiveRecord::Migration
     create_table :encoded_fields  do |t|
       t.string :name, null: false
 
-      t.integer :data_encoding_id, null: false
       t.integer :field_id, null: false
 
       t.timestamps null: false
