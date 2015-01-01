@@ -7,7 +7,7 @@ describe 'GetRequests' do
       it 'returns job id' do
         get(api_v1_path('Contacts'),
           { :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z') },
-          'HTTP_AUTHENTICATION' => "Token #{local_token}"
+          'HTTP_AUTHENTICATION' => "Token #{token}"
         )
 
         expect(json['results']['job_id']).to eq 1
@@ -15,7 +15,7 @@ describe 'GetRequests' do
       it 'returns accepted status (202)' do
         rsp = get(api_v1_path('Contacts'),
           { :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z') },
-          'HTTP_AUTHENTICATION' => "Token #{local_token}"
+          'HTTP_AUTHENTICATION' => "Token #{token}"
         )
 
         expect(rsp).to eq 202

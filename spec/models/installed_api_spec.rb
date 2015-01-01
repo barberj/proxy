@@ -3,21 +3,15 @@ require 'rails_helper'
 describe InstalledApi do
   describe '.create' do
     context 'before' do
-      it 'generates local_token' do
-        installed = InstalledApi.create(
+      it 'generates token' do
+        expect_any_instance_of(InstalledApi)
+          .to receive(:create_default_data_encoding)
+
+        expect(InstalledApi.create(
           name: 'InstalledRemoteApi',
           account_id: 1,
           api_id: 1
-        )
-        expect(installed.local_token).to be_present
-      end
-      it 'generates remote_token' do
-        installed = InstalledApi.create(
-          name: 'InstalledRemoteApi',
-          account_id: 1,
-          api_id: 1
-        )
-        expect(installed.remote_token).to be_present
+        ).token).to be_present
       end
       it 'defaults name' do
         api = create_api

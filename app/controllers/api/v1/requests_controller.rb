@@ -10,11 +10,11 @@ private
       .match(/Token (.*)/) || [])[1]
   end
 
-  def installed_api
-    @installed_api ||= InstalledApi.find_by(local_token: token)
+  def installed_api_encoding
+    @installed_api_encoding ||= DataEncoding.find_by(token: token)
   end
 
   def authorize!
-    head :unauthorized unless installed_api
+    head :unauthorized unless installed_api_encoding
   end
 end
