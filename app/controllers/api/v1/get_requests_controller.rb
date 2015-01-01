@@ -36,7 +36,7 @@ private
   end
 
   def accept_job(request_type, resource, params)
-    if installed_api.send(:"can_request_#{request_type}?", resource)
+    if installed_api_encoding.send(:"can_request_#{request_type}?", resource)
       [
         :accepted,
         results: { job_id: 1 }

@@ -14,7 +14,11 @@ private
     @installed_api_encoding ||= DataEncoding.find_by(token: token)
   end
 
+  def installed_api
+    installed_api_encoding.installed_api if installed_api_encoding
+  end
+
   def authorize!
-    head :unauthorized unless installed_api_encoding
+    head :unauthorized unless installed_api
   end
 end
