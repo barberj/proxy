@@ -31,6 +31,31 @@ ActiveRecord::Schema.define(version: 20141228021113) do
     t.datetime "updated_at",                    null: false
   end
 
+  create_table "data_encodings", force: :cascade do |t|
+    t.string   "name",                             null: false
+    t.boolean  "is_default",       default: false
+    t.integer  "installed_api_id",                 null: false
+    t.integer  "account_id",                       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  create_table "encoded_fields", force: :cascade do |t|
+    t.string   "name",             null: false
+    t.integer  "data_encoding_id", null: false
+    t.integer  "field_id",         null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "encoded_resources", force: :cascade do |t|
+    t.string   "name",             null: false
+    t.integer  "data_encoding_id", null: false
+    t.integer  "resource_id",      null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
   create_table "fields", force: :cascade do |t|
     t.string   "name",                            null: false
     t.string   "type"

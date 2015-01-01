@@ -3,7 +3,7 @@ class Api < ActiveRecord::Base
   has_many :resources, inverse_of: :api
   has_many :installed_apis, inverse_of: :api
 
-   accepts_nested_attributes_for :resources
+  accepts_nested_attributes_for :resources
 
   after_create :install_dev_api
 

@@ -60,6 +60,26 @@ describe Api do
           expect(account.installed_apis.first.name).to eq "Development RemoteApi"
         end
       end
+      context "creates default data encoding" do
+        it "on owner's account" do
+          expect{ create_api }.to change {
+            account.data_encodings.count
+          }.by 1
+        end
+        it "on installed_api" do
+          expect{ create_api }.to change {
+            account.installed_apis.first.data_encodings.count rescue 0
+          }.by 1
+        end
+        it '#is_default is true' do
+          create_api
+          expect(account.data_encodings.first.is_default).to be_truthy
+        end
+        it "with name 'Development %r(.) Encoding'" do
+          create_api
+          expect(account.data_encodings.first.name).to eq "Development RemoteApi Encoding"
+        end
+      end
     end
   end
 end
