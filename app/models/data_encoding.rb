@@ -5,6 +5,7 @@ class DataEncoding < ActiveRecord::Base
   belongs_to :account, inverse_of: :data_encodings
   has_many :encoded_resources, inverse_of: :data_encoding, dependent: :destroy
   has_many :jobs, inverse_of: :data_encoding, dependent: :destroy
+  has_one :api, through: :installed_api
 
   accepts_nested_attributes_for :encoded_resources
 
