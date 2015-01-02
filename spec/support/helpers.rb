@@ -36,6 +36,9 @@ module Helpers
       let(:token) do
         data_encoding.token
       end
+      let(:remote_token) do
+        installed_api.token
+      end
     end
   end
 

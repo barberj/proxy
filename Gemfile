@@ -33,6 +33,7 @@ gem 'redis'
 gem 'hiredis'
 gem 'sidekiq'
 gem 'dalli'
+gem 'httparty'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
