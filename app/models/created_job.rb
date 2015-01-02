@@ -1,5 +1,6 @@
 class CreatedJob < Job
   belongs_to :resource
+  belongs_to :encoded_resource
 
   def process
     request_created
@@ -23,7 +24,16 @@ class CreatedJob < Job
   end
 
   def encode_data
-    fetched = self.results['results']
+    encoded = []
+    Array.wrap(self.results['results']).each do |data|
+      encoded_datum = {}
+      encoded_resource.encoded_fields.each do |encoded_field|
+        if value = encoded_field.value_from_api(data)
+          Dpaths.dput(encoded_datum, encoded_field.dpath, value)
+        end
+      end
+      encoded << encoded_datum if encoded_datum.present?
+    end
   end
 
 private

@@ -36,7 +36,7 @@ describe Api do
           resources_attributes: [{
             name: 'Contacts',
             fields_attributes: [{
-              name: 'first_name'
+              dpath: '/first_name'
             }]
           }]
         )
@@ -82,13 +82,13 @@ describe Api do
           expect(encoded_resource.name).to be_present
           expect(encoded_resource.name).to eq encoded_resource.resource.name
         end
-        it "with encoded fields name matching api fields" do
+        it "with encoded fields dpath matching api fields" do
           create_api
           encoded_resource = account.data_encodings.first.encoded_resources.first
           encoded_field = encoded_resource.encoded_fields.first
 
-          expect(encoded_field.name).to be_present
-          expect(encoded_field.name).to eq encoded_field.field.name
+          expect(encoded_field.dpath).to be_present
+          expect(encoded_field.dpath).to eq encoded_field.field.dpath
         end
       end
     end

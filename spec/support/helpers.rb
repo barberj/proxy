@@ -21,7 +21,7 @@ module Helpers
             delete_url: 'https://remoteapi.com/delete',
             read_url: 'https://remoteapi.com/read',
             fields_attributes: [{
-              name: 'first_name'
+              dpath: '/first_name'
             }]
           }]
         )
@@ -50,7 +50,7 @@ module Helpers
             name: 'MyContacts',
             resource_id: installed_api.api.resources.first.id,
             encoded_fields_attributes: [{
-              name: 'fname',
+              dpath: '/fname',
               field_id: installed_api.api.resources.first.fields.first.id
             }]
           }]

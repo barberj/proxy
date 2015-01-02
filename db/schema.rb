@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20141228021113) do
   end
 
   create_table "encoded_fields", force: :cascade do |t|
-    t.string   "name",                null: false
+    t.string   "dpath",               null: false
     t.integer  "field_id",            null: false
     t.integer  "encoded_resource_id", null: false
     t.datetime "created_at",          null: false
@@ -57,9 +57,7 @@ ActiveRecord::Schema.define(version: 20141228021113) do
   end
 
   create_table "fields", force: :cascade do |t|
-    t.string   "name",                            null: false
-    t.string   "type"
-    t.string   "dpath"
+    t.string   "dpath",                           null: false
     t.boolean  "is_required",     default: false
     t.boolean  "used_for_search", default: false
     t.boolean  "is_scope",        default: false

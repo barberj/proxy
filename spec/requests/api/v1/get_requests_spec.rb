@@ -209,7 +209,7 @@ describe 'GetRequests' do
           delete_url: 'https://remoteapi.com/delete',
           read_url: 'https://remoteapi.com/read',
           fields_attributes: [{
-            name: 'first_name'
+            dpath: '/first_name'
           }]
         }]
       )
