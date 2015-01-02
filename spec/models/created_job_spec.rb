@@ -30,11 +30,11 @@ describe CreatedJob do
     it 'saves results to job' do
       stub_resource_request
 
-      expect(job.results).not_to be_present
-
-      job.process
-
-      expect(job.results).to be_present
+      expect{
+        job.process
+      }.to change{
+        job.results
+      }.to be_present
     end
     it 'encodes data' do
     end
