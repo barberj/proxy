@@ -36,6 +36,9 @@ module Helpers
       let(:token_for_default) do
         default_data_encoding.token
       end
+      let(:default_encoded_resource) do
+        default_data_encoding.encoded_resources.first
+      end
       let(:remote_token) do
         installed_api.token
       end
@@ -55,6 +58,9 @@ module Helpers
       end
       let(:token_for_custom) do
         custom_data_encoding.token
+      end
+      let(:custom_encoded_resource) do
+        custom_data_encoding.encoded_resources.first
       end
     end
   end

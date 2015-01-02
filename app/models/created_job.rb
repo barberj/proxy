@@ -23,6 +23,7 @@ class CreatedJob < Job
   end
 
   def encode_data
+    fetched = self.results['results']
   end
 
 private

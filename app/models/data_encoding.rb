@@ -9,15 +9,11 @@ class DataEncoding < ActiveRecord::Base
 
   accepts_nested_attributes_for :encoded_resources
 
-  def resource_to_process(resource)
+  def encoded_resource_for(resource, process_type)
     if encoded_resource = self.encoded_resources.find_by(name: resource)
-      encoded_resource.resource
-    end
-  end
-
-  def can_process?(resource, process_type)
-    if resource = resource_to_process(resource)
-      resource.can_request?(process_type)
+      if encoded_resource.resource.can_request?(process_type)
+        encoded_resource
+      end
     end
   end
 end

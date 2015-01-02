@@ -4,7 +4,8 @@ describe CreatedJob do
   let(:default_job) do
     default_data_encoding.jobs.create(
       type: 'CreatedJob',
-      resource_id: default_data_encoding.encoded_resources.first.resource_id,
+      resource_id: default_encoded_resource.resource_id,
+      encoded_resource_id: default_encoded_resource.id,
       params: {
         created_since: '2015-01-01T22:00:00+0000',
         page: 2,
@@ -15,7 +16,8 @@ describe CreatedJob do
   let(:custom_job) do
     custom_data_encoding.jobs.create(
       type: 'CreatedJob',
-      resource_id: custom_data_encoding.encoded_resources.first.resource_id,
+      resource_id: custom_encoded_resource.resource_id,
+      encoded_resource_id: custom_encoded_resource.id,
       params: {
         created_since: '2015-01-01T22:00:00+0000',
         page: 2,
@@ -53,7 +55,8 @@ describe CreatedJob do
     it 'defaults page' do
       job = default_data_encoding.jobs.create(
         type: 'CreatedJob',
-        resource_id: default_data_encoding.encoded_resources.first.id,
+        resource_id: default_encoded_resource.resource_id,
+        encoded_resource_id: default_encoded_resource.id,
         params: {
           created_since: '2015-01-01T22:00:00+0000',
           limit: 50
@@ -76,7 +79,8 @@ describe CreatedJob do
     it 'defaults limit' do
       job = default_data_encoding.jobs.create(
         type: 'CreatedJob',
-        resource_id: default_data_encoding.encoded_resources.first.id,
+        resource_id: default_encoded_resource.resource_id,
+        encoded_resource_id: default_encoded_resource.id,
         params: {
           created_since: '2015-01-01T22:00:00+0000',
           page: 2
@@ -99,7 +103,8 @@ describe CreatedJob do
     it 'uses max limit' do
       job = default_data_encoding.jobs.create(
         type: 'CreatedJob',
-        resource_id: default_data_encoding.encoded_resources.first.id,
+        resource_id: default_encoded_resource.resource_id,
+        encoded_resource_id: default_encoded_resource.id,
         params: {
           created_since: '2015-01-01T22:00:00+0000',
           page: 2,

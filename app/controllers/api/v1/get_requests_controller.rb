@@ -35,12 +35,13 @@ private
     ]
   end
 
-  def accept_job(request_type, encoded_resource, params)
-    if data_encoding.can_process?(encoded_resource, request_type)
+  def accept_job(request_type, encoded_name, params)
+    if encoded_resource = data_encoding.encoded_resource_for(encoded_name, request_type)
       job = data_encoding.jobs.create(
         type: "#{request_type.to_s.capitalize}Job",
         params: params,
-        resource_id: data_encoding.resource_to_process(encoded_resource).id
+        resource_id: encoded_resource.resource.id,
+        encoded_resource_id: encoded_resource.id
       )
       ProcessJob.perform_async(job_id: job.id)
       [
@@ -53,7 +54,7 @@ private
         message: UNSUPPORTED_ACTION % {
           api: installed_api.name,
           type: request_type,
-          encoded_resource: encoded_resource.capitalize,
+          encoded_resource: encoded_name.capitalize,
         }
       ]
     end
