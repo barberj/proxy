@@ -36,10 +36,14 @@ private
   end
 
   def accept_job(request_type, resource, params)
-    if installed_api_encoding.send(:"can_request_#{request_type}?", resource)
+    if data_encoding.send(:"can_process_#{request_type}?", resource)
+      job = data_encoding.jobs.create(
+        type: "#{request_type.to_s.capitalize}Job",
+        criteria: params.merge(resource: resource)
+      )
       [
         :accepted,
-        results: { job_id: 1 }
+        results: { job_id: job.id }
       ]
     else
       [

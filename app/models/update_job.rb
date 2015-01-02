@@ -1,0 +1,2 @@
+class UpdateJob < Job
+end

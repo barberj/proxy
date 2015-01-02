@@ -1,0 +1,2 @@
+class ReadJob < Job
+end

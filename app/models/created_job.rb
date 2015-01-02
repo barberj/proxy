@@ -1,0 +1,2 @@
+class CreatedJob < Job
+end

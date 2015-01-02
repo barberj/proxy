@@ -78,6 +78,15 @@ ActiveRecord::Schema.define(version: 20141228021113) do
     t.datetime "updated_at",                 null: false
   end
 
+  create_table "jobs", force: :cascade do |t|
+    t.json     "criteria",                             null: false
+    t.string   "status",           default: "working"
+    t.string   "type"
+    t.integer  "data_encoding_id",                     null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
   create_table "resources", force: :cascade do |t|
     t.string   "name",        null: false
     t.string   "customs_url"

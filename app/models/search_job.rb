@@ -1,0 +1,2 @@
+class SearchJob < Job
+end
