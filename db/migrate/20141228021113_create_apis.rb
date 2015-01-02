@@ -80,11 +80,13 @@ class CreateApis < ActiveRecord::Migration
     end
 
     create_table :jobs do |t|
-      t.json :criteria, null: false
-      t.string :status, default: 'working'
       t.string :type
+      t.json :params, null: false
+      t.string :status, default: 'working'
+      t.json :results
 
       t.integer :data_encoding_id, null: false
+      t.integer :resource_id, null: false
 
       t.timestamps null: false
     end

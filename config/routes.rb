@@ -13,10 +13,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resource :users, :only => [:create]
 
-      get "/:resource"    => 'get_requests#index'
-      post "/:resource"   => 'post_requests#create'
-      put "/:resource"    => 'put_requests#update'
-      delete "/:resource" => 'delete_requests#destroy'
+      get "/:encoded_resource"    => 'get_requests#index'
+      post "/:encoded_resource"   => 'post_requests#create'
+      put "/:encoded_resource"    => 'put_requests#update'
+      delete "/:encoded_resource" => 'delete_requests#destroy'
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.

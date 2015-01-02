@@ -1,7 +1,7 @@
 class Api::V1::GetRequestsController < Api::V1::RequestsController
 
   MISSING_PARAM = %q(Get Requests Params must include either created_since, updated_since, identifiers, or search_by.)
-  UNSUPPORTED_ACTION = %q(Can not request %{type} for %{api}'s %{resource}.)
+  UNSUPPORTED_ACTION = %q(Can not request %{type} for %{api}'s %{encoded_resource}.)
 
   def index
     status, results = process_request(params)
@@ -15,13 +15,13 @@ private
   def process_request(params)
     case
     when params[:updated_since]
-      accept_job(:updated, params[:resource], updated_params)
+      accept_job(:updated, params[:encoded_resource], updated_params)
     when params[:created_since]
-      accept_job(:created, params[:resource], created_params)
+      accept_job(:created, params[:encoded_resource], created_params)
     when params[:identifiers]
-      accept_job(:read, params[:resource], identifiers_params)
+      accept_job(:read, params[:encoded_resource], identifiers_params)
     when params[:search_by]
-      accept_job(:search, params[:resource], search_params)
+      accept_job(:search, params[:encoded_resource], search_params)
     else
       [
         :bad_request,
@@ -35,12 +35,14 @@ private
     ]
   end
 
-  def accept_job(request_type, resource, params)
-    if data_encoding.send(:"can_process_#{request_type}?", resource)
+  def accept_job(request_type, encoded_resource, params)
+    if data_encoding.can_process?(encoded_resource, request_type)
       job = data_encoding.jobs.create(
         type: "#{request_type.to_s.capitalize}Job",
-        criteria: params.merge(resource: resource)
+        params: params,
+        resource_id: data_encoding.resource_to_process(encoded_resource).id
       )
+      ProcessJob.perform_async(job_id: job.id)
       [
         :accepted,
         results: { job_id: job.id }
@@ -51,7 +53,7 @@ private
         message: UNSUPPORTED_ACTION % {
           api: installed_api.name,
           type: request_type,
-          resource: resource.capitalize
+          encoded_resource: encoded_resource.capitalize,
         }
       ]
     end

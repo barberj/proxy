@@ -9,25 +9,15 @@ class DataEncoding < ActiveRecord::Base
 
   accepts_nested_attributes_for :encoded_resources
 
-  def can_process?(resource, process_type)
+  def resource_to_process(resource)
     if encoded_resource = self.encoded_resources.find_by(name: resource)
-      encoded_resource.resource.send(:"#{process_type}_url").present?
+      encoded_resource.resource
     end
   end
 
-  def can_process_updated?(resource)
-    can_process?(resource, :updated)
-  end
-
-  def can_process_created?(resource)
-    can_process?(resource, :created)
-  end
-
-  def can_process_read?(resource)
-    can_process?(resource, :read)
-  end
-
-  def can_process_search?(resource)
-    can_process?(resource, :search)
+  def can_process?(resource, process_type)
+    if resource = resource_to_process(resource)
+      resource.can_request?(process_type)
+    end
   end
 end

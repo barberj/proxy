@@ -79,10 +79,12 @@ ActiveRecord::Schema.define(version: 20141228021113) do
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.json     "criteria",                             null: false
-    t.string   "status",           default: "working"
     t.string   "type"
+    t.json     "params",                               null: false
+    t.string   "status",           default: "working"
+    t.json     "results"
     t.integer  "data_encoding_id",                     null: false
+    t.integer  "resource_id",                          null: false
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
   end

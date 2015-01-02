@@ -19,4 +19,8 @@ class Resource < ActiveRecord::Base
       encoded_fields_attributes: self.fields.map(&:to_eh)
     }
   end
+
+  def can_request?(request_type)
+    send(:"#{request_type}_url").present?
+  end
 end
