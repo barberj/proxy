@@ -32,13 +32,12 @@ ActiveRecord::Schema.define(version: 20141228021113) do
   end
 
   create_table "data_encodings", force: :cascade do |t|
-    t.string   "name",                             null: false
-    t.string   "token",                            null: false
-    t.boolean  "is_default",       default: false
-    t.integer  "installed_api_id",                 null: false
-    t.integer  "account_id",                       null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.string   "name",             null: false
+    t.string   "token",            null: false
+    t.integer  "installed_api_id", null: false
+    t.integer  "account_id",       null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "encoded_fields", force: :cascade do |t|

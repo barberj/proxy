@@ -19,7 +19,7 @@ private
     when params[:created_since]
       accept_job(:created, params[:resource], created_params)
     when params[:identifiers]
-      accept_job(:identifiers, params[:resource], identifiers_params)
+      accept_job(:read, params[:resource], identifiers_params)
     when params[:search_by]
       accept_job(:search, params[:resource], search_params)
     else
