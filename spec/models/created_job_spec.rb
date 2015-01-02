@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe CreatedJob do
   let(:job) do
-    data_encoding.jobs.create(
+    default_data_encoding.jobs.create(
       type: 'CreatedJob',
-      resource_id: data_encoding.encoded_resources.first.id,
+      resource_id: default_data_encoding.encoded_resources.first.id,
       params: {
         created_since: '2015-01-01T22:00:00+0000',
         page: 2,
@@ -39,9 +39,9 @@ describe CreatedJob do
       }.to be_present
     end
     it 'defaults page' do
-      job = data_encoding.jobs.create(
+      job = default_data_encoding.jobs.create(
         type: 'CreatedJob',
-        resource_id: data_encoding.encoded_resources.first.id,
+        resource_id: default_data_encoding.encoded_resources.first.id,
         params: {
           created_since: '2015-01-01T22:00:00+0000',
           limit: 50
@@ -62,9 +62,9 @@ describe CreatedJob do
       expect(stub).to have_been_requested
     end
     it 'defaults limit' do
-      job = data_encoding.jobs.create(
+      job = default_data_encoding.jobs.create(
         type: 'CreatedJob',
-        resource_id: data_encoding.encoded_resources.first.id,
+        resource_id: default_data_encoding.encoded_resources.first.id,
         params: {
           created_since: '2015-01-01T22:00:00+0000',
           page: 2
@@ -85,9 +85,9 @@ describe CreatedJob do
       expect(stub).to have_been_requested
     end
     it 'uses max limit' do
-      job = data_encoding.jobs.create(
+      job = default_data_encoding.jobs.create(
         type: 'CreatedJob',
-        resource_id: data_encoding.encoded_resources.first.id,
+        resource_id: default_data_encoding.encoded_resources.first.id,
         params: {
           created_since: '2015-01-01T22:00:00+0000',
           page: 2,

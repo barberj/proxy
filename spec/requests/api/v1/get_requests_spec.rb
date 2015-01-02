@@ -7,7 +7,7 @@ describe 'GetRequests' do
       it 'returns job id' do
         get(api_v1_path('Contacts'),
           { :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z') },
-          'HTTP_AUTHENTICATION' => "Token #{token}"
+          'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
         )
 
         expect(json['results']['job_id']).to eq Job.first.id
@@ -16,7 +16,7 @@ describe 'GetRequests' do
         expect{
           get(api_v1_path('Contacts'),
             { :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z') },
-            'HTTP_AUTHENTICATION' => "Token #{token}"
+            'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
           )
         }.to change{
           CreatedJob.count
@@ -25,7 +25,7 @@ describe 'GetRequests' do
       it 'returns accepted status (202)' do
         rsp = get(api_v1_path('Contacts'),
           { :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z') },
-          'HTTP_AUTHENTICATION' => "Token #{token}"
+          'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
         )
 
         expect(rsp).to eq 202
@@ -35,7 +35,7 @@ describe 'GetRequests' do
       it 'returns job id' do
         get(api_v1_path('Contacts'),
           { :updated_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z') },
-          'HTTP_AUTHENTICATION' => "Token #{token}"
+          'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
         )
 
         expect(json['results']['job_id']).to eq Job.first.id
@@ -44,7 +44,7 @@ describe 'GetRequests' do
         expect{
           get(api_v1_path('Contacts'),
             { :updated_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z') },
-            'HTTP_AUTHENTICATION' => "Token #{token}"
+            'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
           )
         }.to change{
           UpdatedJob.count
@@ -53,7 +53,7 @@ describe 'GetRequests' do
       it 'returns accepted status (202)' do
         rsp = get(api_v1_path('Contacts'),
           { :updated_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z') },
-          'HTTP_AUTHENTICATION' => "Token #{token}"
+          'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
         )
 
         expect(rsp).to eq 202
@@ -63,7 +63,7 @@ describe 'GetRequests' do
       it 'returns job id' do
         get(api_v1_path('Contacts'),
           { :identifiers => [1]},
-          'HTTP_AUTHENTICATION' => "Token #{token}"
+          'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
         )
 
         expect(json['results']['job_id']).to eq Job.first.id
@@ -72,7 +72,7 @@ describe 'GetRequests' do
         expect{
           get(api_v1_path('Contacts'),
             { :identifiers => [1]},
-            'HTTP_AUTHENTICATION' => "Token #{token}"
+            'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
           )
         }.to change{
           ReadJob.count
@@ -81,7 +81,7 @@ describe 'GetRequests' do
       it 'returns accepted status (202)' do
         rsp = get(api_v1_path('Contacts'),
           { :identifiers => [1]},
-          'HTTP_AUTHENTICATION' => "Token #{token}"
+          'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
         )
 
         expect(rsp).to eq 202
@@ -91,7 +91,7 @@ describe 'GetRequests' do
       it 'returns job id' do
         get(api_v1_path('Contacts'),
           { search_by: {email: 'some_user@email.com' }},
-          'HTTP_AUTHENTICATION' => "Token #{token}"
+          'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
         )
 
         expect(json['results']['job_id']).to eq Job.first.id
@@ -100,7 +100,7 @@ describe 'GetRequests' do
         expect{
           get(api_v1_path('Contacts'),
             { search_by: {email: 'some_user@email.com' }},
-            'HTTP_AUTHENTICATION' => "Token #{token}"
+            'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
           )
         }.to change{
           SearchJob.count
@@ -109,7 +109,7 @@ describe 'GetRequests' do
       it 'returns accepted status (202)' do
         rsp = get(api_v1_path('Contacts'),
           { search_by: {email: 'slevin@kelevra.com' }},
-          'HTTP_AUTHENTICATION' => "Token #{token}"
+          'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
         )
 
         expect(rsp).to eq 202
@@ -126,13 +126,13 @@ describe 'GetRequests' do
       it 'returns bad_request status (400)' do
         expect(get(api_v1_path('Contacts'),
           nil,
-          'HTTP_AUTHENTICATION' => "Token #{token}"
+          'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
         )).to eq 400
       end
       it 'returns missing param message' do
         get(api_v1_path('Contacts'),
           nil,
-          'HTTP_AUTHENTICATION' => "Token #{token}"
+          'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
         )
 
         expect(json['message']).to eq(
@@ -144,18 +144,52 @@ describe 'GetRequests' do
       it 'returns bad_request status (400)' do
         expect(get(api_v1_path('Contacts'),
           { :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%F %T') },
-          'HTTP_AUTHENTICATION' => "Token #{token}"
+          'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
         )).to eq 400
       end
       it 'returns missing param message' do
         get(api_v1_path('Contacts'),
           { :updated_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%F %T') },
-          'HTTP_AUTHENTICATION' => "Token #{token}"
+          'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
         )
 
         expect(json['message']).to eq(
           "updated_since requires format \"YYYY-mm-ddTHH:MM:SS-Z\""
         )
+      end
+    end
+    context 'with custom encoding' do
+      it 'returns job id' do
+        get(api_v1_path('MyContacts'),
+          { :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z') },
+          'HTTP_AUTHENTICATION' => "Token #{token_for_custom}"
+        )
+
+        expect(json['results']['job_id']).to eq Job.first.id
+      end
+      it 'creates a CreatedJob' do
+        expect{
+          get(api_v1_path('MyContacts'),
+            { :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z') },
+            'HTTP_AUTHENTICATION' => "Token #{token_for_custom}"
+          )
+        }.to change{
+          CreatedJob.count
+        }.by 1
+      end
+      it 'returns accepted status (202)' do
+        rsp = get(api_v1_path('MyContacts'),
+          { :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z') },
+          'HTTP_AUTHENTICATION' => "Token #{token_for_custom}"
+        )
+
+        expect(rsp).to eq 202
+      end
+      it 'returns unprocessable_entity status (422) for invalid resource' do
+        expect(get(api_v1_path('Contacts'),
+          { :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z') },
+          'HTTP_AUTHENTICATION' => "Token #{token_for_custom}"
+        )).to eq 422
       end
     end
   end
@@ -183,7 +217,7 @@ describe 'GetRequests' do
     it 'returns unprocessable_entity status (422)' do
       rsp = get(api_v1_path('Contacts'),
         { :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z') },
-        'HTTP_AUTHENTICATION' => "Token #{token}"
+        'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
       )
 
       expect(rsp).to eq 422
@@ -191,7 +225,7 @@ describe 'GetRequests' do
     it 'returns unsupported action message' do
       get(api_v1_path('Contacts'),
         { :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z') },
-        'HTTP_AUTHENTICATION' => "Token #{token}"
+        'HTTP_AUTHENTICATION' => "Token #{token_for_default}"
       )
 
       expect(json['message']).to eq(

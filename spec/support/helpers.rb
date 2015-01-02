@@ -30,14 +30,31 @@ module Helpers
         create_api
         account.installed_apis.first
       end
-      let(:data_encoding) do
+      let(:default_data_encoding) do
         installed_api.data_encodings.first
       end
-      let(:token) do
-        data_encoding.token
+      let(:token_for_default) do
+        default_data_encoding.token
       end
       let(:remote_token) do
         installed_api.token
+      end
+      let(:custom_data_encoding) do
+        installed_api.data_encodings.create(
+          name: 'Custom Encoding',
+          account_id: account.id,
+          encoded_resources_attributes: [{
+            name: 'MyContacts',
+            resource_id: installed_api.api.resources.first.id,
+            encoded_fields_attributes: [{
+              name: 'fname',
+              field_id: installed_api.api.resources.first.fields.first.id
+            }]
+          }]
+        )
+      end
+      let(:token_for_custom) do
+        custom_data_encoding.token
       end
     end
   end
