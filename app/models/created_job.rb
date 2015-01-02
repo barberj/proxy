@@ -1,7 +1,4 @@
 class CreatedJob < Job
-  belongs_to :resource
-  belongs_to :encoded_resource
-
   def process
     request_created
     encode_data
@@ -37,8 +34,10 @@ class CreatedJob < Job
 
     if encoded.present?
       self.results = self.results.merge(results: encoded)
-      self.save
     end
+
+    self.status = 'processed'
+    self.save
   end
 
 
