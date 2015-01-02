@@ -1,13 +1,11 @@
 class EncodedField < ActiveRecord::Base
+  include FieldDpath
   belongs_to :field
   belongs_to :encoded_resource, inverse_of: :encoded_fields
 
   validates :dpath, presence: true,
                     uniqueness: { scope: :encoded_resource_id }
 
-  def name
-    self.dpath.split('/').last
-  end
 
   def value_from_api(h)
     Dpaths.dselect(h, self.field.dpath)

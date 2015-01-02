@@ -21,7 +21,7 @@ module Helpers
             delete_url: 'https://remoteapi.com/delete',
             read_url: 'https://remoteapi.com/read',
             fields_attributes: [{
-              dpath: '/first_name'
+              dpath: '/FIRST_NAME'
             }]
           }]
         )

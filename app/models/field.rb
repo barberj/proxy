@@ -1,12 +1,10 @@
 class Field < ActiveRecord::Base
+  include FieldDpath
+
   belongs_to :resource, inverse_of: :fields
 
   validates :dpath, presence: true,
                     uniqueness: { scope: :resource_id }
-
-  def name
-    self.dpath.split('/').last
-  end
 
   def to_h
     {

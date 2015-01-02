@@ -1,9 +1,9 @@
 module Dpaths
-  def self.make_dpath(name)
-    if name.match(%r(^/.*))
-      name
+  def self.add_validator(path)
+    if path.match(%r(^/.*\*))
+      path
     else
-      "/#{name}/*"
+      "#{path}/*"
     end
   end
 
@@ -88,10 +88,6 @@ module Dpaths
   end
 
   def self.dput(target, query = '/*', value)
-    if query.is_a?(Symbol)
-      query = make_dpath(query)
-    end
-
     key, next_key, new_query = keys_and_remaining(query)
 
     if is_validator?(key)

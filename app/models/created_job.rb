@@ -34,7 +34,13 @@ class CreatedJob < Job
       end
       encoded << encoded_datum if encoded_datum.present?
     end
+
+    if encoded.present?
+      self.results = self.results.merge(results: encoded)
+      self.save
+    end
   end
+
 
 private
   def created_params
