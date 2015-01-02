@@ -7,13 +7,18 @@ class CreatedJob < Job
   end
 
   def request_created
+    self.status = 'requesting'
+    self.save
+
     rsp = request(:get, resource.created_url,
       :query   => created_params,
       :headers => {
         'Authorization' => "Token #{installed_api.token}"
       }
     )
+
     self.results = rsp
+    self.status = 'encoding' if rsp.code >= 200 && rsp.code < 300
     self.save
   end
 

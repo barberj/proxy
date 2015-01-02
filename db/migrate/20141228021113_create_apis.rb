@@ -82,7 +82,7 @@ class CreateApis < ActiveRecord::Migration
     create_table :jobs do |t|
       t.string :type
       t.json :params, null: false
-      t.string :status, default: 'working'
+      t.string :status, default: 'queued'
       t.json :results
 
       t.integer :data_encoding_id, null: false
