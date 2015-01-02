@@ -1,6 +1,7 @@
 module Helpers
   module Common
     extend ActiveSupport::Concern
+
     included do
       let(:account) { create(:account) }
 
@@ -25,8 +26,15 @@ module Helpers
           }]
         )
       end
+      let(:installed_api) do
+        create_api
+        account.installed_apis.first
+      end
+      let(:data_encoding) do
+        installed_api.data_encodings.first
+      end
       let(:token) do
-        account.installed_apis.first.data_encodings.first.token
+        data_encoding.token
       end
     end
   end
