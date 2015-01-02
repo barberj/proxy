@@ -6,19 +6,21 @@ describe CreatedJob do
       type: 'CreatedJob',
       resource_id: data_encoding.encoded_resources.first.id,
       params: {
-        created_since: '2015-01-01T22:00:00+0000'
+        created_since: '2015-01-01T22:00:00+0000',
+        page: 2,
+        limit: 50
       }
     )
   end
-  context '#process' do
+  describe '#process' do
     let(:stub_resource_request) do
       stub_request(:get, 'https://remoteapi.com/created')
         .with(
           :headers => { 'Authorization' => "Token #{remote_token}" },
           :query   => {
             created_since: '2015-01-01T22:00:00+0000',
-            page: 1,
-            limit: 250
+            page: 2,
+            limit: 50
           }
         ).to_return(File.new("spec/webmocks/installed_apis/insightly/a_contact.txt"))
     end
@@ -35,6 +37,76 @@ describe CreatedJob do
       }.to change{
         job.results
       }.to be_present
+    end
+    it 'defaults page' do
+      job = data_encoding.jobs.create(
+        type: 'CreatedJob',
+        resource_id: data_encoding.encoded_resources.first.id,
+        params: {
+          created_since: '2015-01-01T22:00:00+0000',
+          limit: 50
+        }
+      )
+
+      stub = stub_request(:get, 'https://remoteapi.com/created')
+        .with(
+          :headers => { 'Authorization' => "Token #{remote_token}" },
+          :query   => {
+            created_since: '2015-01-01T22:00:00+0000',
+            page: 1,
+            limit: 50
+          }
+        ).to_return(File.new("spec/webmocks/installed_apis/insightly/a_contact.txt"))
+
+      job.process
+      expect(stub).to have_been_requested
+    end
+    it 'defaults limit' do
+      job = data_encoding.jobs.create(
+        type: 'CreatedJob',
+        resource_id: data_encoding.encoded_resources.first.id,
+        params: {
+          created_since: '2015-01-01T22:00:00+0000',
+          page: 2
+        }
+      )
+
+      stub = stub_request(:get, 'https://remoteapi.com/created')
+        .with(
+          :headers => { 'Authorization' => "Token #{remote_token}" },
+          :query   => {
+            created_since: '2015-01-01T22:00:00+0000',
+            page: 2,
+            limit: 250
+          }
+        ).to_return(File.new("spec/webmocks/installed_apis/insightly/a_contact.txt"))
+
+      job.process
+      expect(stub).to have_been_requested
+    end
+    it 'uses max limit' do
+      job = data_encoding.jobs.create(
+        type: 'CreatedJob',
+        resource_id: data_encoding.encoded_resources.first.id,
+        params: {
+          created_since: '2015-01-01T22:00:00+0000',
+          page: 2,
+          limit: 251
+        }
+      )
+
+      stub = stub_request(:get, 'https://remoteapi.com/created')
+        .with(
+          :headers => { 'Authorization' => "Token #{remote_token}" },
+          :query   => {
+            created_since: '2015-01-01T22:00:00+0000',
+            page: 2,
+            limit: 250
+          }
+        ).to_return(File.new("spec/webmocks/installed_apis/insightly/a_contact.txt"))
+
+      job.process
+      expect(stub).to have_been_requested
     end
     it 'encodes data' do
     end
