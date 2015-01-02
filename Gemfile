@@ -29,6 +29,10 @@ gem 'thin'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'slim-rails'
 gem 'responders'
+gem 'redis'
+gem 'hiredis'
+gem 'sidekiq'
+gem 'dalli'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
