@@ -1,6 +1,7 @@
 module SessionsHelper
   def sign_in(user)
     session[:user_id] = user.id
+    session[:internal_user_id] = user.id if user.internal?
     user.last_signin_at = Time.now
     user.save
   end

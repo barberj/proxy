@@ -1,4 +1,4 @@
-$(document).ready ->
+signup_handler = ->
   $(".js-signup").click (event) ->
     event.preventDefault()
     form = $(@).closest('form')
@@ -28,3 +28,6 @@ $(document).ready ->
     else
       for required in missing
         $(required).addClass('missing_required')
+
+$(document).ready(signup_handler)
+$(document).on('page:load', signup_handler)
