@@ -62,6 +62,26 @@ module Helpers
       let(:custom_encoded_resource) do
         custom_data_encoding.encoded_resources.first
       end
+
+      let(:external_account) { create(:account) }
+      let(:external_installed_api) do
+        external_account.installed_apis.create(
+          name: "External's",
+          api_id: create_api.id
+        )
+      end
+      let(:external_user) do
+        external_account.users.first
+      end
+      let(:external_user_token) do
+        external_user.token
+      end
+      let(:external_data_encoding) do
+        external_installed_api.data_encodings.first
+      end
+      let(:external_encoded_resource) do
+        external_data_encoding.encoded_resources.first
+      end
     end
   end
 
