@@ -4,7 +4,7 @@ class Api::V1::GetRequestsController < Api::V1::RequestsController
   UNSUPPORTED_ACTION = %q(Can not request %{type} for %{api}'s %{encoded_resource}.)
 
   def index
-    status, results = process_request(params)
+    status, results = evaluate_request(params)
     render json: results, status: status
   end
 
@@ -12,16 +12,16 @@ class Api::V1::GetRequestsController < Api::V1::RequestsController
 
 private
 
-  def process_request(params)
+  def evaluate_request(params)
     case
     when params[:updated_since]
-      accept_job(:updated, params[:encoded_resource], updated_params)
+      accept_request(:updated, params[:encoded_resource], updated_params)
     when params[:created_since]
-      accept_job(:created, params[:encoded_resource], created_params)
+      accept_request(:created, params[:encoded_resource], created_params)
     when params[:identifiers]
-      accept_job(:read, params[:encoded_resource], identifiers_params)
+      accept_request(:read, params[:encoded_resource], identifiers_params)
     when params[:search_by]
-      accept_job(:search, params[:encoded_resource], search_params)
+      accept_request(:search, params[:encoded_resource], search_params)
     else
       [
         :bad_request,
@@ -35,7 +35,7 @@ private
     ]
   end
 
-  def accept_job(request_type, encoded_name, params)
+  def accept_request(request_type, encoded_name, params)
     if encoded_resource = data_encoding.encoded_resource_for(encoded_name, request_type)
       job = data_encoding.jobs.create(
         type: "#{request_type.to_s.capitalize}Job",

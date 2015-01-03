@@ -89,5 +89,9 @@ class CreateApis < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    create_table :test_models do |t|
+      t.timestamps null: false
+    end
   end
+
 end
