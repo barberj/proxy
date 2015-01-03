@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  include Token
+
   belongs_to :account, inverse_of: :users
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

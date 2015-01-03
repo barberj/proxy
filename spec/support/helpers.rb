@@ -26,6 +26,9 @@ module Helpers
           }]
         )
       end
+      let(:user) do
+        account.users.first
+      end
       let(:installed_api) do
         create_api
         account.installed_apis.first
@@ -33,8 +36,8 @@ module Helpers
       let(:default_data_encoding) do
         installed_api.data_encodings.first
       end
-      let(:token_for_default) do
-        default_data_encoding.token
+      let(:user_token) do
+        user.token
       end
       let(:default_encoded_resource) do
         default_data_encoding.encoded_resources.first
@@ -55,9 +58,6 @@ module Helpers
             }]
           }]
         )
-      end
-      let(:token_for_custom) do
-        custom_data_encoding.token
       end
       let(:custom_encoded_resource) do
         custom_data_encoding.encoded_resources.first

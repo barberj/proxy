@@ -1,6 +1,6 @@
 class Api::V1::InternalApiController < ActionController::Base
   respond_to :json
-  before_action :authorize!
+  before_action :authorize_user!
 
 private
 
@@ -10,11 +10,15 @@ private
       .match(/Token (.*)/) || [])[1]
   end
 
-  def account
-    #@account ||= Account.find_by(token: token)
+  def user
+    @user ||= User.find_by(token: token)
   end
 
-  def authorize!
-    #head :unauthorized unless api
+  def account
+    @account ||= user.account
+  end
+
+  def authorize_user!
+    head :unauthorized unless user
   end
 end

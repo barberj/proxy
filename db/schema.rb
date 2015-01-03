@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 20141228021113) do
 
   create_table "data_encodings", force: :cascade do |t|
     t.string   "name",             null: false
-    t.string   "token",            null: false
     t.integer  "installed_api_id", null: false
     t.integer  "account_id",       null: false
     t.datetime "created_at",       null: false
@@ -108,6 +107,7 @@ ActiveRecord::Schema.define(version: 20141228021113) do
     t.string   "last_name",       null: false
     t.string   "email",           null: false
     t.string   "password_digest", null: false
+    t.string   "token",           null: false
     t.datetime "last_signin_at"
     t.integer  "account_id",      null: false
     t.datetime "created_at",      null: false
