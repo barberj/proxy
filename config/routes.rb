@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  root 'dashboard#show'
+  root 'dashboard#index'
+  resources :dashboard, :only => [:index]
 
   get '/signin' => 'sessions#new'
   post '/signin' => 'sessions#create'
@@ -8,13 +9,16 @@ Rails.application.routes.draw do
 
   get '/signup' => 'users#new'
 
+
   namespace :api do
     namespace :v1 do
-      resource :users, :only => [:create]
+      resources :users, :only => [:create]
+      resources :jobs, :only => [:index]
 
       get "/:encoded_resource"    => 'get_requests#index'
       post "/:encoded_resource"   => 'post_requests#create'
       put "/:encoded_resource"    => 'put_requests#update'
+      patch "/:encoded_resource"    => 'put_requests#update'
       delete "/:encoded_resource" => 'delete_requests#destroy'
     end
   end
