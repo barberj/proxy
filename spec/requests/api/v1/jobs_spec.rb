@@ -21,9 +21,32 @@ describe 'Jobs' do
       }
     end
     context 'with valid job id' do
-      it 'returns serialized job info' do
+      let(:get_job_request) do
         get(api_v1_jobs_path, job_data,
           'HTTP_AUTHENTICATION' => "Token #{user_token}"
+        )
+      end
+      it 'returns ok status (200)' do
+        expect(get_job_request).to eq 200
+      end
+      it 'returns serialized job info' do
+        get_job_request
+        puts
+      end
+    end
+    context 'with invalid job id' do
+      let(:get_job_request) do
+        get(api_v1_jobs_path, { job_id: 999 },
+          'HTTP_AUTHENTICATION' => "Token #{user_token}"
+        )
+      end
+      it 'returns bad_request status (400)' do
+        expect(get_job_request).to eq 400
+      end
+      it 'returns invalid job id message' do
+        get_job_request
+        expect(json['message']).to eq(
+          'Please provide a valid job_id.'
         )
       end
     end
