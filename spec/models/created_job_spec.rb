@@ -6,6 +6,7 @@ describe CreatedJob do
       type: 'CreatedJob',
       resource_id: default_encoded_resource.resource_id,
       encoded_resource_id: default_encoded_resource.id,
+      account_id: account.id,
       params: {
         created_since: '2015-01-01T22:00:00+0000',
         page: 2,
@@ -18,6 +19,7 @@ describe CreatedJob do
       type: 'CreatedJob',
       resource_id: custom_encoded_resource.resource_id,
       encoded_resource_id: custom_encoded_resource.id,
+      account_id: account.id,
       params: {
         created_since: '2015-01-01T22:00:00+0000',
         page: 2,
@@ -57,6 +59,7 @@ describe CreatedJob do
         type: 'CreatedJob',
         resource_id: default_encoded_resource.resource_id,
         encoded_resource_id: default_encoded_resource.id,
+        account_id: account.id,
         params: {
           created_since: '2015-01-01T22:00:00+0000',
           limit: 50
@@ -81,6 +84,7 @@ describe CreatedJob do
         type: 'CreatedJob',
         resource_id: default_encoded_resource.resource_id,
         encoded_resource_id: default_encoded_resource.id,
+        account_id: account.id,
         params: {
           created_since: '2015-01-01T22:00:00+0000',
           page: 2
@@ -105,6 +109,7 @@ describe CreatedJob do
         type: 'CreatedJob',
         resource_id: default_encoded_resource.resource_id,
         encoded_resource_id: default_encoded_resource.id,
+        account_id: account.id,
         params: {
           created_since: '2015-01-01T22:00:00+0000',
           page: 2,

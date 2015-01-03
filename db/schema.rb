@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20141228021113) do
     t.integer  "data_encoding_id",                       null: false
     t.integer  "encoded_resource_id",                    null: false
     t.integer  "resource_id",                            null: false
+    t.integer  "account_id",                             null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
   end

@@ -41,7 +41,8 @@ private
         type: "#{request_type.to_s.capitalize}Job",
         params: params,
         resource_id: encoded_resource.resource.id,
-        encoded_resource_id: encoded_resource.id
+        encoded_resource_id: encoded_resource.id,
+        account_id: data_encoding.account_id
       )
       ProcessJob.perform_async(job_id: job.id)
       [
