@@ -10,7 +10,7 @@ describe 'GetRequests' do
             :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z'),
             :data_encoding_id => default_data_encoding.id
           },
-          'HTTP_AUTHENTICATION' => "Token #{user_token}"
+          'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
       end
       it 'returns job id' do
@@ -36,7 +36,7 @@ describe 'GetRequests' do
             :updated_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z'),
             :data_encoding_id => default_data_encoding.id
           },
-          'HTTP_AUTHENTICATION' => "Token #{user_token}"
+          'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
       end
       it 'returns job id' do
@@ -62,7 +62,7 @@ describe 'GetRequests' do
             :identifiers => [1],
             :data_encoding_id => default_data_encoding.id
           },
-          'HTTP_AUTHENTICATION' => "Token #{user_token}"
+          'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
       end
       it 'returns job id' do
@@ -88,7 +88,7 @@ describe 'GetRequests' do
             :search_by => {:email => 'some_user@email.com' },
             :data_encoding_id => default_data_encoding.id
           },
-          'HTTP_AUTHENTICATION' => "Token #{user_token}"
+          'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
 
       end
@@ -136,7 +136,7 @@ describe 'GetRequests' do
           {
             :data_encoding_id => default_data_encoding.id
           },
-          'HTTP_AUTHENTICATION' => "Token #{user_token}"
+          'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
       end
       it 'returns bad_request status (400)' do
@@ -157,7 +157,7 @@ describe 'GetRequests' do
             :updated_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%F %T'),
             :data_encoding_id => default_data_encoding.id
           },
-          'HTTP_AUTHENTICATION' => "Token #{user_token}"
+          'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
       end
       it 'returns bad_request status (400)' do
@@ -178,7 +178,7 @@ describe 'GetRequests' do
             :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z'),
             :data_encoding_id => custom_data_encoding.id
           },
-          'HTTP_AUTHENTICATION' => "Token #{user_token}"
+          'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
       end
       it 'returns job id' do
@@ -202,7 +202,7 @@ describe 'GetRequests' do
             :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z'),
             :data_encoding_id => custom_data_encoding.id
           },
-          'HTTP_AUTHENTICATION' => "Token #{user_token}"
+          'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )).to eq 422
       end
     end
@@ -234,7 +234,7 @@ describe 'GetRequests' do
           :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z'),
           :data_encoding_id => account.data_encodings.last.id
         },
-        'HTTP_AUTHENTICATION' => "Token #{user_token}"
+        'HTTP_AUTHORIZATION' => "Token #{user_token}"
       )
 
       expect(rsp).to eq 422
@@ -245,7 +245,7 @@ describe 'GetRequests' do
           :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z'),
           :data_encoding_id => account.data_encodings.last.id
         },
-        'HTTP_AUTHENTICATION' => "Token #{user_token}"
+        'HTTP_AUTHORIZATION' => "Token #{user_token}"
       )
 
       expect(json['message']).to eq(

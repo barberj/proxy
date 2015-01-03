@@ -23,7 +23,7 @@ describe 'Jobs' do
     context 'with valid job id' do
       let(:get_job_request) do
         get(api_v1_jobs_path, job_data,
-          'HTTP_AUTHENTICATION' => "Token #{user_token}"
+          'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
       end
       it 'returns ok status (200)' do
@@ -37,7 +37,7 @@ describe 'Jobs' do
     context 'with invalid job id' do
       let(:get_job_request) do
         get(api_v1_jobs_path, { job_id: 999 },
-          'HTTP_AUTHENTICATION' => "Token #{user_token}"
+          'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
       end
       it 'returns bad_request status (400)' do

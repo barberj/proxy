@@ -12,23 +12,24 @@ User.create(
   last_name: 'Barber',
   email: 'barber.justin@gmail.com',
   password: 'change_me!',
-  account_id: internal.id
+  account_id: internal.id,
+  token: 'test_token'
 )
 
 internal.apis.create(
   name: 'Insightly Api',
-  install_url: 'http://127.0.0.1:3001/install',
-  uninstall_url: 'http://127.0.0.1:3001/uninstall',
+  install_url: 'http://127.0.0.1:3001/api/v1/install',
+  uninstall_url: 'http://127.0.0.1:3001/api/v1/uninstall',
   resources_attributes: [{
     name: 'Contacts',
-    customs_url: 'http://127.0.0.1:3001/contacts/customs',
-    search_url: 'http://127.0.0.1:3001/contacts/search',
-    created_url: 'http://127.0.0.1:3001/contacts/created',
-    updated_url: 'http://127.0.0.1:3001/contacts/updated',
-    create_url: 'http://127.0.0.1:3001/contacts/create',
-    update_url: 'http://127.0.0.1:3001/contacts/update',
-    delete_url: 'http://127.0.0.1:3001/contacts/delete',
-    read_url: 'http://127.0.0.1:3001/contacts/read',
+    customs_url: 'http://127.0.0.1:3001/api/v1/contacts',
+    search_url: 'http://127.0.0.1:3001/api/v1/contacts',
+    created_url: 'http://127.0.0.1:3001/api/v1/contacts',
+    updated_url: 'http://127.0.0.1:3001/api/v1/contacts',
+    create_url: 'http://127.0.0.1:3001/api/v1/contacts',
+    update_url: 'http://127.0.0.1:3001/api/v1/contacts',
+    delete_url: 'http://127.0.0.1:3001/api/v1/contacts',
+    read_url: 'http://127.0.0.1:3001/api/v1/contacts',
     fields_attributes: [{
       dpath: '/FIRST_NAME'
     }]
