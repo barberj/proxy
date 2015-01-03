@@ -8,7 +8,7 @@ private
       DataEncoding
     else
       account.data_encodings
-    end.find_by(id: data_encoding_id)
+    end.find_by(id: params[:data_encoding_id])
   end
 
   def data_encoding
@@ -21,11 +21,5 @@ private
 
   def authorize_request!
     head :unauthorized unless installed_api
-  end
-
-private
-
-  def data_encoding_id
-    params[:data_encoding_id]
   end
 end

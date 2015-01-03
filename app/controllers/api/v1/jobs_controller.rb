@@ -6,8 +6,17 @@ class Api::V1::JobsController < Api::V1::InternalApiController
   end
 
 private
+
+  def get_job
+    if user.internal?
+      Job
+    else
+      account.jobs
+    end.find_by(id: params[:job_id])
+  end
+
   def job
-    @job ||= account.jobs.find_by(id: params[:job_id])
+    @job ||= get_job
   end
 
   def verify_job!
