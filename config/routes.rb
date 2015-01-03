@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
-  root 'dashboard#index'
-  resource :dashboard, :only => [:index]
+  root 'dashboard#show'
 
   get '/signin' => 'sessions#new'
   post '/signin' => 'sessions#create'
