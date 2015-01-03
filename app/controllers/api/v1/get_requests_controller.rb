@@ -44,7 +44,7 @@ private
         encoded_resource_id: encoded_resource.id,
         account_id: data_encoding.account_id
       )
-      ProcessJob.perform_async(job_id: job.id)
+      ProcessRequest.perform_later(job)
       [
         :accepted,
         results: { job_id: job.id }
