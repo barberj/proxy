@@ -13,7 +13,6 @@ User.create(
   email: 'barber.justin@gmail.com',
   password: 'change_me!',
   account_id: internal.id,
-  token: 'test_token'
 )
 
 internal.apis.create(
