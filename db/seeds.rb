@@ -16,19 +16,19 @@ User.create(
 )
 
 internal.apis.create(
-  name: 'Insightly',
+  name: 'Insightly Api',
   install_url: 'http://127.0.0.1:3001/install',
   uninstall_url: 'http://127.0.0.1:3001/uninstall',
   resources_attributes: [{
     name: 'Contacts',
-    customs_url: 'http://127.0.0.1:3001/customs',
-    search_url: 'http://127.0.0.1:3001/search',
-    created_url: 'http://127.0.0.1:3001/created',
-    updated_url: 'http://127.0.0.1:3001/updated',
-    create_url: 'http://127.0.0.1:3001/create',
-    update_url: 'http://127.0.0.1:3001/update',
-    delete_url: 'http://127.0.0.1:3001/delete',
-    read_url: 'http://127.0.0.1:3001/read',
+    customs_url: 'http://127.0.0.1:3001/contacts/customs',
+    search_url: 'http://127.0.0.1:3001/contacts/search',
+    created_url: 'http://127.0.0.1:3001/contacts/created',
+    updated_url: 'http://127.0.0.1:3001/contacts/updated',
+    create_url: 'http://127.0.0.1:3001/contacts/create',
+    update_url: 'http://127.0.0.1:3001/contacts/update',
+    delete_url: 'http://127.0.0.1:3001/contacts/delete',
+    read_url: 'http://127.0.0.1:3001/contacts/read',
     fields_attributes: [{
       dpath: '/FIRST_NAME'
     }]
