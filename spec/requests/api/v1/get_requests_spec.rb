@@ -28,6 +28,15 @@ describe 'GetRequests' do
       it 'returns accepted status (202)' do
         expect(get_created_request).to eq 202
       end
+      it 'saves params to Job' do
+        get_created_request
+        job = CreatedJob.last
+
+        expect(job.params).to include('created_since')
+        expect(job.params['created_since']).to eq(
+          Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z')
+        )
+      end
     end
     context 'with updated_since params' do
       let(:get_updated_request) do
@@ -53,6 +62,15 @@ describe 'GetRequests' do
       end
       it 'returns accepted status (202)' do
         expect(get_updated_request).to eq 202
+      end
+      it 'saves params to Job' do
+        get_updated_request
+        job = UpdatedJob.last
+
+        expect(job.params).to include('updated_since')
+        expect(job.params['updated_since']).to eq(
+          Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z')
+        )
       end
     end
     context 'with identifiers params' do
@@ -80,6 +98,13 @@ describe 'GetRequests' do
       it 'returns accepted status (202)' do
         expect(get_identifiers_request).to eq 202
       end
+      it 'saves params to Job' do
+        get_identifiers_request
+        job = ReadJob.last
+
+        expect(job.params).to include('identifiers')
+        expect(job.params['identifiers']).to eq(["1"])
+      end
     end
     context 'with search_by params' do
       let(:get_search_request) do
@@ -106,6 +131,15 @@ describe 'GetRequests' do
       end
       it 'returns accepted status (202)' do
         expect(get_search_request).to eq 202
+      end
+      it 'saves params to Job' do
+        get_search_request
+        job = SearchJob.last
+
+        expect(job.params).to include('search_by')
+        expect(job.params['search_by']).to eq(
+          'email' => "some_user@email.com"
+        )
       end
     end
     context 'with invalid token' do

@@ -9,6 +9,7 @@ class Api::V1::GetRequestsController < Api::V1::RequestsController
   end
 
   InvalidTimeFormat = Class.new StandardError
+  InvalidSearchCriteria = Class.new StandardError
 
 private
 
@@ -29,6 +30,11 @@ private
       ]
     end
   rescue InvalidTimeFormat => ex
+    [
+      :bad_request,
+      message: ex.message
+    ]
+  rescue InvalidSearchCriteria => ex
     [
       :bad_request,
       message: ex.message
@@ -94,6 +100,8 @@ private
   end
 
   def search_params
-    params[:search_by]
+    criteria = params[:search_by]
+    raise InvalidSearchCriteria.new('search_by requires criteria') if criteria.empty?
+    {'search_by' => criteria}
   end
 end
