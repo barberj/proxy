@@ -74,7 +74,8 @@ describe 'Jobs' do
               created_since: '2015-01-01T22:00:00+0000',
               page: 2,
               limit: 50
-            }
+            },
+            results: { results: [{first_name: 'Justin'}]}
           )
         end
         let(:get_job_request) do
@@ -87,7 +88,10 @@ describe 'Jobs' do
         end
         it 'returns serialized job info' do
           get_job_request
-          puts
+
+          expect(json['results']).to eq(
+            [{'first_name' => 'Justin'}]
+          )
         end
       end
     end
