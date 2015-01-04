@@ -45,4 +45,5 @@ Rails.application.configure do
     :namespace       => 'test',
     :driver          => :hiredis,
   }
+  config.ember.variant = :development
 end
