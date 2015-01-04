@@ -29,6 +29,7 @@ class CreateApis < ActiveRecord::Migration
 
     create_table :fields do |t|
       t.string :dpath, null: false
+      t.string :name, null: false
       t.boolean :is_required, default: false
       t.boolean :used_for_search, default: false
       t.boolean :is_scope, default: false
@@ -69,6 +70,7 @@ class CreateApis < ActiveRecord::Migration
 
     create_table :encoded_fields  do |t|
       t.string :dpath, null: false
+      t.string :name, null: false
 
       t.integer :field_id, null: false
       t.integer :encoded_resource_id, null: false
