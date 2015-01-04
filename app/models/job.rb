@@ -12,16 +12,18 @@ class Job < ActiveRecord::Base
     raise NotImplementedError
   end
 
-  def serializable_hash(*args)
-    args.first.merge!(only: [
-      :params, :status
-    ])
-    super.merge(self.results||{})
-      .merge(
-        'resource'         => resource.name,
-        'encoded_resource' => encoded_resource.name,
-        'api'              => api.name,
-        'data_encoding'    => data_encoding.name
-      )
+  def to_builder
+    Jbuilder.new do |json|
+      json.id id
+      json.status status
+      json.params params
+      json.resource resource.name
+      json.api api.name
+      json.data_encoding data_encoding.name
+
+      (results||{}).each do |k, v|
+        json.set! k, v
+      end
+    end
   end
 end
