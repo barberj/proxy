@@ -1,2 +1,10 @@
-h1 Hello World a
-outlet
+header
+  article
+    .logo
+      h1
+        a href="#" SimpleData.io
+
+section#main
+  = outlet
+
+footer

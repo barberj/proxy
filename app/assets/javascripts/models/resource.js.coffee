@@ -1,0 +1,11 @@
+App.Resource = DS.Model.extend
+  name: DS.attr('string')
+  customsUrl: DS.attr('string')
+  searchUrl: DS.attr('string')
+  createdUrl: DS.attr('string')
+  updatedUrl: DS.attr('string')
+  readUrl: DS.attr('string')
+  createUrl: DS.attr('string')
+  updateUrl: DS.attr('string')
+  deleteUrl: DS.attr('string')
+  api: DS.belongsTo('api', {async: true})

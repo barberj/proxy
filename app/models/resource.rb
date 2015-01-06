@@ -26,4 +26,23 @@ class Resource < ActiveRecord::Base
   def can_request?(request_type)
     send(:"#{request_type}_url").present?
   end
+
+  def to_builder
+    Jbuilder.new do |resource|
+      resource.(
+        self,
+        :id,
+        :name,
+        :customs_url,
+        :search_url,
+        :created_url,
+        :updated_url,
+        :read_url,
+        :create_url,
+        :update_url,
+        :delete_url,
+        :api_id,
+    )
+    end
+  end
 end

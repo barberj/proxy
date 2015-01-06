@@ -5,15 +5,17 @@ Rails.application.routes.draw do
   root 'dashboard#index'
   resources :dashboard, :only => [:index]
 
-  get '/signin' => 'sessions#new'
-  post '/signin' => 'sessions#create'
-  get '/signout' => 'sessions#destroy'
+  #get '/signin' => 'sessions#new'
+  #post '/signin' => 'sessions#create'
+  #get '/signout' => 'sessions#destroy'
 
-  get '/signup' => 'users#new'
+  #get '/signup' => 'users#new'
 
 
   namespace :api do
     namespace :v1 do
+      resources :apis
+      resources :resources
       resources :users, :only => [:create]
       resources :jobs, :only => [:index]
 
@@ -79,4 +81,5 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
   mount Sidekiq::Web, at: '/sidekiq'
+  get '*path', to: 'dashboard#index'
 end

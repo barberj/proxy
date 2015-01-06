@@ -1,0 +1,14 @@
+article#api
+  h1= model.name
+
+  p
+    ' Install Url:
+    model.installUrl
+
+  p
+    ' Uninstall Url:
+    model.uninstallUrl
+
+  p
+    ' Is Active?
+    model.isActive

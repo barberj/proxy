@@ -1,0 +1,8 @@
+article#apis
+  h1 Apis
+  ul
+    each api in controller
+      link-to 'api' api tagName='li'
+        api.name
+
+outlet
