@@ -1,6 +1,22 @@
 class Api::V1::RequestsController < Api::V1::InternalApiController
   before_action :authorize_request!
 
+  UNSUPPORTED_ACTION = %q(Can not request %{type} for %{api}'s %{encoded_resource}.)
+
+  rescue_from Exceptions::BadRequest do |exception|
+    render(
+      json: { message: exception.message },
+      status: :bad_request
+    )
+  end
+
+  rescue_from Exceptions::Unprocessable do |exception|
+    render(
+      json: { message: exception.message },
+      status: :unprocessable_entity,
+    )
+  end
+
 private
 
   def get_encoding
