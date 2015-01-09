@@ -110,12 +110,11 @@ describe 'GetRequests' do
       let(:get_search_request) do
         get(api_v1_path('Contacts'),
           {
-            :search_by => {:email => 'some_user@email.com' },
+            :search_by => {:EMAIL => 'some_user@email.com' },
             :data_encoding_id => default_data_encoding.id
           },
           'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
-
       end
       it 'returns job id' do
         get_search_request
@@ -138,7 +137,7 @@ describe 'GetRequests' do
 
         expect(job.params).to include('search_by')
         expect(job.params['search_by']).to eq(
-          'email' => "some_user@email.com"
+          'EMAIL' => "some_user@email.com"
         )
       end
     end
@@ -146,7 +145,7 @@ describe 'GetRequests' do
       it 'returns unauthorized status (401)' do
         expect(get(api_v1_path('Contacts'),
           {
-            search_by: {email: 'some_user@email.com' },
+            search_by: {EMAIL: 'some_user@email.com' },
             :data_encoding_id => default_data_encoding.id
           },
           'HTTP_AUTHORIZATION' => "Token bad_token"
@@ -157,7 +156,7 @@ describe 'GetRequests' do
       it 'returns unauthorized status (401)' do
         expect(get(api_v1_path('Contacts'),
           {
-            search_by: {email: 'some_user@email.com' },
+            search_by: {EMAIL: 'some_user@email.com' },
             :data_encoding_id => 999
           },
           'HTTP_AUTHORIZATION' => "Token #{user_token}"
@@ -229,6 +228,22 @@ describe 'GetRequests' do
       end
       it 'returns accepted status (202)' do
         expect(get_request_for_custom).to eq 202
+      end
+      it 'saves decoded params to Job' do
+        get(api_v1_path('Contacts'),
+          {
+            :search_by => {:email_address => 'some_user@email.com' },
+            :data_encoding_id => default_data_encoding.id
+          },
+          'HTTP_AUTHORIZATION' => "Token #{user_token}"
+        )
+
+        job = SearchJob.last
+
+        expect(job.params).to include('search_by')
+        expect(job.params['search_by']).to eq({
+          'email' => 'some_user@email.com'
+        })
       end
       it 'returns unprocessable_entity status (422) for invalid resource' do
         expect(get(api_v1_path('Contacts'),

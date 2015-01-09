@@ -1,7 +1,6 @@
 class Api::V1::RequestsController < Api::V1::InternalApiController
   before_action :authorize_request!
-
-  UNSUPPORTED_ACTION = %q(Can not request %{type} for %{api}'s %{encoded_resource}.)
+  include Api::V1::AcceptRequest
 
   rescue_from Exceptions::BadRequest do |exception|
     render(
@@ -17,7 +16,20 @@ class Api::V1::RequestsController < Api::V1::InternalApiController
     )
   end
 
+  rescue_from ActionController::ParameterMissing do
+    render(
+      json: {
+        message: %Q(#{request_method.capitalize} Requests must include data.)
+      },
+      status: :bad_request
+    )
+  end
+
 private
+
+  def request_method
+    request.env['REQUEST_METHOD']
+  end
 
   def get_encoding
     if user.internal?

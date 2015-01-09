@@ -22,6 +22,8 @@ module Helpers
             read_url: 'https://remoteapi.com/read',
             fields_attributes: [{
               dpath: '/FIRST_NAME'
+            },{
+              dpath: '/EMAIL'
             }]
           }]
         )
@@ -55,6 +57,9 @@ module Helpers
             encoded_fields_attributes: [{
               dpath: '/fname',
               field_id: installed_api.api.resources.first.fields.first.id
+            },{
+              dpath: '/email_address',
+              field_id: installed_api.api.resources.first.fields.last.id
             }]
           }]
         )
