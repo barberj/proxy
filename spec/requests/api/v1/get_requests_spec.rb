@@ -229,11 +229,11 @@ describe 'GetRequests' do
       it 'returns accepted status (202)' do
         expect(get_request_for_custom).to eq 202
       end
-      it 'saves decoded params to Job' do
-        get(api_v1_path('Contacts'),
+      it 'saves encoded params to Job' do
+        get(api_v1_path('MyContacts'),
           {
             :search_by => {:email_address => 'some_user@email.com' },
-            :data_encoding_id => default_data_encoding.id
+            :data_encoding_id => custom_data_encoding.id
           },
           'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
@@ -242,7 +242,7 @@ describe 'GetRequests' do
 
         expect(job.params).to include('search_by')
         expect(job.params['search_by']).to eq({
-          'email' => 'some_user@email.com'
+          'email_address' => 'some_user@email.com'
         })
       end
       it 'returns unprocessable_entity status (422) for invalid resource' do

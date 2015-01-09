@@ -105,13 +105,13 @@ describe 'PostRequests' do
       it 'returns accepted status (202)' do
         expect(post_request_for_custom).to eq 202
       end
-      it 'saves decoded params to Job' do
+      it 'saves encoded params to Job' do
         post_request_for_custom
         job = CreateJob.last
 
         expect(job.params).to include('data')
         expect(job.params['data']).to eq(
-          [{'FIRST_NAME' => 'Justin'}]
+          [{'fname' => 'Justin'}]
         )
       end
       it 'returns unprocessable_entity status (422) for invalid resource' do
