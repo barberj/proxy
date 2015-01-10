@@ -1,10 +1,12 @@
 class GetJob < Job
   def process
-    request_data
+    get_data
     encode_data
   end
 
-  def request_data
+private
+
+  def get_data
     self.status = 'requesting'
     self.save
 
@@ -20,29 +22,7 @@ class GetJob < Job
     self.save
   end
 
-  def encode_data
-    encoded = []
-    Array.wrap(self.results['results']).each do |data|
-      encoded_datum = {}
-      encoded_resource.encoded_fields.each do |encoded_field|
-        if value = encoded_field.value_from_api(data)
-          Dpaths.dput(encoded_datum, encoded_field.dpath, value)
-        end
-      end
-      encoded << encoded_datum if encoded_datum.present?
-    end
-
-    if encoded.present?
-      self.results = self.results.merge(results: encoded)
-    end
-
-    self.status = 'processed'
-    self.save
-  end
-
-private
-
-  def query_params
+  def compile_query_params
     page = self.params['page'] || 1
     limit = self.params['limit'] || 250
 
@@ -50,5 +30,9 @@ private
       page: page,
       limit: [limit.to_i, 250].min,
     )
+  end
+
+  def query_params
+    from_redis(:query_params) { compile_query_params }
   end
 end

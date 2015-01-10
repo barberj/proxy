@@ -56,6 +56,11 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
+  config.after(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+    $redis.flushdb
+  end
+
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.start
@@ -64,5 +69,6 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+    $redis.flushdb
   end
 end

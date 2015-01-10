@@ -5,7 +5,7 @@ class SearchJob < GetJob
 
 private
 
-  def query_params
+  def compile_query_params
     qp = super
     decoded_criteria = {}
     encoded_criteria = qp['search_by']

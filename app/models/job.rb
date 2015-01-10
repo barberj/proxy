@@ -1,5 +1,6 @@
 class Job < ActiveRecord::Base
   include HttpRequest
+  include RedisCaching
 
   belongs_to :data_encoding, inverse_of: :jobs
   belongs_to :encoded_resource
@@ -7,10 +8,6 @@ class Job < ActiveRecord::Base
   belongs_to :account
   has_one :installed_api, through: :data_encoding
   has_one :api, through: :data_encoding
-
-  def process
-    raise NotImplementedError
-  end
 
   def to_builder
     Jbuilder.new do |json|
@@ -25,5 +22,31 @@ class Job < ActiveRecord::Base
         json.set! k, v
       end
     end
+  end
+
+private
+
+  def process
+    raise NotImplementedError
+  end
+
+  def encode_data
+    encoded = []
+    Array.wrap(self.results['results']).each do |data|
+      encoded_datum = {}
+      encoded_resource.encoded_fields.each do |encoded_field|
+        if value = encoded_field.value_from_api(data)
+          Dpaths.dput(encoded_datum, encoded_field.dpath, value)
+        end
+      end
+      encoded << encoded_datum if encoded_datum.present?
+    end
+
+    if encoded.present?
+      self.results = self.results.merge(results: encoded)
+    end
+
+    self.status = 'processed'
+    self.save
   end
 end
