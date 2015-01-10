@@ -1,49 +1,9 @@
-class CreateJob < Job
+class CreateJob < SetJob
   def data_url
     resource.create_url
   end
 
-  def process
-    set_data
-    encode_data
-  end
-
-private
-
-  def set_data
-    self.status = 'requesting'
-    self.save
-
-    rsp = request(:post, data_url,
-      :body => body,
-      :headers => {
-        'Authorization' => "Token #{installed_api.token}",
-        'Content-Type'  => 'application/json'
-      }
-    )
-
-    self.results = rsp
-    self.status = 'encoding' if rsp.code >= 200 && rsp.code < 300
-    self.save
-  end
-
-  def compile_body
-    {
-      data: [].tap do |decoded|
-        Array.wrap(self.params['data']).each do |data|
-          decoded_datum = {}
-          encoded_resource.encoded_fields.each do |encoded_field|
-            if value = encoded_field.value_from_user(data)
-              encoded_field.value_to_api(decoded_datum, value)
-            end
-          end
-        decoded << decoded_datum if decoded_datum.present?
-        end
-      end
-    }.to_json
-  end
-
-  def body
-    from_redis(:body) { compile_body }
+  def job_method
+    :post
   end
 end

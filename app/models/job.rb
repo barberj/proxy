@@ -24,6 +24,10 @@ class Job < ActiveRecord::Base
     end
   end
 
+  def data_url
+    raise NotImplementedError
+  end
+
 private
 
   def process
