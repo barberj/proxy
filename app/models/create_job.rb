@@ -1,4 +1,8 @@
 class CreateJob < Job
+  def data_url
+    resource.create_url
+  end
+
   def process
     set_data
     encode_data
@@ -10,11 +14,11 @@ private
     self.status = 'requesting'
     self.save
 
-    rsp = request(:get, data_url,
+    rsp = request(:post, data_url,
       :body => body,
       :headers => {
         'Authorization' => "Token #{installed_api.token}",
-        'content-type'  => 'application/json'
+        'Content-Type'  => 'application/json'
       }
     )
 
@@ -24,17 +28,19 @@ private
   end
 
   def compile_body
-    [].tap do |decoded_data|
-      Array.wrap(self.params['data']).each do |data|
-        decoded_datum = {}
-        encoded_resource.encoded_fields.each do |encoded_field|
-          if value = encoded_field.value_from_user(data)
-            encoded_field.value_to_api(decoded_datum, value)
+    {
+      data: [].tap do |decoded|
+        Array.wrap(self.params['data']).each do |data|
+          decoded_datum = {}
+          encoded_resource.encoded_fields.each do |encoded_field|
+            if value = encoded_field.value_from_user(data)
+              encoded_field.value_to_api(decoded_datum, value)
+            end
           end
+        decoded << decoded_datum if decoded_datum.present?
         end
-      encoded << encoded_datum if encoded_datum.present?
       end
-    end
+    }.to_json
   end
 
   def body
