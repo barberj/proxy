@@ -28,11 +28,11 @@ class Job < ActiveRecord::Base
     raise NotImplementedError
   end
 
-private
-
   def process
     raise NotImplementedError
   end
+
+private
 
   def encode_data
     encoded = []
