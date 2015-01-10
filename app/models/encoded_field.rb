@@ -11,7 +11,15 @@ class EncodedField < ActiveRecord::Base
     Dpaths.dselect(h, self.field.dpath)
   end
 
-  def value_to_api(h)
+  def value_from_user(h)
     Dpaths.dselect(h, self.dpath)
+  end
+
+  def value_to_api(h, value)
+    Dpaths.dput(h, self.field.dpath, value)
+  end
+
+  def value_to_user(h, value)
+    Dpaths.dput(h, self.dpath, value)
   end
 end

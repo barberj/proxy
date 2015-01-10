@@ -36,7 +36,7 @@ private
       encoded_datum = {}
       encoded_resource.encoded_fields.each do |encoded_field|
         if value = encoded_field.value_from_api(data)
-          Dpaths.dput(encoded_datum, encoded_field.dpath, value)
+          encoded_field.value_to_user(encoded_datum, value)
         end
       end
       encoded << encoded_datum if encoded_datum.present?
