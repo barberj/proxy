@@ -52,30 +52,34 @@ module Dpaths
     [key, fields.last, query.gsub(/^\/*#{Regexp.escape(key)}/,'')]
   end
 
-  def self.dselect(target, query = '/*')
-    if select_all?(query)
-      target
-    else
-      if target.present?
-        key, validator, new_query = key_validator_and_remaining(query)
-
-        if is_validator?(key)
-
-          validate_target(validator, target)
-        elsif from_arrays?(key)
-
-          Array.wrap(target).map do |t|
-            dselect(t, new_query)
-          end.flatten
-        elsif from_an_array?(key)
-
-          dselect(Array.wrap(target)[key.to_i], new_query)
+  def self.dseek(target, parts)
+    part = parts.shift
+    if target.present?
+      if part.present?
+        if parts.present?
+          if index = Integer(part) rescue false
+            dseek(Array.wrap(target)[index], parts)
+          else
+            dseek(target[part] || target[part.to_sym], parts)
+          end
         else
-
-          dselect(target[key.to_sym] || target[key], new_query)
+          target[(Integer(part) rescue part)]
+        end
+      else
+        if parts.present?
+          Array.wrap(target).flat_map do |partial|
+            dseek(partial, parts.dup)
+          end
+        else
+          target
         end
       end
     end
+  end
+
+  def self.dselect(target, query = '/')
+    parts = query.split('/')[1..-2]
+    dseek(target, parts)
   rescue NoMethodError
   end
 
