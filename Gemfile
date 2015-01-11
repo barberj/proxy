@@ -35,6 +35,7 @@ gem 'sidekiq'
 gem 'dalli'
 gem 'httparty'
 gem 'sinatra', :require => nil
+gem 'handlebars_assets'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
