@@ -2,18 +2,8 @@ div class="content-box"
   div class="panel panel-default"
     div class="panel-heading bg-white"
       h3 class="panel-title" Installed Apis
-    div class="panel-body"
-      - for installed_api in current_user.account.installed_apis do
-        div class="row"
-          a href="#" class="js-installed-api" data-id="#{installed_api.id}"
-            div class="col-md-10"
-              = installed_api.name
-            div class="col-md-1"
-              button class="btn btn-default btn-sm btn-block"
-                span class="glyphicon glyphicon-wrench" aria-hidden="true"
-          div class="col-md-1"
-            button class="btn btn-default btn-sm btn-block js-uninstall-api"
-              span class="glyphicon glyphicon-remove" aria-hidden="true"
+    div class="panel-body installed-apis"
+      | No Apis Installed
     div class="panel-footer bg-white"
       div class="row"
         div class="col-md-1"

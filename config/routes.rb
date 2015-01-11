@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, :only => [:create]
       resources :jobs, :only => [:index]
+      resources :apis, :only => [:index]
+      resources :installed_apis, :only => [:index]
 
       get "/:encoded_resource"    => 'get_requests#index'
       post "/:encoded_resource"   => 'post_requests#create'

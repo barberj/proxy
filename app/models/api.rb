@@ -7,6 +7,18 @@ class Api < ActiveRecord::Base
 
   after_create :install_dev_api
 
+  def as_json(*args)
+    Jbuilder.new do |json|
+      json.(self,
+        :id,
+        :name,
+        :install_url,
+        :uninstall_url,
+        :is_active
+      )
+    end.attributes!
+  end
+
 private
 
   def install_dev_api
