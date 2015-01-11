@@ -15,6 +15,12 @@ module SessionsHelper
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
+  def current_user_token
+    if current_user
+      current_user.token
+    end
+  end
+
   def signed_in?
     Rails.logger.debug "signed in? #{current_user.present?}"
     current_user.present?
