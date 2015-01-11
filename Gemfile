@@ -36,6 +36,7 @@ gem 'dalli'
 gem 'httparty'
 gem 'sinatra', :require => nil
 gem 'handlebars_assets'
+gem 'fancybox2-rails'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

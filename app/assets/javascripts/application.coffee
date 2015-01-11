@@ -14,5 +14,6 @@
 #= require jquery_ujs
 #= require turbolinks
 #= require handlebars.runtime
+#= require fancybox
 #= require_tree .
 #= require_tree ./templates

@@ -76,6 +76,8 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
+    fancybox2-rails (0.2.8)
+      railties (>= 3.1.0, < 5.0)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
     handlebars_assets (0.18)
@@ -249,6 +251,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   factory_girl_rails
+  fancybox2-rails
   handlebars_assets
   hiredis
   httparty
