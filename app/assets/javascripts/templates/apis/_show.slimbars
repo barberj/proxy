@@ -1,0 +1,7 @@
+div class="api"
+  | {{ name }}
+  button[
+    class="btn btn-primary btn-xs api install"
+    data-id="{{id}}"
+    data-install-url="{{install_url}}"
+  ] Install

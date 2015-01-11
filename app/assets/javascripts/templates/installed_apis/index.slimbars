@@ -1,4 +1,6 @@
 div id="installed_apis"
   | {{#each installed_apis}}
   |   {{> installed_apis/_show }}
+  | {{else}}
+  |   No Apis Installed yet.
   | {{/each}}

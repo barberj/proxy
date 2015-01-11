@@ -1,21 +1,47 @@
 show_installed = ->
-  if not window.App.installed_apis?
-    get_installed()
-  if window.App.installed_apis? and window.App.installed_apis.length > 0
-    html = HandlebarsTemplates['installed_apis/index'](window.App)
-    $('.installed').html(html)
+  html = HandlebarsTemplates['installed_apis/index'](window.App)
+  $('.installed').html(html)
 
-get_installed = (callback) ->
-  if not window.App.installed_apis?
+get_installed = () ->
+  $.ajax(
+    url: '/api/v1/installed_apis',
+    type: 'GET',
+    beforeSend: (xhr) ->
+      xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
+  ).done (rsp) =>
+    window.App.installed_apis = rsp.installed_apis
+    show_installed()
+
+handle_install_events = () ->
+  $('.install').click (event) ->
+    event.preventDefault()
     $.ajax(
-      url: '/api/v1/installed_apis',
-      type: 'GET',
+      url: '/api/v1/market_place',
+      type: 'POST',
+      data: { api_id: $(@).data('id') },
       beforeSend: (xhr) ->
         xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
     ).done (rsp) =>
-      if rsp.installed_apis? and rsp.installed_apis.length > 0
-        window.App.installed_apis = rsp.installed_apis
-        show_installed()
+      installed = rsp.installed_api
+      install_url = "#{$(@).data('install-url')}?token=#{installed.token}"
+      window.open(install_url)
+      $.event.trigger "api.installed"
+      $('.dashboard').click()
+
+show_market = ->
+  html = HandlebarsTemplates['market_place/index'](window.App)
+  $('.market-place').html(html)
+  handle_install_events()
+
+populate_market = ->
+  $.ajax(
+    url: '/api/v1/market_place',
+    type: 'GET',
+    beforeSend: (xhr) ->
+      xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
+  ).done (rsp) =>
+    window.App.market_apis = rsp.apis
+    show_market()
 
 find_encoding = (id) ->
   for encoding in window.App.data_encodings
@@ -25,32 +51,26 @@ find_encoding = (id) ->
 handle_encoding_events = ->
   $('.edit-encoding').click (event) ->
     event.preventDefault()
-    id = $(@).data('id')
     if window.App.data_encodings
-      encoding = find_encoding(id)
+      encoding = find_encoding($(@).data('id'))
       html = HandlebarsTemplates['data_encodings/edit'](encoding)
       $('#inline-fancy-box').html(html)
       $.fancybox.open( href: '#inline-fancy-box' )
 
 show_encodings = ->
-  if not window.App.data_encodings?
-    get_encodings()
-  if window.App.data_encodings? and window.App.data_encodings.length > 0
-    html = HandlebarsTemplates['data_encodings/index'](window.App)
-    $('.encodings').html(html)
-    handle_encoding_events()
+  html = HandlebarsTemplates['data_encodings/index'](window.App)
+  $('.encodings').html(html)
+  handle_encoding_events()
 
 get_encodings = (callback) ->
-  if not window.App.data_encodings?
-    $.ajax(
-      url: '/api/v1/data_encodings',
-      type: 'GET',
-      beforeSend: (xhr) ->
-        xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
-    ).done (rsp) =>
-      if rsp.data_encodings? and rsp.data_encodings.length > 0
-        window.App.data_encodings = rsp.data_encodings
-        show_encodings()
+  $.ajax(
+    url: '/api/v1/data_encodings',
+    type: 'GET',
+    beforeSend: (xhr) ->
+      xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
+  ).done (rsp) =>
+    window.App.data_encodings = rsp.data_encodings
+    show_encodings()
 
 setup_handlers = ->
   $('.market').click (event) ->
@@ -75,5 +95,9 @@ $(document).on "dashboard.load", (e, obj) =>
   render_default()
 
   setup_handlers()
-  show_installed()
-  show_encodings()
+  populate_market()
+  get_installed()
+  get_encodings()
+
+$(document).on "api.installed", get_installed
+$(document).on "api.installed", get_encodings

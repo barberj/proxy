@@ -1,4 +1,6 @@
 div id="data_encodings"
   | {{#each data_encodings}}
   |   {{> data_encodings/_show }}
+  | {{else}}
+  |   No encodings yet. Install an api to create your first encoding.
   | {{/each}}

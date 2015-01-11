@@ -17,8 +17,8 @@ User.create(
 
 internal.apis.create(
   name: 'Insightly Api',
-  install_url: 'http://127.0.0.1:3001/api/v1/install',
-  uninstall_url: 'http://127.0.0.1:3001/api/v1/uninstall',
+  install_url: 'http://127.0.0.1:3001/insightly/signup',
+  uninstall_url: 'http://127.0.0.1:3001/uninstall',
   resources_attributes: [{
     name: 'Contacts',
     customs_url: 'http://127.0.0.1:3001/api/v1/contacts',

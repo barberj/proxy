@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       resources :users, :only => [:create]
       resources :jobs, :only => [:index]
       resources :apis, :only => [:index]
+      resources :market_place, :only => [:index, :create]
       resources :installed_apis, :only => [:index]
       resources :data_encodings, :only => [:index]
 
