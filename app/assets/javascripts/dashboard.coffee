@@ -45,14 +45,19 @@ setup_handlers = ->
     $('.market-place').show()
 
   $('.dashboard').click (event) ->
-    $('.app-content').hide()
     event.preventDefault()
+    $('.app-content').hide()
     $('li.active').removeClass('active')
     $('.my-stuff').show()
 
-$(document).on "dashboard.load", (e, obj) =>
+render_default = ->
+  $(".inline-fancy-box").hide()
   $('.app-content').hide()
   $('.my-stuff').show()
+
+$(document).on "dashboard.load", (e, obj) =>
+  render_default()
+
   setup_handlers()
   show_installed()
   show_encodings()
