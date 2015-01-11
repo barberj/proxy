@@ -34,3 +34,9 @@ internal.apis.create(
     }]
   }]
 )
+
+internal.apis.create(
+  name: 'Emma Api',
+  install_url: 'http://127.0.0.1:3001/api/v1/install',
+  uninstall_url: 'http://127.0.0.1:3001/api/v1/uninstall'
+)
