@@ -17,10 +17,20 @@ get_installed = (callback) ->
         window.App.installed_apis = rsp.installed_apis
         show_installed()
 
+find_encoding = (id) ->
+  for encoding in window.App.data_encodings
+    if encoding.id is id
+      return encoding
+
 handle_encoding_events = ->
   $('.edit-encoding').click (event) ->
     event.preventDefault()
     id = $(@).data('id')
+    if window.App.data_encodings
+      encoding = find_encoding(id)
+      html = HandlebarsTemplates['data_encodings/edit'](encoding)
+      $('#inline-fancy-box').html(html)
+      $.fancybox.open( href: '#inline-fancy-box' )
 
 show_encodings = ->
   if not window.App.data_encodings?
@@ -57,7 +67,7 @@ setup_handlers = ->
     $('.my-stuff').show()
 
 render_default = ->
-  $(".inline-fancy-box").hide()
+  $("#inline-fancy-box").hide()
   $('.app-content').hide()
   $('.my-stuff').show()
 
