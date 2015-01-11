@@ -6,24 +6,30 @@ nav class="navbar navbar-default"
         span class="icon-bar"
         span class="icon-bar"
         span class="icon-bar"
-      a class="navbar-brand" href="#" Datafy
+      a class="navbar-brand dashboard" href="#" Api.Life
 
     div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
       ul class="nav navbar-nav"
-        li class="active"
-          a href="#" Market Place
+        li
+          a href="#" class="market" Market Place
+        li
+          a href="#" class="settings" #{current_user.name}
         li
           a href="#{signout_path}" Sign Out
 
-div class="content-box"
-  div class="panel panel-default"
-    div class="panel-heading"
-      h3 class="panel-title" My Data Encodings
-    div class="panel-body encodings"
-      | No encodings
+div class='market-place app-content'
+  | Test
 
-  div class="panel panel-default"
-    div class="panel-heading"
-      h3 class="panel-title" My Installed Apis
-    div class="panel-body installed"
-      | No Apis Installed
+div class='my-stuff app-content'
+  div class="content-box"
+    div class="panel panel-default"
+      div class="panel-heading"
+        h3 class="panel-title" My Data Encodings
+      div class="panel-body encodings"
+        | No encodings
+
+    div class="panel panel-default"
+      div class="panel-heading"
+        h3 class="panel-title" My Installed Apis
+      div class="panel-body installed"
+        | No Apis Installed

@@ -1,0 +1,3 @@
+div class="installed_api"
+  | {{ name }}
+  button class="btn btn-primary btn-xs edit-installed" data-id="{{id}}" Edit

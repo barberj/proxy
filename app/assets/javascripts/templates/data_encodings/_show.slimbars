@@ -1,0 +1,3 @@
+div class="encoding"
+  | {{ name }}
+  button class="btn btn-primary btn-xs edit-encoding" data-id="{{id}}" Edit

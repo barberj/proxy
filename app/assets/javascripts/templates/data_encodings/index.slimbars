@@ -1,5 +1,4 @@
 div id="data_encodings"
   | {{#each data_encodings}}
-  div
-    | {{name}}
+  |   {{> data_encodings/_show }}
   | {{/each}}

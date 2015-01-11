@@ -36,6 +36,23 @@ get_encodings = (callback) ->
         window.App.data_encodings = rsp.data_encodings
         show_encodings()
 
+setup_handlers = ->
+  $('.market').click (event) ->
+    $('.app-content').hide()
+    event.preventDefault()
+    $('li.active').removeClass('active')
+    $(@).closest('li').addClass('active')
+    $('.market-place').show()
+
+  $('.dashboard').click (event) ->
+    $('.app-content').hide()
+    event.preventDefault()
+    $('li.active').removeClass('active')
+    $('.my-stuff').show()
+
 $(document).on "dashboard.load", (e, obj) =>
+  $('.app-content').hide()
+  $('.my-stuff').show()
+  setup_handlers()
   show_installed()
   show_encodings()

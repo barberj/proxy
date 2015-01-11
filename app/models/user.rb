@@ -18,4 +18,8 @@ class User < ActiveRecord::Base
   def internal?
     self.account_id == 1
   end
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 end
