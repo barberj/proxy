@@ -4,4 +4,5 @@ load_javascript = (controller) ->
 window.App = {}
 
 $ () ->
+  window.App.token = $('meta[name=token]').attr('content')
   load_javascript($("body").data("controller"))

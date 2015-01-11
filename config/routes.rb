@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       resources :jobs, :only => [:index]
       resources :apis, :only => [:index]
       resources :installed_apis, :only => [:index]
+      resources :data_encodings, :only => [:index]
 
       get "/:encoded_resource"    => 'get_requests#index'
       post "/:encoded_resource"   => 'post_requests#create'
