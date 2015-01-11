@@ -17,12 +17,18 @@ get_installed = (callback) ->
         window.App.installed_apis = rsp.installed_apis
         show_installed()
 
+handle_encoding_events = ->
+  $('.edit-encoding').click (event) ->
+    event.preventDefault()
+    id = $(@).data('id')
+
 show_encodings = ->
   if not window.App.data_encodings?
     get_encodings()
   if window.App.data_encodings? and window.App.data_encodings.length > 0
     html = HandlebarsTemplates['data_encodings/index'](window.App)
     $('.encodings').html(html)
+    handle_encoding_events()
 
 get_encodings = (callback) ->
   if not window.App.data_encodings?
