@@ -1,0 +1,5 @@
+div id="installed_apis"
+  | {{#each installed_apis}}
+  div
+    | {{name}}
+  | {{/each}}
