@@ -9,7 +9,7 @@ class Job < ActiveRecord::Base
   has_one :installed_api, through: :data_encoding
   has_one :api, through: :data_encoding
 
-  def to_builder
+  def as_json(*args)
     Jbuilder.new do |json|
       json.id id
       json.status status
@@ -21,7 +21,7 @@ class Job < ActiveRecord::Base
       (results||{}).each do |k, v|
         json.set! k, v
       end
-    end
+    end.attributes!
   end
 
   def data_url

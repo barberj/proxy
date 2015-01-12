@@ -2,7 +2,7 @@ class Api::V1::JobsController < Api::V1::InternalApiController
   before_action :verify_job!
 
   def index
-    render json: job.to_builder.attributes!, status: 200
+    render json: job, status: 200
   end
 
 private
