@@ -22,4 +22,15 @@ class EncodedField < ActiveRecord::Base
   def value_to_user(h, value)
     Dpaths.dput(h, self.dpath, value)
   end
+
+  def as_json(*args)
+    Jbuilder.new do |json|
+      json.(self,
+        :name,
+        :dpath,
+        :field_id,
+        :encoded_resource_id
+      )
+    end.attributes!
+  end
 end

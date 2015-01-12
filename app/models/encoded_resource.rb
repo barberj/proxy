@@ -7,4 +7,16 @@ class EncodedResource < ActiveRecord::Base
                    uniqueness: { scope: :data_encoding_id }
 
   accepts_nested_attributes_for :encoded_fields
+
+  def as_json(*args)
+    Jbuilder.new do |json|
+      json.(self,
+        :name,
+        :data_encoding_id,
+        :resource_id
+      )
+
+      json.encoded_fields_attributes self.encoded_fields.as_json
+    end.attributes!
+  end
 end

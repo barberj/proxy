@@ -14,4 +14,15 @@ class DataEncoding < ActiveRecord::Base
       end
     end
   end
+
+  def as_json(*args)
+    Jbuilder.new do |json|
+      json.(self,
+        :id,
+        :name,
+        :installed_api_id
+      )
+      json.encoded_resources_attributes self.encoded_resources.map(&:as_json)
+    end.attributes!
+  end
 end
