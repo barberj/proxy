@@ -55,7 +55,10 @@ handle_encoding_events = ->
       encoding = find_encoding($(@).data('id'))
       html = HandlebarsTemplates['data_encodings/edit'](encoding)
       $('#inline-fancy-box').html(html)
-      $.fancybox.open( href: '#inline-fancy-box' )
+      $.fancybox.open(
+        href: '#inline-fancy-box',
+        autoSize: false
+      )
 
 show_encodings = ->
   html = HandlebarsTemplates['data_encodings/index'](window.App)

@@ -1,0 +1,13 @@
+div class="row"
+  div class="col-xs-12"
+    button[
+      class="btn btn-primary btn-sm"
+      data-toggle="collapse"
+      data-target="#encoded_resource_{{id}}"
+    ]
+      i class="glyphicon glyphicon-resize-vertical"
+      | {{ resource_name }}
+div id="encoded_resource_{{id}}" class="collapse in"
+  div class="row"
+    div class="col-xs-12"
+      | {{ name }}

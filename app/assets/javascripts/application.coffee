@@ -15,5 +15,6 @@
 #= require turbolinks
 #= require handlebars.runtime
 #= require fancybox
+#= require bootstrap-sprockets
 #= require_tree .
 #= require_tree ./templates

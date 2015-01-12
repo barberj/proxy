@@ -11,10 +11,12 @@ class EncodedResource < ActiveRecord::Base
   def as_json(*args)
     Jbuilder.new do |json|
       json.(self,
+        :id,
         :name,
         :data_encoding_id,
         :resource_id
       )
+      json.resource_name resource.name
 
       json.encoded_fields_attributes self.encoded_fields.as_json
     end.attributes!

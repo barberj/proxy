@@ -1,5 +1,18 @@
-form
-  div class="form-group"
-    label for="name" Data Encoding Name:
-    input class="form-control" name="name" value="{{ name }}"
-  button class="btn btn-default btn-block js-save-encoding" Save
+div class='encoding-edit'
+  div class="content-box"
+    div class="panel panel-default"
+      div class="panel-heading"
+        h3 class="panel-title" Edit Data Encoding
+      div class="panel-body encoding"
+        form
+          div class="form-group"
+            label for="name" Name:
+            input class="form-control" name="name" value="{{ name }}"
+          div class="form-group"
+            label for="id" Id:
+            input class="form-control" name="id" value="{{ id }}" disabled=true
+          | {{#each encoded_resources_attributes}}
+          |   {{> market_place/_encoded_resource}}
+          | {{/each}}
+          div class="form-group"
+            button class="btn btn-primary btn-xs js-save-encoding" Save
