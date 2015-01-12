@@ -12,7 +12,7 @@ div class='encoding-edit'
             label for="id" Id:
             input class="form-control" name="id" value="{{ id }}" disabled=true
           | {{#each encoded_resources_attributes}}
-          |   {{> market_place/_encoded_resource}}
+          |   {{> data_encodings/_encoded_resource}}
           | {{/each}}
           div class="form-group"
             button class="btn btn-primary btn-xs js-save-encoding" Save

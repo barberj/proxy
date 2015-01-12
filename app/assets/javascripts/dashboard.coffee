@@ -10,7 +10,7 @@ get_installed = () ->
       xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
   ).done (rsp) =>
     window.App.installed_apis = rsp.installed_apis
-    show_installed()
+    $.event.trigger "populated.installed"
 
 handle_install_events = () ->
   $('.install').click (event) ->
@@ -33,7 +33,7 @@ show_market = ->
   $('.market-place').html(html)
   handle_install_events()
 
-populate_market = ->
+get_market = ->
   $.ajax(
     url: '/api/v1/market_place',
     type: 'GET',
@@ -41,29 +41,27 @@ populate_market = ->
       xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
   ).done (rsp) =>
     window.App.market_apis = rsp.apis
-    show_market()
+    $.event.trigger "populated.market"
 
 find_encoding = (id) ->
   for encoding in window.App.data_encodings
     if encoding.id is id
       return encoding
 
-handle_encoding_events = ->
+handle_encoding_edit = ->
   $('.edit-encoding').click (event) ->
     event.preventDefault()
     if window.App.data_encodings
+      $('.app-content').hide()
       encoding = find_encoding($(@).data('id'))
       html = HandlebarsTemplates['data_encodings/edit'](encoding)
-      $('#inline-fancy-box').html(html)
-      $.fancybox.open(
-        href: '#inline-fancy-box',
-        autoSize: false
-      )
+      $('.dashboard-focus').html(html)
+      $('.dashboard-focus').show()
 
 show_encodings = ->
   html = HandlebarsTemplates['data_encodings/index'](window.App)
   $('.encodings').html(html)
-  handle_encoding_events()
+  handle_encoding_edit()
 
 get_encodings = (callback) ->
   $.ajax(
@@ -73,12 +71,12 @@ get_encodings = (callback) ->
       xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
   ).done (rsp) =>
     window.App.data_encodings = rsp.data_encodings
-    show_encodings()
+    $.event.trigger "populated.encodings"
 
 setup_handlers = ->
   $('.market').click (event) ->
-    $('.app-content').hide()
     event.preventDefault()
+    $('.app-content').hide()
     $('li.active').removeClass('active')
     $(@).closest('li').addClass('active')
     $('.market-place').show()
@@ -87,20 +85,24 @@ setup_handlers = ->
     event.preventDefault()
     $('.app-content').hide()
     $('li.active').removeClass('active')
-    $('.my-stuff').show()
+    $('.dashboard').show()
 
 render_default = ->
-  $("#inline-fancy-box").hide()
+  $(".dashboard-focus").hide()
   $('.app-content').hide()
-  $('.my-stuff').show()
+  $('.dashboard').show()
 
 $(document).on "dashboard.load", (e, obj) =>
+  console.log 'load'
   render_default()
 
   setup_handlers()
-  populate_market()
+  get_market()
   get_installed()
   get_encodings()
 
 $(document).on "api.installed", get_installed
 $(document).on "api.installed", get_encodings
+$(document).on "populated.encodings", show_encodings
+$(document).on "populated.installed", show_installed
+$(document).on "populated.market", show_market
