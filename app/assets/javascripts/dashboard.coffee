@@ -26,7 +26,7 @@ handle_install_events = () ->
       install_url = "#{$(@).data('install-url')}?token=#{installed.token}"
       window.open(install_url)
       $.event.trigger "api.installed"
-      $('.dashboard').click()
+      $('.dash').click()
 
 show_market = ->
   html = HandlebarsTemplates['market_place/index'](window.App)
@@ -55,15 +55,15 @@ handle_encoding_edit = ->
       $('.app-content').hide()
       encoding = find_encoding($(@).data('id'))
       html = HandlebarsTemplates['data_encodings/edit'](encoding)
-      $('.dashboard-focus').html(html)
-      $('.dashboard-focus').show()
+      $('.dash-edit').html(html)
+      $('.dash-edit').show()
 
 show_encodings = ->
   html = HandlebarsTemplates['data_encodings/index'](window.App)
   $('.encodings').html(html)
   handle_encoding_edit()
 
-get_encodings = (callback) ->
+get_encodings = ->
   $.ajax(
     url: '/api/v1/data_encodings',
     type: 'GET',
@@ -81,19 +81,18 @@ setup_handlers = ->
     $(@).closest('li').addClass('active')
     $('.market-place').show()
 
-  $('.dashboard').click (event) ->
+  $('.dash').click (event) ->
     event.preventDefault()
     $('.app-content').hide()
     $('li.active').removeClass('active')
     $('.dashboard').show()
 
 render_default = ->
-  $(".dashboard-focus").hide()
+  $(".dash-edit").hide()
   $('.app-content').hide()
   $('.dashboard').show()
 
 $(document).on "dashboard.load", (e, obj) =>
-  console.log 'load'
   render_default()
 
   setup_handlers()

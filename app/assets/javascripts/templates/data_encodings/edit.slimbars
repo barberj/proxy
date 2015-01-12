@@ -4,15 +4,14 @@ div class='encoding-edit'
       div class="panel-heading"
         h3 class="panel-title" Edit Data Encoding
       div class="panel-body encoding"
-        form
-          div class="form-group"
-            label for="name" Name:
-            input class="form-control" name="name" value="{{ name }}"
-          div class="form-group"
-            label for="id" Id:
-            input class="form-control" name="id" value="{{ id }}" disabled=true
-          | {{#each encoded_resources_attributes}}
-          |   {{> data_encodings/_encoded_resource}}
-          | {{/each}}
-          div class="form-group"
-            button class="btn btn-primary btn-xs js-save-encoding" Save
+        div class="form-group"
+          label for="name" Name:
+          input class="form-control" name="name" value="{{ name }}"
+        div class="form-group"
+          label for="id" Id:
+          input class="form-control" name="id" value="{{ id }}" disabled=true
+        | {{#each encoded_resources_attributes}}
+        |   {{> data_encodings/_encoded_resource}}
+        | {{/each}}
+        div class="form-group"
+          button class="btn btn-primary btn-xs js-save-encoding" Save
