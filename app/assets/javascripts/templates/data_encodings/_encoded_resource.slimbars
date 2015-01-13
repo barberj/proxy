@@ -1,14 +1,21 @@
-div class="row"
-  div class="col-xs-12"
-    button[
-      class="btn btn-primary btn-sm collapsable"
-      data-toggle="collapse"
-      data-target="#encoded_resource_{{id}}"
-      type="button"
-    ]
-      i class="glyphicon glyphicon-resize-vertical"
-      | {{ resource_name }}
-div id="encoded_resource_{{id}}" class="collapse in"
-  div class="row"
-    div class="col-xs-12"
-      | {{ name }}
+div class="form-group"
+  button[
+    class="btn btn-primary btn-sm collapsable"
+    data-toggle="collapse"
+    data-target="#encoded_resource_{{id}}"
+    type="button"
+  ]
+    i class="glyphicon glyphicon-resize-vertical"
+    | {{ resource_name }}
+  div id="encoded_resource_{{id}}" class="collapse"
+    input class="hidden" name="encoded_resources_attributes[][id]" value="{{ id }}"
+    div class="form-group"
+      label for="encoded_resources_attributes[][name]" Name:
+      input[
+        class="form-control"
+        name="encoded_resources_attributes[][name]"
+        value="{{ name }}"
+      ]
+    | {{#each encoded_fields_attributes}}
+    |   {{> data_encodings/_encoded_field}}
+    | {{/each}}

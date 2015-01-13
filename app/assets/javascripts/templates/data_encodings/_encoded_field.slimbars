@@ -1,0 +1,22 @@
+div class="form-group"
+  button[
+    class="btn btn-primary btn-sm collapsable"
+    data-toggle="collapse"
+    data-target="#encoded_field_{{id}}"
+    type="button"
+  ]
+    i class="glyphicon glyphicon-resize-vertical"
+    | {{ field_name }}
+  div id="encoded_field_{{id}}" class="collapse in"
+    input[
+      class="hidden"
+      name="encoded_resources_attributes[][encoded_fields_attributes][][id]"
+      value="{{ id }}"
+    ]
+    div class="form-group"
+      label for="encoded_resources_attributes[][encoded_fields_attributes][][dpath]" Dpath:
+      input[
+        class="form-control"
+        name="encoded_resources_attributes[][encoded_fields_attributes][][dpath]"
+        value="{{ dpath }}"
+      ]

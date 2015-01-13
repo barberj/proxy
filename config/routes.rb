@@ -19,7 +19,7 @@ Rails.application.routes.draw do
       resources :apis, :only => [:index]
       resources :market_place, :only => [:index, :create]
       resources :installed_apis, :only => [:index]
-      resources :data_encodings, :only => [:index]
+      resources :data_encodings, :only => [:index, :update]
 
       get "/:encoded_resource"    => 'get_requests#index'
       post "/:encoded_resource"   => 'post_requests#create'

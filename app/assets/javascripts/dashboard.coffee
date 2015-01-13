@@ -61,6 +61,23 @@ handle_encoding_edit = ->
         event.preventDefault()
         $.event.trigger "dashboard.show"
 
+      $('.js-save-encoding').click (event) ->
+        event.preventDefault()
+        form = $(@).closest('form')
+        data = form.serialize()
+        $.ajax(
+          url: form.get(0).action,
+          type: 'PUT',
+          data: form.serialize(),
+          beforeSend: (xhr) ->
+            xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
+        ).done( (rsp) =>
+          console.log('created')
+        ).fail( (rsp) =>
+          #rsp.responseJSON
+          console.log "error: #{rsp.responseText}"
+        )
+
 show_encodings = ->
   html = HandlebarsTemplates['data_encodings/index'](window.App)
   $('.encodings').html(html)
