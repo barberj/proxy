@@ -98,14 +98,14 @@ setup_handlers = ->
   $('.market').click (event) ->
     event.preventDefault()
     $('.app-content').hide()
-    $('li.active').removeClass('active')
+    $('li.navigation.active').removeClass('active')
     $(@).closest('li').addClass('active')
     $('.market-place').show()
 
   $('.dash').click (event) ->
     event.preventDefault()
     $('.app-content').hide()
-    $('li.active').removeClass('active')
+    $('li.navigation.active').removeClass('active')
     $('.dashboard').show()
 
 render_dashboard = ->

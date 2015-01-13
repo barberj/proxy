@@ -1,5 +1,8 @@
 div id="data_encodings"
   | {{#each data_encodings}}
+  |   {{#if (is_modulus @index 4) }}
+  div class="row"
+  |   {{/if}}
   |   {{> data_encodings/_show }}
   | {{else}}
   |   No encodings yet. Install an api to create your first encoding.

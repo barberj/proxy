@@ -6,29 +6,40 @@ nav class="navbar navbar-default"
         span class="icon-bar"
         span class="icon-bar"
         span class="icon-bar"
-      a class="navbar-brand dash" href="#" Api.Life
+      a class="navbar-brand dash" href="#" Emanon
 
     div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
       ul class="nav navbar-nav"
-        li
+        li class="navigation"
           a href="#" class="market" Market Place
-        li
+        li class="navigation"
           a href="#" class="settings" #{current_user.name}
-        li
+        li class="navigation"
           a href="#{signout_path}" Sign Out
 
 div class='market-place app-content'
 
 div class='dashboard app-content'
   div class="content-box"
-    div class="panel panel-default"
-      div class="panel-heading"
-        h3 class="panel-title" My Data Encodings
-      div class="panel-body encodings"
+    div role="tabpanel"
+      ul class="nav nav-tabs" role="tablist"
+        li role="presentation" class="active"
+          a[
+            href="#encodings"
+            aria-controls="DataEncodings"
+            role="tab"
+            data-toggle="tab"
+          ] DataEncodings
+        li role="presentation"
+          a[
+            href="#installed"
+            aria-controls="InstalledApis"
+            role="tab"
+            data-toggle="tab"
+          ] InstalledApis
 
-    div class="panel panel-default"
-      div class="panel-heading"
-        h3 class="panel-title" My Installed Apis
-      div class="panel-body installed"
+      div class="tab-content"
+        div class="tab-pane encodings active" id="encodings"
+        div class="tab-pane installed" id="installed"
 
 div class='dash-edit app-content'
