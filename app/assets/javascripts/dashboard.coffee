@@ -73,7 +73,7 @@ handle_encoding_edit = ->
           beforeSend: (xhr) ->
             xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
         ).done( (rsp) =>
-          console.log('created')
+          $.event.trigger "encoding.updated"
         ).fail( (rsp) =>
           #rsp.responseJSON
           console.log "error: #{rsp.responseText}"
@@ -123,6 +123,7 @@ $(document).on "dashboard.load", (e, obj) =>
 
 $(document).on "api.installed", get_installed
 $(document).on "api.installed", get_encodings
+$(document).on "encoding.updated", get_encodings
 $(document).on "populated.encodings", show_encodings
 $(document).on "populated.installed", show_installed
 $(document).on "populated.market", show_market
