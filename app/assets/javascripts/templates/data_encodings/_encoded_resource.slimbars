@@ -4,6 +4,7 @@ div class="row"
       class="btn btn-primary btn-sm collapsable"
       data-toggle="collapse"
       data-target="#encoded_resource_{{id}}"
+      type="button"
     ]
       i class="glyphicon glyphicon-resize-vertical"
       | {{ resource_name }}

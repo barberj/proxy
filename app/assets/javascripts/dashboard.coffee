@@ -57,6 +57,9 @@ handle_encoding_edit = ->
       html = HandlebarsTemplates['data_encodings/edit'](encoding)
       $('.dash-edit').html(html)
       $('.dash-edit').show()
+      $('.dash-edit-cancel').click (event) ->
+        event.preventDefault()
+        $.event.trigger "dashboard.show"
 
 show_encodings = ->
   html = HandlebarsTemplates['data_encodings/index'](window.App)
@@ -87,13 +90,13 @@ setup_handlers = ->
     $('li.active').removeClass('active')
     $('.dashboard').show()
 
-render_default = ->
+render_dashboard = ->
   $(".dash-edit").hide()
   $('.app-content').hide()
   $('.dashboard').show()
 
 $(document).on "dashboard.load", (e, obj) =>
-  render_default()
+  $.event.trigger "dashboard.show"
 
   setup_handlers()
   get_market()
@@ -105,3 +108,4 @@ $(document).on "api.installed", get_encodings
 $(document).on "populated.encodings", show_encodings
 $(document).on "populated.installed", show_installed
 $(document).on "populated.market", show_market
+$(document).on "dashboard.show", render_dashboard
