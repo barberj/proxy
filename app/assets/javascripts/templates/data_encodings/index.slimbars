@@ -5,5 +5,7 @@ div id="data_encodings"
   |   {{/if}}
   |   {{> data_encodings/_show }}
   | {{else}}
-  |   No encodings yet. Install an api to create your first encoding.
+  |   No encodings yet. Install an api from the&nbsp;
+  a class="market" href="#" Market Place
+  |   to create your first encoding.
   | {{/each}}

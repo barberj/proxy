@@ -125,6 +125,7 @@ $(document).on "api.installed", get_installed
 $(document).on "api.installed", get_encodings
 $(document).on "encoding.updated", get_encodings
 $(document).on "populated.encodings", show_encodings
+$(document).on "populated.encodings", setup_handlers
 $(document).on "populated.installed", show_installed
 $(document).on "populated.market", show_market
 $(document).on "dashboard.show", render_dashboard
