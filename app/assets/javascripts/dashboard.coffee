@@ -60,6 +60,7 @@ handle_encoding_edit = ->
       $('.dash-edit-cancel').click (event) ->
         event.preventDefault()
         $.event.trigger "dashboard.show"
+      $('[data-toggle="popover"]').popover(trigger: 'hover')
 
       $('.js-save-encoding').click (event) ->
         event.preventDefault()
