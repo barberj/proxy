@@ -6,18 +6,17 @@ div class="form-group"
     type="button"
   ]
     i class="glyphicon glyphicon-resize-vertical"
-    | {{ resource_name }}
+    span[
+      data-toggle="popover"
+      data-content="Update name to change the endpoint you will use to access {{ resource_name }}. ( /api/v1/{{name}} )"
+    ]
+      | {{ resource_name }} &nbsp;
+      i class="fa fa-info-circle"
   div id="encoded_resource_{{id}}" class="collapse"
     input class="hidden" name="encoded_resources_attributes[][id]" value="{{ id }}"
     div class="form-group"
       label for="encoded_resources_attributes[][name]"
-        span[
-          data-toggle="popover"
-          data-placement="top"
-          data-content="Update name to change the endpoint you will use to access {{ resource_name }}. ( /api/v1/{{name}} )"
-        ]
-          | Name: &nbsp;
-          i class="fa fa-info-circle"
+        | Name: &nbsp;
       input[
         class="form-control"
         name="encoded_resources_attributes[][name]"

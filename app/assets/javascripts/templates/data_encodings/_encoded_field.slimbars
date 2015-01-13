@@ -6,7 +6,12 @@ div class="form-group"
     type="button"
   ]
     i class="glyphicon glyphicon-resize-vertical"
-    | {{ field_name }}
+    span[
+      data-toggle="popover"
+      data-content="Update path to change how you receive the {{ field_name }} value. ( {{field_name}}: value )"
+    ]
+      | {{ field_name }} &nbsp;
+      i class="fa fa-info-circle"
   div id="encoded_field_{{id}}" class="collapse in"
     input[
       class="hidden"
@@ -14,7 +19,7 @@ div class="form-group"
       value="{{ id }}"
     ]
     div class="form-group"
-      label for="encoded_resources_attributes[][encoded_fields_attributes][][dpath]" Dpath:
+      label for="encoded_resources_attributes[][encoded_fields_attributes][][dpath]" Path:
       input[
         class="form-control"
         name="encoded_resources_attributes[][encoded_fields_attributes][][dpath]"

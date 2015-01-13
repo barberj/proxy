@@ -34,6 +34,8 @@ internal.apis.create(
     },{
       dpath: '/FIRST_NAME'
     }]
+  },{
+    name: 'Opportunities'
   }]
 )
 
