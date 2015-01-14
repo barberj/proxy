@@ -3,6 +3,7 @@ module Helpers
     extend ActiveSupport::Concern
 
     included do
+      before { @remote_token = default_remote_token }
       let(:account) { create(:account) }
 
       let(:create_api) do
@@ -31,12 +32,9 @@ module Helpers
       let(:user) do
         account.users.first
       end
-      let(:installed_api) do
-        create_api
-        account.installed_apis.first
-      end
       let(:default_data_encoding) do
-        installed_api.data_encodings.first
+        create_api
+        account.data_encodings.first
       end
       let(:user_token) do
         user.token
@@ -44,37 +42,35 @@ module Helpers
       let(:default_encoded_resource) do
         default_data_encoding.encoded_resources.first
       end
-      let(:remote_token) do
-        installed_api.token
+      let(:default_remote_token) do
+        default_data_encoding.token
       end
       let(:custom_data_encoding) do
-        installed_api.data_encodings.create(
+        api = default_data_encoding.api
+        account.data_encodings.create(
+          api_id: api.id,
           name: 'Custom Encoding',
-          account_id: account.id,
           encoded_resources_attributes: [{
             name: 'MyContacts',
-            resource_id: installed_api.api.resources.first.id,
+            resource_id: api.resources.first.id,
             encoded_fields_attributes: [{
               dpath: '/fname',
-              field_id: installed_api.api.resources.first.fields.first.id
+              field_id: api.resources.first.fields.first.id
             },{
               dpath: '/email_address',
-              field_id: installed_api.api.resources.first.fields.last.id
+              field_id: api.resources.first.fields.last.id
             }]
           }]
         )
+      end
+      let(:custom_remote_token) do
+        custom_data_encoding.token
       end
       let(:custom_encoded_resource) do
         custom_data_encoding.encoded_resources.first
       end
 
       let(:external_account) { create(:account) }
-      let(:external_installed_api) do
-        external_account.installed_apis.create(
-          name: "External's",
-          api_id: create_api.id
-        )
-      end
       let(:external_user) do
         external_account.users.first
       end
@@ -82,7 +78,7 @@ module Helpers
         external_user.token
       end
       let(:external_data_encoding) do
-        external_installed_api.data_encodings.first
+        external_account.install_api(create_api)
       end
       let(:external_encoded_resource) do
         external_data_encoding.encoded_resources.first

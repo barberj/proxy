@@ -27,7 +27,7 @@ describe CreateJob do
     stub_request(:post, 'https://remoteapi.com/create')
       .with(
         :headers => {
-          'Authorization' => "Token #{remote_token}",
+          'Authorization' => "Token #{@remote_token}",
           'content-type' => 'application/json'
         },
         :body => {
@@ -52,6 +52,7 @@ describe CreateJob do
       }.to be_present
     end
     it 'decodes data, encodes results' do
+      @remote_token = custom_remote_token
       stub_resource_request
       custom_job.process
       results = custom_job.results['results']

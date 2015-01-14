@@ -1,20 +1,6 @@
-render_installed = ->
-  html = HandlebarsTemplates['installed_apis/index'](window.App)
-  $('.installed').html(html)
-
 render_user = ->
   html = HandlebarsTemplates['user/show'](window.App)
   $('.user-settings').html(html)
-
-get_installed = () ->
-  $.ajax(
-    url: '/api/v1/installed_apis',
-    type: 'GET',
-    beforeSend: (xhr) ->
-      xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
-  ).done (rsp) =>
-    window.App.installed_apis = rsp.installed_apis
-    $.event.trigger "populated.installed"
 
 handle_installs = () ->
   $('.install').click (event) ->
@@ -156,12 +142,10 @@ $(document).on "dashboard.load", () =>
 
   setup_handlers()
   get_market()
-  get_installed()
   get_encodings()
   render_user()
 
 $(document).on "api.installed", () =>
-  get_installed()
   get_encodings()
 
 $(document).on "encoding.updated", get_encodings
@@ -170,7 +154,6 @@ $(document).on "populated.encodings", () =>
   setup_handlers()
   render_encodings()
 
-$(document).on "populated.installed", render_installed
 $(document).on "populated.market", render_market
 
 $(document).on "dashboard.show", render_dashboard

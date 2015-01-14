@@ -1,9 +1,9 @@
 class DataEncoding < ActiveRecord::Base
-  belongs_to :installed_api, inverse_of: :data_encodings
+  include Token
   belongs_to :account, inverse_of: :data_encodings
   has_many :encoded_resources, inverse_of: :data_encoding, dependent: :destroy
   has_many :jobs, inverse_of: :data_encoding, dependent: :destroy
-  has_one :api, through: :installed_api
+  belongs_to :api, inverse_of: :data_encodings
 
   accepts_nested_attributes_for :encoded_resources
 
@@ -19,8 +19,7 @@ class DataEncoding < ActiveRecord::Base
     Jbuilder.new do |json|
       json.(self,
         :id,
-        :name,
-        :installed_api_id
+        :name
       )
       json.encoded_resources_attributes self.encoded_resources.map(&:as_json)
     end.attributes!

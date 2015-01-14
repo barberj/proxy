@@ -30,7 +30,7 @@ describe SearchJob do
   let(:stub_resource_request) do
     stub_request(:get, 'https://remoteapi.com/search')
       .with(
-        :headers => { 'Authorization' => "Token #{remote_token}" },
+        :headers => { 'Authorization' => "Token #{@remote_token}" },
         :query   => {
           search_by: { 'FIRST_NAME' => 'Justin' },
           page: 2,
@@ -68,7 +68,7 @@ describe SearchJob do
 
       stub = stub_request(:get, 'https://remoteapi.com/search')
         .with(
-          :headers => { 'Authorization' => "Token #{remote_token}" },
+          :headers => { 'Authorization' => "Token #{@remote_token}" },
           :query   => {
             search_by: { 'FIRST_NAME' => 'Justin' },
             page: 1,
@@ -93,7 +93,7 @@ describe SearchJob do
 
       stub = stub_request(:get, 'https://remoteapi.com/search')
         .with(
-          :headers => { 'Authorization' => "Token #{remote_token}" },
+          :headers => { 'Authorization' => "Token #{@remote_token}" },
           :query   => {
             search_by: { 'FIRST_NAME' => 'Justin' },
             page: 2,
@@ -119,7 +119,7 @@ describe SearchJob do
 
       stub = stub_request(:get, 'https://remoteapi.com/search')
         .with(
-          :headers => { 'Authorization' => "Token #{remote_token}" },
+          :headers => { 'Authorization' => "Token #{@remote_token}" },
           :query   => {
             search_by: { 'FIRST_NAME' => 'Justin' },
             page: 2,
@@ -131,6 +131,7 @@ describe SearchJob do
       expect(stub).to have_been_requested
     end
     it 'encodes data' do
+      @remote_token = custom_remote_token
       stub_resource_request
       custom_job.process
       results = custom_job.results['results']

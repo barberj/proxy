@@ -13,7 +13,7 @@ private
     rsp = request(:get, data_url,
       :query   => query_params,
       :headers => {
-        'Authorization' => "Token #{installed_api.token}"
+        'Authorization' => "Token #{data_encoding.token}"
       }
     )
 

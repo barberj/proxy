@@ -162,7 +162,7 @@ describe 'PostRequests' do
       post_request
 
       expect(json['message']).to eq(
-        "Can not request create for Development RemoteApi's Contacts."
+        "Can not request create for Development RemoteApi Encoding's Contacts."
       )
     end
   end

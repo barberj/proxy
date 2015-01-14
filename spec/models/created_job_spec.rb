@@ -30,7 +30,7 @@ describe CreatedJob do
   let(:stub_resource_request) do
     stub_request(:get, 'https://remoteapi.com/created')
       .with(
-        :headers => { 'Authorization' => "Token #{remote_token}" },
+        :headers => { 'Authorization' => "Token #{@remote_token}" },
         :query   => {
           created_since: '2015-01-01T22:00:00+0000',
           page: 2,
@@ -68,7 +68,7 @@ describe CreatedJob do
 
       stub = stub_request(:get, 'https://remoteapi.com/created')
         .with(
-          :headers => { 'Authorization' => "Token #{remote_token}" },
+          :headers => { 'Authorization' => "Token #{@remote_token}" },
           :query   => {
             created_since: '2015-01-01T22:00:00+0000',
             page: 1,
@@ -93,7 +93,7 @@ describe CreatedJob do
 
       stub = stub_request(:get, 'https://remoteapi.com/created')
         .with(
-          :headers => { 'Authorization' => "Token #{remote_token}" },
+          :headers => { 'Authorization' => "Token #{@remote_token}" },
           :query   => {
             created_since: '2015-01-01T22:00:00+0000',
             page: 2,
@@ -119,7 +119,7 @@ describe CreatedJob do
 
       stub = stub_request(:get, 'https://remoteapi.com/created')
         .with(
-          :headers => { 'Authorization' => "Token #{remote_token}" },
+          :headers => { 'Authorization' => "Token #{@remote_token}" },
           :query   => {
             created_since: '2015-01-01T22:00:00+0000',
             page: 2,
@@ -131,6 +131,7 @@ describe CreatedJob do
       expect(stub).to have_been_requested
     end
     it 'encodes data' do
+      @remote_token = custom_remote_token
       stub_resource_request
       custom_job.process
       results = custom_job.results['results']

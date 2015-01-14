@@ -1,9 +1,0 @@
-div id="installed_apis"
-  | {{#each installed_apis}}
-  |   {{#if (is_modulus @index 4) }}
-  div class="row"
-  |   {{/if}}
-  |   {{> installed_apis/_show }}
-  | {{else}}
-  |   No Apis Installed yet.
-  | {{/each}}

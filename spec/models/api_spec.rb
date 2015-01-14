@@ -45,45 +45,23 @@ describe Api do
       }.by 1
     end
     context 'after' do
-      context "installs dev api" do
-        it "on owner's account" do
-          expect{ create_api }.to change {
-            account.installed_apis.count
-          }.by 1
-        end
-        it '#is_dev is true' do
-          create_api
-          expect(account.installed_apis.first.is_dev).to be_truthy
-        end
-        it "with name prefixed by 'Development'" do
-          create_api
-          expect(account.installed_apis.first.name).to eq "Development RemoteApi"
-        end
-      end
       context "creates default data encoding" do
         it "on owner's account" do
-          expect{ create_api }.to change {
-            account.data_encodings.count
-          }.by 1
+          expect(account.data_encodings.count).to eq 1
         end
-        it "on installed_api" do
-          expect{ create_api }.to change {
-            account.installed_apis.first.data_encodings.count rescue 0
-          }.by 1
+        it '#is_dev is true' do
+          expect(account.data_encodings.first.is_dev).to be_truthy
         end
         it "with name 'Development %r(.) Encoding'" do
-          create_api
           expect(account.data_encodings.first.name).to eq "Development RemoteApi Encoding"
         end
         it "with encoded resource name matching api resource" do
-          create_api
           encoded_resource = account.data_encodings.first.encoded_resources.first
 
           expect(encoded_resource.name).to be_present
           expect(encoded_resource.name).to eq encoded_resource.resource.name
         end
         it "with encoded fields dpath matching api fields" do
-          create_api
           encoded_resource = account.data_encodings.first.encoded_resources.first
           encoded_field = encoded_resource.encoded_fields.first
 

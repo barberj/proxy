@@ -298,7 +298,7 @@ describe 'GetRequests' do
       )
 
       expect(json['message']).to eq(
-        "Can not request created for Development RemoteApi's Contacts."
+        "Can not request created for Development RemoteApi Encoding's Contacts."
       )
     end
   end

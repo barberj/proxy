@@ -18,7 +18,6 @@ Rails.application.routes.draw do
       resources :jobs, :only => [:index]
       resources :apis, :only => [:index, :create]
       resources :market_place, :only => [:index, :create]
-      resources :installed_apis, :only => [:index]
       resources :data_encodings, :only => [:index, :update]
 
       get "/:encoded_resource"    => 'get_requests#index'

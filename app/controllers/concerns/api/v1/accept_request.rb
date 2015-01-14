@@ -21,7 +21,7 @@ private
       )
     else
       raise Exceptions::Unprocessable.new(
-        %Q(Can not request #{request_type} for #{installed_api.name}'s #{encoded_name.capitalize}.)
+        %Q(Can not request #{request_type} for #{data_encoding.name}'s #{encoded_name.capitalize}.)
       )
     end
   end

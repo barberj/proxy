@@ -18,7 +18,7 @@ private
     rsp = request(job_method, data_url,
       :body => body,
       :headers => {
-        'Authorization' => "Token #{installed_api.token}",
+        'Authorization' => "Token #{data_encoding.token}",
         'Content-Type'  => 'application/json'
       }
     )

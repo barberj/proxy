@@ -43,11 +43,7 @@ private
     @data_encoding ||= get_encoding
   end
 
-  def installed_api
-    data_encoding.installed_api if data_encoding
-  end
-
   def authorize_request!
-    head :unauthorized unless installed_api
+    head :unauthorized unless data_encoding
   end
 end
