@@ -41,8 +41,7 @@ render_publisher = ->
   html = HandlebarsTemplates['market_place/publisher']()
   $('.draft').html(html)
   $('.add-resource').click (event) ->
-    debugger
-    html = HandlebarsTemplates['market_place/_resource']()
+    html = HandlebarsTemplates['market_place/resource']()
     $('.resources').append(html)
   $('.publisher-save').click (event) ->
     event.preventDefault()
