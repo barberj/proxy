@@ -1,0 +1,35 @@
+form action="/api/v1/apis" method="POST"
+  div class="form-group"
+    label for="name" Name:
+    input[
+      class="form-control"
+      name="name"
+    ]
+  div class="form-group"
+    label for="install_url" Install Url:
+    input[
+      class="form-control"
+      name="install_url"
+    ]
+  div class="form-group"
+    label for="uninstall_url" Uninstall Url:
+    input[
+      class="form-control"
+      name="uninstall_url"
+    ]
+  div class="resources"
+  div class="form-group"
+    button[
+      type="button"
+      class="btn btn-primary btn-xs add-resource"
+    ] Add Resource
+  div class="form-group right-align"
+    button[
+      type="button"
+      class="btn btn-success btn-xs publisher-save"
+    ] Publish
+    | &nbsp;
+    button[
+      type="button"
+      class="btn btn-danger btn-xs publisher-cancel"
+    ] Cancel

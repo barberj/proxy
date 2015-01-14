@@ -32,16 +32,37 @@ handle_installs = () ->
       $.event.trigger "api.installed"
       $('.dash').click()
 
-handle_drafting = () ->
-  $('.draft').click (event) ->
-    event.preventDefault()
-    $('.market_apis').hide()
-    $('.drafting').show()
-
 render_market = ->
   html = HandlebarsTemplates['market_place/index'](window.App)
-  $('.market-place').html(html)
+  $('.market-apis').html(html)
   $.event.trigger "market.open"
+
+render_publisher = ->
+  html = HandlebarsTemplates['market_place/publisher']()
+  $('.draft').html(html)
+  $('.add-resource').click (event) ->
+    debugger
+    html = HandlebarsTemplates['market_place/_resource']()
+    $('.resources').append(html)
+  $('.publisher-save').click (event) ->
+    event.preventDefault()
+    form = $(@).closest('form')
+    data = form.serialize()
+    $.ajax(
+      url: form.get(0).action,
+      type: 'POST',
+      data: form.serialize(),
+      beforeSend: (xhr) ->
+        xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
+    ).done( (rsp) =>
+      $.event.trigger "publisher.show"
+    ).fail( (rsp) =>
+      #rsp.responseJSON
+      console.log "error: #{rsp.responseText}"
+    )
+  $('.publisher-cancel').click (event) ->
+    event.preventDefault()
+    $.event.trigger "publisher.show"
 
 get_market = ->
   $.ajax(
@@ -64,15 +85,15 @@ handle_encoding_edit = ->
     if window.App.data_encodings
       $('.app-content').hide()
       encoding = find_encoding($(@).data('id'))
-      html = HandlebarsTemplates['data_encodings/edit'](encoding)
-      $('.dash-edit').html(html)
-      $('.dash-edit').show()
-      $('.dash-edit-cancel').click (event) ->
+      html = HandlebarsTemplates['data_encodings/editor'](encoding)
+      $('.editor').html(html)
+      $('.editor').show()
+      $('.editor-cancel').click (event) ->
         event.preventDefault()
         $.event.trigger "dashboard.show"
       $('[data-toggle="popover"]').popover(trigger: 'hover')
 
-      $('.js-save-encoding').click (event) ->
+      $('.editor-save').click (event) ->
         event.preventDefault()
         form = $(@).closest('form')
         data = form.serialize()
@@ -126,12 +147,13 @@ setup_handlers = ->
     $('.dashboard').show()
 
 render_dashboard = ->
-  $(".dash-edit").hide()
+  $(".editor").hide()
   $('.app-content').hide()
   $('.dashboard').show()
 
-$(document).on "dashboard.load", (e, obj) =>
+$(document).on "dashboard.load", () =>
   $.event.trigger "dashboard.show"
+  $.event.trigger "publisher.show"
 
   setup_handlers()
   get_market()
@@ -139,17 +161,20 @@ $(document).on "dashboard.load", (e, obj) =>
   get_encodings()
   render_user()
 
-$(document).on "api.installed", get_installed
-$(document).on "api.installed", get_encodings
+$(document).on "api.installed", () =>
+  get_installed()
+  get_encodings()
 
 $(document).on "encoding.updated", get_encodings
 
-$(document).on "populated.encodings", render_encodings
-$(document).on "populated.encodings", setup_handlers
+$(document).on "populated.encodings", () =>
+  setup_handlers()
+  render_encodings()
+
 $(document).on "populated.installed", render_installed
 $(document).on "populated.market", render_market
 
 $(document).on "dashboard.show", render_dashboard
+$(document).on "publisher.show", render_publisher
 
 $(document).on "market.open", handle_installs
-$(document).on "market.open", handle_drafting

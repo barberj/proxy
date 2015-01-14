@@ -15,6 +15,6 @@ div class='encoding-edit'
           |   {{> data_encodings/_encoded_resource}}
           | {{/each}}
           div class="form-group right-align"
-            button class="btn btn-primary btn-xs js-save-encoding" Save
+            button class="btn btn-primary btn-xs editor-save" Save
             | &nbsp;
-            button class="btn btn-danger btn-xs dash-edit-cancel" Cancel
+            button class="btn btn-danger btn-xs editor-cancel" Cancel

@@ -1,53 +1,8 @@
-div role="tabpanel"
-  ul class="nav nav-tabs" role="tablist"
-    li role="presentation" class="active"
-      a[
-        href="#arcade"
-        aria-controls="Market Place"
-        role="tab"
-        data-toggle="tab"
-      ] Market Place
-    li role="presentation"
-      a[
-        href="#publisher"
-        aria-controls="Api Publisher"
-        role="tab"
-        data-toggle="tab"
-      ] Api Publisher
-
-  div class="tab-content"
-    div class="tab-pane active" id="arcade"
-      div class="market_apis"
-        | {{#each market_apis}}
-        |   {{#if (is_modulus @index 4) }}
-        div class="row"
-        |   {{/if}}
-        |   {{> apis/_show }}
-        | {{else}}
-        |   No Apis yet.
-        | {{/each}}
-    div class="tab-pane" id="publisher"
-      div class="drafting"
-        form
-          div class="form-group"
-            label for="name" Name:
-            input[
-              class="form-control"
-              name="name"
-            ]
-          div class="form-group"
-            label for="install_url" Install Url:
-            input[
-              class="form-control"
-              name="install_url"
-            ]
-          div class="form-group"
-            label for="uninstall_url" Uninstall Url:
-            input[
-              class="form-control"
-              name="uninstall_url"
-            ]
-          button[
-            type="button"
-            class="btn btn-success draft"
-          ] Publish
+| {{#each market_apis}}
+|   {{#if (is_modulus @index 4) }}
+div class="row"
+|   {{/if}}
+|   {{> apis/_show }}
+| {{else}}
+|   No Apis yet.
+| {{/each}}

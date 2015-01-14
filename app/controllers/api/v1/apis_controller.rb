@@ -4,6 +4,11 @@ class Api::V1::ApisController < Api::V1::InternalApiController
     render json: { apis: all_apis }, status: :ok
   end
 
+  def create
+    binding.pry
+    puts
+  end
+
 private
 
   def all_apis
