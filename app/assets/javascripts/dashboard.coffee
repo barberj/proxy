@@ -1,6 +1,10 @@
-show_installed = ->
+render_installed = ->
   html = HandlebarsTemplates['installed_apis/index'](window.App)
   $('.installed').html(html)
+
+render_user = ->
+  html = HandlebarsTemplates['user/show'](window.App)
+  $('.user-settings').html(html)
 
 get_installed = () ->
   $.ajax(
@@ -12,7 +16,7 @@ get_installed = () ->
     window.App.installed_apis = rsp.installed_apis
     $.event.trigger "populated.installed"
 
-handle_install_events = () ->
+handle_installs = () ->
   $('.install').click (event) ->
     event.preventDefault()
     $.ajax(
@@ -28,10 +32,16 @@ handle_install_events = () ->
       $.event.trigger "api.installed"
       $('.dash').click()
 
-show_market = ->
+handle_drafting = () ->
+  $('.draft').click (event) ->
+    event.preventDefault()
+    $('.market_apis').hide()
+    $('.drafting').show()
+
+render_market = ->
   html = HandlebarsTemplates['market_place/index'](window.App)
   $('.market-place').html(html)
-  handle_install_events()
+  $.event.trigger "market.open"
 
 get_market = ->
   $.ajax(
@@ -79,7 +89,7 @@ handle_encoding_edit = ->
           console.log "error: #{rsp.responseText}"
         )
 
-show_encodings = ->
+render_encodings = ->
   html = HandlebarsTemplates['data_encodings/index'](window.App)
   $('.encodings').html(html)
   handle_encoding_edit()
@@ -95,6 +105,13 @@ get_encodings = ->
     $.event.trigger "populated.encodings"
 
 setup_handlers = ->
+  $('.settings').click (event) ->
+    event.preventDefault()
+    $('.app-content').hide()
+    $('li.navigation.active').removeClass('active')
+    $(@).closest('li').addClass('active')
+    $('.user-settings').show()
+
   $('.market').click (event) ->
     event.preventDefault()
     $('.app-content').hide()
@@ -120,12 +137,19 @@ $(document).on "dashboard.load", (e, obj) =>
   get_market()
   get_installed()
   get_encodings()
+  render_user()
 
 $(document).on "api.installed", get_installed
 $(document).on "api.installed", get_encodings
+
 $(document).on "encoding.updated", get_encodings
-$(document).on "populated.encodings", show_encodings
+
+$(document).on "populated.encodings", render_encodings
 $(document).on "populated.encodings", setup_handlers
-$(document).on "populated.installed", show_installed
-$(document).on "populated.market", show_market
+$(document).on "populated.installed", render_installed
+$(document).on "populated.market", render_market
+
 $(document).on "dashboard.show", render_dashboard
+
+$(document).on "market.open", handle_installs
+$(document).on "market.open", handle_drafting

@@ -1,14 +1,14 @@
 nav class="navbar navbar-default"
   div class="container-fluid"
     div class="navbar-header"
-      button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+      button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#proxy_nav"
         span class="sr-only" Toggle navigation
         span class="icon-bar"
         span class="icon-bar"
         span class="icon-bar"
       a class="navbar-brand dash" href="#" Emanon
 
-    div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
+    div class="collapse navbar-collapse" id="proxy_nav"
       ul class="nav navbar-nav"
         li class="navigation"
           a href="#" class="market" Market Place
@@ -17,29 +17,29 @@ nav class="navbar navbar-default"
         li class="navigation"
           a href="#{signout_path}" Sign Out
 
+div class='user-settings app-content'
 div class='market-place app-content'
 
 div class='dashboard app-content'
-  div class="content-box"
-    div role="tabpanel"
-      ul class="nav nav-tabs" role="tablist"
-        li role="presentation" class="active"
-          a[
-            href="#encodings"
-            aria-controls="DataEncodings"
-            role="tab"
-            data-toggle="tab"
-          ] DataEncodings
-        li role="presentation"
-          a[
-            href="#installed"
-            aria-controls="InstalledApis"
-            role="tab"
-            data-toggle="tab"
-          ] InstalledApis
+  div role="tabpanel"
+    ul class="nav nav-tabs" role="tablist"
+      li role="presentation" class="active"
+        a[
+          href="#encodings"
+          aria-controls="DataEncodings"
+          role="tab"
+          data-toggle="tab"
+        ] DataEncodings
+      li role="presentation"
+        a[
+          href="#installed"
+          aria-controls="InstalledApis"
+          role="tab"
+          data-toggle="tab"
+        ] InstalledApis
 
-      div class="tab-content"
-        div class="tab-pane encodings active" id="encodings"
-        div class="tab-pane installed" id="installed"
+    div class="tab-content"
+      div class="tab-pane encodings active" id="encodings"
+      div class="tab-pane installed" id="installed"
 
 div class='dash-edit app-content'
