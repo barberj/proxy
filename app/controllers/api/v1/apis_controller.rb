@@ -5,7 +5,7 @@ class Api::V1::ApisController < Api::V1::InternalApiController
   end
 
   def create
-    render json: {}, status: :bad_request
+    render json: {}, status: :ok
   end
 
 private

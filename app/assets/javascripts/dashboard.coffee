@@ -43,6 +43,9 @@ render_publisher = ->
     window.App.new_resources += 1
     html = HandlebarsTemplates['apis/new_resource'](id: window.App.new_resources)
     $('.resources').append(html)
+    $('.remove').click () ->
+      resource = $(@).data('target')
+      $(resource).remove()
   $('.publisher-save').click (event) ->
     event.preventDefault()
     form = $(@).closest('form')

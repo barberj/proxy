@@ -1,13 +1,16 @@
-div class="form-group"
+div class="form-group resource_{{id}}"
   button[
     class="btn btn-primary btn-sm collapsable"
     data-toggle="collapse"
     data-target="#resource_{{id}}"
     type="button"
   ]
+    span class="fa-stack fa-lg remove" data-target=".resource_{{id}}"
+      i class="fa fa-square fa-stack-2x"
+      i class="fa fa-times fa-stack-1x text-danger"
+    | &nbsp;New Resource
     i class="glyphicon glyphicon-resize-vertical"
-    | New Resource
-div id="resource_{{id}}" class="collapse in"
+div id="resource_{{id}}" class="collapse in resource_{{id}}"
   div class="form-group"
     label for="resources_attributes[][name]" Name:
     input[
