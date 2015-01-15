@@ -1,3 +1,16 @@
+default_error_cb = (rsp) =>
+  #rsp.responseJSON
+  console.log "error: #{rsp.responseText}"
+
+proxy_request = (method, url, data, done_callback, fail_callback=default_error_cb) ->
+  $.ajax(
+    url: url,
+    type: method,
+    data: data
+    beforeSend: (xhr) ->
+      xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
+  ).done(done_callback).fail(fail_callback)
+
 render_user = ->
   html = HandlebarsTemplates['user/show'](window.App)
   $('.user-settings').html(html)
@@ -5,59 +18,45 @@ render_user = ->
 handle_installs = () ->
   $('.install').click (event) ->
     event.preventDefault()
-    $.ajax(
-      url: '/api/v1/market_place',
-      type: 'POST',
-      data: { api_id: $(@).data('id') },
-      beforeSend: (xhr) ->
-        xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
-    ).done (rsp) =>
+    proxy_request('POST', '/api/v1/market_place', { api_id: $(@).data('id') }, ((rsp) =>
       installed = rsp.installed_api
       install_url = "#{$(@).data('install-url')}?token=#{installed.token}"
       window.open(install_url)
       $.event.trigger "api.installed"
       $('.dash').click()
+    ))
 
 render_market = ->
   html = HandlebarsTemplates['market_place/index'](window.App)
   $('.market-apis').html(html)
   $.event.trigger "market.open"
 
+show_publisher = (rsp) =>
+  console.log 'here'
+  $.event.trigger "publisher.show"
+
 render_publisher = ->
   html = HandlebarsTemplates['apis/new']()
   $('.draft').html(html)
+  window.App.new_resources = 0
   $('.add-resource').click (event) ->
-    html = HandlebarsTemplates['apis/new_resource'](id: 1)
+    window.App.new_resources += 1
+    html = HandlebarsTemplates['apis/new_resource'](id: window.App.new_resources)
     $('.resources').append(html)
   $('.publisher-save').click (event) ->
     event.preventDefault()
     form = $(@).closest('form')
     data = form.serialize()
-    $.ajax(
-      url: form.get(0).action,
-      type: 'POST',
-      data: form.serialize(),
-      beforeSend: (xhr) ->
-        xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
-    ).done( (rsp) =>
-      $.event.trigger "publisher.show"
-    ).fail( (rsp) =>
-      #rsp.responseJSON
-      console.log "error: #{rsp.responseText}"
-    )
+    proxy_request('POST', form.get(0).action, form.serialize(), show_publisher)
   $('.publisher-cancel').click (event) ->
     event.preventDefault()
     $.event.trigger "publisher.show"
 
 get_market = ->
-  $.ajax(
-    url: '/api/v1/market_place',
-    type: 'GET',
-    beforeSend: (xhr) ->
-      xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
-  ).done (rsp) =>
+  proxy_request('GET', '/api/v1/market_place', {}, ((rsp) =>
     window.App.market_apis = rsp.apis
     $.event.trigger "populated.market"
+  ))
 
 find_encoding = (id) ->
   for encoding in window.App.data_encodings
@@ -82,18 +81,9 @@ handle_encoding_edit = ->
         event.preventDefault()
         form = $(@).closest('form')
         data = form.serialize()
-        $.ajax(
-          url: form.get(0).action,
-          type: 'PUT',
-          data: form.serialize(),
-          beforeSend: (xhr) ->
-            xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
-        ).done( (rsp) =>
+        proxy_request('PUT', form.get(0).action, form.serialize(), ((rsp) =>
           $.event.trigger "encoding.updated"
-        ).fail( (rsp) =>
-          #rsp.responseJSON
-          console.log "error: #{rsp.responseText}"
-        )
+        ))
 
 render_encodings = ->
   html = HandlebarsTemplates['data_encodings/index'](window.App)
@@ -101,14 +91,10 @@ render_encodings = ->
   handle_encoding_edit()
 
 get_encodings = ->
-  $.ajax(
-    url: '/api/v1/data_encodings',
-    type: 'GET',
-    beforeSend: (xhr) ->
-      xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
-  ).done (rsp) =>
+  proxy_request('GET', '/api/v1/data_encodings', {}, ((rsp) =>
     window.App.data_encodings = rsp.data_encodings
     $.event.trigger "populated.encodings"
+  ))
 
 setup_handlers = ->
   $('.settings').click (event) ->

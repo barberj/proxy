@@ -5,8 +5,7 @@ class Api::V1::ApisController < Api::V1::InternalApiController
   end
 
   def create
-    binding.pry
-    puts
+    render json: {}, status: :bad_request
   end
 
 private
