@@ -1,0 +1,63 @@
+div class="form-group"
+  button[
+    class="btn btn-primary btn-sm collapsable"
+    data-toggle="collapse"
+    data-target="#resource_{{id}}"
+    type="button"
+  ]
+    i class="glyphicon glyphicon-resize-vertical"
+    | New Resource
+div id="resource_{{id}}" class="collapse in"
+  div class="form-group"
+    label for="resources_attributes[][name]" Name:
+    input[
+      class="form-control"
+      name="resources_attributes[][name]"
+    ]
+  div class="form-group"
+    label for="resources_attributes[][customs_url]" Customs Url:
+    input[
+      class="form-control"
+      name="resources_attributes[][customs_url]"
+    ]
+  div class="form-group"
+    label for="resources_attributes[][search_url]" Search Url:
+    input[
+      class="form-control"
+      name="resources_attributes[][search_url]"
+    ]
+  div class="form-group"
+    label for="resources_attributes[][created_url]" Created Url:
+    input[
+      class="form-control"
+      name="resources_attributes[][created_url]"
+    ]
+  div class="form-group"
+    label for="resources_attributes[][updated_url]" Updated Url:
+    input[
+      class="form-control"
+      name="resources_attributes[][updated_url]"
+    ]
+  div class="form-group"
+    label for="resources_attributes[][read_url]" Read Url:
+    input[
+      class="form-control"
+      name="resources_attributes[][read_url]"
+    ]
+  div class="form-group"
+    label for="resources_attributes[][create_url]" Create Url:
+    input[
+      class="form-control"
+      name="resources_attributes[][create_url]"
+    ]
+  div class="form-group"
+    label for="resources_attributes[][update_url]" Update Url:
+    input[
+      class="form-control"
+      name="resources_attributes[][update_url]"
+    ]
+  div class="form-group"
+    button[
+      type="button"
+      class="btn btn-primary btn-xs add-field"
+    ] Add Field

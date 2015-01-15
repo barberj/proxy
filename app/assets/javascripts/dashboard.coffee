@@ -24,10 +24,10 @@ render_market = ->
   $.event.trigger "market.open"
 
 render_publisher = ->
-  html = HandlebarsTemplates['market_place/publisher']()
+  html = HandlebarsTemplates['apis/new']()
   $('.draft').html(html)
   $('.add-resource').click (event) ->
-    html = HandlebarsTemplates['market_place/resource']()
+    html = HandlebarsTemplates['apis/new_resource'](id: 1)
     $('.resources').append(html)
   $('.publisher-save').click (event) ->
     event.preventDefault()
