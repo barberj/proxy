@@ -5,7 +5,7 @@ div class="form-group resource_{{id}}"
     data-target="#resource_{{id}}"
     type="button"
   ]
-    span class="fa-stack fa-lg remove" data-target=".resource_{{id}}"
+    span class="fa-stack fa-lg rem-resource" data-target=".resource_{{id}}"
       i class="fa fa-square fa-stack-2x"
       i class="fa fa-times fa-stack-1x text-danger"
     | &nbsp;New Resource
@@ -59,8 +59,10 @@ div id="resource_{{id}}" class="collapse in resource_{{id}}"
       class="form-control"
       name="resources_attributes[][update_url]"
     ]
+  div class="resource_{{id}}_fields"
   div class="form-group"
     button[
       type="button"
-      class="btn btn-primary btn-xs add-field"
+      data-target=".resource_{{id}}_fields"
+      class="btn btn-info btn-xs add-field"
     ] Add Field

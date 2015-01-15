@@ -39,13 +39,22 @@ render_publisher = ->
   html = HandlebarsTemplates['apis/new']()
   $('.draft').html(html)
   window.App.new_resources = 0
+  window.App.new_fields = 0
   $('.add-resource').click (event) ->
     window.App.new_resources += 1
     html = HandlebarsTemplates['apis/new_resource'](id: window.App.new_resources)
     $('.resources').append(html)
-    $('.remove').click () ->
+    $('.rem-resource').click () ->
       resource = $(@).data('target')
       $(resource).remove()
+    $('.add-field').click (event) ->
+      window.App.new_fields += 1
+      fields = $(@).data('target')
+      html = HandlebarsTemplates['apis/new_field'](id: window.App.new_fields)
+      $(fields).append(html)
+      $('.rem-field').click () ->
+        field = $(@).data('target')
+        $(field).remove()
   $('.publisher-save').click (event) ->
     event.preventDefault()
     form = $(@).closest('form')

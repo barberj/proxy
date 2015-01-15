@@ -1,0 +1,19 @@
+div class="form-group field_{{id}}"
+  button[
+    class="btn btn-info btn-sm collapsable"
+    data-toggle="collapse"
+    data-target="#field_{{id}}"
+    type="button"
+  ]
+    span class="fa-stack fa-lg rem-field" data-target=".field_{{id}}"
+      i class="fa fa-square fa-stack-2x"
+      i class="fa fa-times fa-stack-1x text-danger"
+    | &nbsp;New Field
+    i class="glyphicon glyphicon-resize-vertical"
+div id="field_{{id}}" class="collapse in field_{{id}}"
+  div class="form-group"
+    label for="resources_attributes[][fields_attributes][][dpath]" Path:
+    input[
+      class="form-control"
+      name="resources_attributes[][fields_attributes][][dpath]"
+    ]
