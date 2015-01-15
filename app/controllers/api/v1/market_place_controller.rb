@@ -5,21 +5,17 @@ class Api::V1::MarketPlaceController < Api::V1::InternalApiController
   end
 
   def create
-    installed = account.installed_apis.create( install_params )
-    render json: { installed_api: installed }, status: :ok
+    if api = Api.find_by(id: api_id)
+      installed = account.install_api(api)
+    else
+      #raise something
+    end
+    render json: { data_encoding: installed }, status: :ok
   end
 
 private
 
-  def install_params
+  def api_id
     params.require(:api_id)
-    params.permit(*InstalledApi.attribute_names).
-      except(
-        :account_id,
-        :token,
-        :is_dev,
-        :created_at,
-        :updated_at
-      )
   end
 end

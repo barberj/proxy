@@ -22,6 +22,7 @@ class DataEncoding < ActiveRecord::Base
         :name
       )
       json.encoded_resources_attributes self.encoded_resources.map(&:as_json)
+      json.install_url "#{api.install_url}?token=#{token}"
     end.attributes!
   end
 end

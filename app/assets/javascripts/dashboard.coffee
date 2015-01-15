@@ -19,9 +19,8 @@ handle_installs = () ->
   $('.install').click (event) ->
     event.preventDefault()
     proxy_request('POST', '/api/v1/market_place', { api_id: $(@).data('id') }, ((rsp) =>
-      installed = rsp.installed_api
-      install_url = "#{$(@).data('install-url')}?token=#{installed.token}"
-      window.open(install_url)
+      installed = rsp.data_encoding
+      window.open(installed.install_url)
       $.event.trigger "api.installed"
       $('.dash').click()
     ))
