@@ -5,8 +5,6 @@ class Api < ActiveRecord::Base
 
   accepts_nested_attributes_for :resources
 
-  after_create :install_dev_api
-
   def as_json(*args)
     Jbuilder.new do |json|
       json.(self,
@@ -17,14 +15,5 @@ class Api < ActiveRecord::Base
         :is_active
       )
     end.attributes!
-  end
-
-private
-
-  def install_dev_api
-    api = account.install_api(self)
-    api.name = "Development #{self.name} Encoding"
-    api.is_dev = true
-    api.save
   end
 end

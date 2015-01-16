@@ -49,12 +49,6 @@ describe Api do
         it "on owner's account" do
           expect(account.data_encodings.count).to eq 1
         end
-        it '#is_dev is true' do
-          expect(account.data_encodings.first.is_dev).to be_truthy
-        end
-        it "with name 'Development %r(.) Encoding'" do
-          expect(account.data_encodings.first.name).to eq "Development RemoteApi Encoding"
-        end
         it "with encoded resource name matching api resource" do
           encoded_resource = account.data_encodings.first.encoded_resources.first
 

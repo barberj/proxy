@@ -127,7 +127,7 @@ describe 'PostRequests' do
   end
   context 'for DataEncoding without action' do
     before do
-      account.apis.create(
+      api = account.apis.create(
         name: 'RemoteApi',
         install_url: 'https://remoteapi.com/install',
         uninstall_url: 'https://remoteapi.com/uninstall',
@@ -145,6 +145,7 @@ describe 'PostRequests' do
           }]
         }]
       )
+      account.install_api(api)
     end
     let(:post_request) do
       post(api_v1_path('Contacts'),
@@ -162,7 +163,7 @@ describe 'PostRequests' do
       post_request
 
       expect(json['message']).to eq(
-        "Can not request create for Development RemoteApi Encoding's Contacts."
+        "Can not request create for RemoteApi Encoding's Contacts."
       )
     end
   end

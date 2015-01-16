@@ -258,7 +258,7 @@ describe 'GetRequests' do
   end
   context 'for DataEncoding without action' do
     before do
-      account.apis.create(
+      api = account.apis.create(
         name: 'RemoteApi',
         install_url: 'https://remoteapi.com/install',
         uninstall_url: 'https://remoteapi.com/uninstall',
@@ -276,6 +276,7 @@ describe 'GetRequests' do
           }]
         }]
       )
+      account.install_api(api)
     end
     it 'returns unprocessable_entity status (422)' do
       rsp = get(api_v1_path('Contacts'),
@@ -298,7 +299,7 @@ describe 'GetRequests' do
       )
 
       expect(json['message']).to eq(
-        "Can not request created for Development RemoteApi Encoding's Contacts."
+        "Can not request created for RemoteApi Encoding's Contacts."
       )
     end
   end

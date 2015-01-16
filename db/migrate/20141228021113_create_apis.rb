@@ -3,7 +3,7 @@ class CreateApis < ActiveRecord::Migration
     create_table :apis do |t|
       t.string :name, null: false
       t.string :install_url, null: false
-      t.string :uninstall_url, null: false
+      t.string :uninstall_url
       t.boolean :is_active, default: false
 
       t.integer :account_id, null: false

@@ -33,8 +33,7 @@ module Helpers
         account.users.first
       end
       let(:default_data_encoding) do
-        create_api
-        account.data_encodings.first
+        account.install_api(create_api)
       end
       let(:user_token) do
         user.token
