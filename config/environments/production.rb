@@ -57,7 +57,7 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
   config.redis = {
-    :url             => ENV['REDIS'],
+    :url             => ENV['REDIS_URL'],
     :namespace       => 'prod',
     :driver          => :hiredis
   }
