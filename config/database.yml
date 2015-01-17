@@ -80,7 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: proxy_production
-  username: simpleapi
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  host: simpleapi.c3ufgqdjjnc0.us-east-1.rds.amazonaws.com
+  url: <%= ENV['DATABASE_URL'] %>
