@@ -11,38 +11,39 @@ nav class="navbar navbar-default"
     div class="collapse navbar-collapse" id="proxy_nav"
       ul class="nav navbar-nav"
         li class="navigation"
-          a href="#" class="market" Market Place
+          a href="#" class="market" Marketplace
         li class="navigation"
           a href="#" class="settings" #{current_user.name}
         li class="navigation"
           a href="#{signout_path}" Sign Out
 
-div class='user-settings app-content'
-div class='market-place app-content'
-  div role="tabpanel"
-    ul class="nav nav-tabs" role="tablist"
-      li role="presentation" class="active"
-        a[
-          href="#arcade"
-          aria-controls="Apis"
-          role="tab"
-          data-toggle="tab"
-        ] Apis
-      li role="presentation"
-        a[
-          href="#publisher"
-          aria-controls="Publisher"
-          role="tab"
-          data-toggle="tab"
-        ] Publisher
+div class="container-fluid"
+  div class='user-settings app-content'
+  div class='marketplace app-content'
+    div role="tabpanel"
+      ul class="nav nav-tabs" role="tablist"
+        li role="presentation" class="active"
+          a[
+            href="#arcade"
+            aria-controls="Apis"
+            role="tab"
+            data-toggle="tab"
+          ] Apis
+        li role="presentation"
+          a[
+            href="#publisher"
+            aria-controls="Publisher"
+            role="tab"
+            data-toggle="tab"
+          ] Publisher
 
-    div class="tab-content"
-      div class="tab-pane active" id="arcade"
-        div class="market-apis"
-      div class="tab-pane" id="publisher"
-        div class="draft"
+      div class="tab-content"
+        div class="tab-pane active" id="arcade"
+          div class="market-apis"
+        div class="tab-pane" id="publisher"
+          div class="draft"
 
-div class='dashboard app-content'
-  div class="encodings" id="encodings"
+  div class='dashboard app-content'
+    div class="encodings" id="encodings"
 
-div class='editor app-content'
+  div class='editor app-content'
