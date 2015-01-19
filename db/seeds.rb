@@ -14,3 +14,11 @@ User.create(
   password: 'change_me!',
   account_id: internal.id,
 )
+
+User.create(
+  first_name: 'Robby',
+  last_name: 'Ranshous',
+  email: 'rranhous@gmail.com',
+  password: 'change_me!',
+  account_id: internal.id,
+)

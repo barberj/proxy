@@ -2,7 +2,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  root 'dashboard#index'
+  root 'users#new'
   resources :dashboard, :only => [:index]
 
   get '/signin' => 'sessions#new'

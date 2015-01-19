@@ -1,21 +1,81 @@
-div class="row external-content-box"
-  div class="col-md-6 col-md-offset-3"
-    div class="panel panel-default"
-      div class="panel-body"
-        = form_tag(api_v1_users_path, method: "post") do
-          div class="form-group"
-            = label_tag(:first_name, "First:")
-            = text_field_tag(:first_name, nil, class: "form-control required")
-          div class="form-group"
-            = label_tag(:last_name, "Last:")
-            = text_field_tag(:last_name, nil, class: "form-control required")
-          div class="form-group"
-            = label_tag(:email, "Email:")
-            = text_field_tag(:email, nil, class: "form-control required")
-          div class="form-group"
-            = label_tag(:password, "Password:")
-            = password_field_tag(:password, nil, class: "form-control required")
-          div class="form-group"
-            = label_tag(:confirm, "Confirm Password:")
-            = password_field_tag(:confirm, nil, class: "form-control required")
-          button class="btn btn-default btn-block js-signup" Sign Up
+nav class="navbar navbar-default"
+  div class="container-fluid"
+    div class="container-pad"
+      div class="navbar-header"
+        button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#proxy_nav"
+          span class="sr-only" Toggle navigation
+          span class="icon-bar"
+          span class="icon-bar"
+          span class="icon-bar"
+        a class="navbar-brand dash" href="#" SimpleAPI
+
+      div class="collapse navbar-collapse" id="proxy_nav"
+        ul class="nav navbar-nav"
+          li class="navigation"
+            a href="#" class="docs" Documentation
+          li class="navigation"
+            a class="btn btn-default btn-nav" href="#{signin_path}" Sign In
+
+div class="container-fluid"
+  div class="container-pad"
+    div class="row"
+      div class="col-md-6"
+        h1 class="heading" Take care of business,<br />not protocals.
+        p class="subheading"
+          | A simple API, normalized data and an growing marketplace allows you to easily send and receive data to use for your business.<br />Add or consume an API today!
+        p class="beta"
+          | SimpleAPI is currently in beta.
+          p Sign up for $1/month unlimited usuage.
+      div class="col-md-6"
+        div class="panel panel-default"
+          div class="panel-body"
+            = form_tag(api_v1_users_path, method: "post") do
+              div class="form-group"
+                = text_field_tag(:first_name, nil, placeholder: 'First name', class: "form-control required")
+              div class="form-group"
+                = text_field_tag(:last_name, nil, placeholder: 'Last name', class: "form-control required")
+              div class="form-group"
+                = text_field_tag(:email, nil, placeholder: 'Your email', class: "form-control required")
+              div class="form-group"
+                = password_field_tag(:password, nil, placeholder: 'Create a password', class: "form-control required", autocomplete: :off)
+              div class="line"
+              div class="form-group"
+                = text_field_tag('credit_card[number]', nil, placeholder: 'Credit Card#', class: "form-control required")
+              div class="form-group"
+                = text_field_tag('credit_card[expiration_date]', nil, placeholder: 'Expiration (MM/YYYY)', class: "form-control required")
+              div class="line"
+              div class="form-group"
+                = text_field_tag(:interested_api, nil, placeholder: 'API you are most interested in' , class: "form-control")
+              button class="btn btn-default btn-block js-signup" Sign up
+    div class="row"
+      div class="col-md-6"
+        div class="borderless-box"
+          div class="box-icon"
+            span class="fa fa-4x fa-dollar"
+          div class="info"
+            h3 Increase sales.
+            p Your software is more valuable when it connects with others. Publish your API today.
+      div class="col-md-6"
+        div class="borderless-box"
+          div class="box-icon"
+            span class="fa fa-4x fa-users"
+          div class="info"
+            h3 Stop redirecting.
+            p White lable SimpleAPI and stop sending customers to third-party applicactions for integrations.
+    div class="row"
+      div class="col-md-6"
+        div class="borderless-box"
+          div class="box-icon"
+            span class="fa fa-4x fa-share-alt"
+          div class="info"
+            h3 Reduce code.
+            p Eliminate code paths for the myriad of protocals required to integrate with applications.
+      div class="col-md-6"
+        div class="borderless-box"
+          div class="box-icon"
+            span class="fa fa-4x fa-clock-o"
+          div class="info"
+            h3 Save time.
+            p Setup SimpleAPI and instantly have access to all the APIs in the marketplace.
+
+= render 'footer'

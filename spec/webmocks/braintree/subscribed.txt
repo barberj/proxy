@@ -1,0 +1,63 @@
+HTTP/1.1 201 Created
+Date: Mon, 19 Jan 2015 02:26:20 GMT
+X-Frame-Options: SAMEORIGIN
+X-Authentication: basic_auth
+X-User: d94vzrxrjbcxgsng
+Content-Length: 2354
+Strict-Transport-Security: max-age=31536000
+X-Request-Id: a8c43859555943b20872387cb810e4a9
+X-Runtime: 0.336277
+X-BroxyId: f8a83bfa-03fd-4f13-be86-e82f49173b33
+X-UA-Compatible: IE=Edge,chrome=1
+Cache-Control: max-age=0, private, must-revalidate
+Content-Type: application/xml; charset=utf-8
+ETag: "07498c79896b3f19933d4bf0ae5df82d"
+Vary: Accept-Encoding
+Connection: close
+
+<?xml version='1.0' encoding='UTF-8'?>
+<customer>
+  <id>20353259</id>
+  <merchant-id>r7wrt8f78k95wwtp</merchant-id>
+  <first-name>Justin</first-name>
+  <last-name>Barber</last-name>
+  <company null='true'/>
+  <email>barber.justin+test@gmail.com</email>
+  <phone null='true'/>
+  <fax null='true'/>
+  <website null='true'/>
+  <created-at type='datetime'>2015-01-19T02:26:20Z</created-at>
+  <updated-at type='datetime'>2015-01-19T02:26:20Z</updated-at>
+  <custom-fields/>
+  <credit-cards type='array'>
+    <credit-card>
+      <bin>411111</bin>
+      <card-type>Visa</card-type>
+      <cardholder-name null='true'/>
+      <commercial>Unknown</commercial>
+      <country-of-issuance>Unknown</country-of-issuance>
+      <created-at type='datetime'>2015-01-19T02:26:20Z</created-at>
+      <customer-id>20353259</customer-id>
+      <customer-location>US</customer-location>
+      <debit>Unknown</debit>
+      <default type='boolean'>true</default>
+      <durbin-regulated>Unknown</durbin-regulated>
+      <expiration-month>05</expiration-month>
+      <expiration-year>2020</expiration-year>
+      <expired type='boolean'>false</expired>
+      <healthcare>Unknown</healthcare>
+      <image-url>https://assets.braintreegateway.com/payment_method_logo/visa.png?environment=sandbox</image-url>
+      <issuing-bank>Unknown</issuing-bank>
+      <last-4>1111</last-4>
+      <payroll>Unknown</payroll>
+      <prepaid>Unknown</prepaid>
+      <subscriptions type='array'/>
+      <token>3cx4ww</token>
+      <unique-number-identifier>a935de74833b8d607998f4e036c63d4a</unique-number-identifier>
+      <updated-at type='datetime'>2015-01-19T02:26:20Z</updated-at>
+      <venmo-sdk type='boolean'>false</venmo-sdk>
+      <verifications type='array'/>
+    </credit-card>
+  </credit-cards>
+  <addresses type='array'/>
+</customer>

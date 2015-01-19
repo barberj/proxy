@@ -118,7 +118,7 @@ setup_handlers = ->
     $('.app-content').hide()
     $('li.navigation.active').removeClass('active')
     $(@).closest('li').addClass('active')
-    $('.market-place').show()
+    $('.marketplace').show()
 
   $('.dash').click (event) ->
     event.preventDefault()

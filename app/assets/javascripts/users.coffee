@@ -7,25 +7,21 @@ signup_handler = ->
     if missing.length == 0
       for required in requirements
         $(required).removeClass('missing_required')
-      password = form.find("input[name='password']")
-      confirm = form.find("input[name='confirm']")
-      if password.get(0).value == confirm.get(0).value
-        $.ajax(
-          url: form.get(0).action,
-          type: form.get(0).method.toUpperCase(),
-          data: form.serialize(),
-          dataType: "json"
-        ).done( (rsp) =>
-          console.log 'created'
-          window.location = '/signin'
-        ).fail( (rsp) =>
-          #rsp.responseJSON
-          console.log "error: #{rsp.responseText}"
-        )
-      else
-        $(password).addClass('missing_required')
-        $(confirm).addClass('missing_required')
+      $.ajax(
+        url: form.get(0).action,
+        type: form.get(0).method.toUpperCase(),
+        data: form.serialize(),
+        dataType: "json"
+      ).done( (rsp) =>
+        console.log 'created'
+        window.location = '/dashboard'
+      ).fail( (rsp) =>
+        #rsp.responseJSON
+        console.log "error: #{rsp.responseText}"
+      )
     else
+      for required in requirements
+        $(required).removeClass('missing_required') unless required in missing
       for required in missing
         $(required).addClass('missing_required')
 
