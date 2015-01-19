@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
     if user && user.authenticate(params[:password])
       sign_in(user)
-      redirect_to root_path
+      redirect_to dashboard_index_path
     else
       redirect_to signin_path
     end
