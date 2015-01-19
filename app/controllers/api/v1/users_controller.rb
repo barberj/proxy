@@ -2,19 +2,41 @@ class Api::V1::UsersController < Api::V1::InternalApiController
   skip_before_action :authorize_user!, :only => [:create]
 
   def create
-    user = User.new(create_params)
-    status = if user.valid?
-      user.account = Account.create
-      user.save
-      :created
+    if billing_id = subscribe_user
+      user = User.new(create_params.merge(billing_id: billing_id))
+      status = if user.valid?
+        user.account = Account.create
+        user.save
+        :created
+      else
+        :bad_request
+      end
     else
-      :bad_request
     end
 
     render json: user.errors, status: status
   end
 
 private
+
+  def subscribe_user
+    rsp = Braintree::Customer.create(billing_params)
+    if rsp.success?
+      token = rsp.customer.credit_cards[0].token
+      Braintree::Subscription.create(
+        :payment_method_token => token,
+        :plan_id              => "beta_one"
+      )
+      rsp.customer.id
+    else
+      Rails.logger.error(rsp.message)
+      nil
+    end
+  end
+
+  def billing_params
+    params.except(:utf8, :authenticity_token, :controller, :action, :password, :interested_api)
+  end
 
   def create_params
     params.require(:first_name)
@@ -26,7 +48,8 @@ private
       :first_name,
       :last_name,
       :email,
-      :password
+      :password,
+      :interested_api
     )
   end
 end
