@@ -20,7 +20,7 @@ handle_installs = () ->
     event.preventDefault()
     proxy_request('POST', '/api/v1/market_place', { api_id: $(@).data('id') }, ((rsp) =>
       installed = rsp.data_encoding
-      window.location = "#{installed.install_url}&redirect_uri=#{window.location.origin}"
+      window.location = "#{installed.install_url}&redirect_uri=#{window.location.origin + window.location.pathname}"
     ))
 
 render_market = ->
