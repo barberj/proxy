@@ -1,0 +1,47 @@
+HTTP/1.1 422 Unprocessable Entity
+Date: Mon, 19 Jan 2015 02:28:30 GMT
+X-Frame-Options: SAMEORIGIN
+X-Authentication: basic_auth
+X-User: d94vzrxrjbcxgsng
+Content-Length: 1363
+Strict-Transport-Security: max-age=31536000
+X-Request-Id: ef0fbdec3da8ed7492551532b9bea861
+X-Runtime: 0.093232
+X-BroxyId: 1fa43772-f067-4344-a3b4-fe31644ab3a9
+X-UA-Compatible: IE=Edge,chrome=1
+Cache-Control: no-cache
+Content-Type: application/xml; charset=utf-8
+Vary: Accept-Encoding
+Connection: close
+
+<?xml version='1.0' encoding='UTF-8'?>
+<api-error-response>
+  <errors>
+    <errors type='array'/>
+    <customer>
+      <errors type='array'/>
+      <credit-card>
+        <errors type='array'>
+          <error>
+            <code>81715</code>
+            <attribute type='symbol'>number</attribute>
+            <message>Credit card number is invalid.</message>
+          </error>
+        </errors>
+      </credit-card>
+    </customer>
+  </errors>
+  <params>
+    <customer>
+      <first-name>Justin</first-name>
+      <last-name>Barber</last-name>
+      <email>barber.justin+test@gmail.com</email>
+      <credit-card>
+        <expiration-date>05/2020</expiration-date>
+        <device-session-id null='true'/>
+        <fraud-merchant-id null='true'/>
+      </credit-card>
+    </customer>
+  </params>
+  <message>Credit card number is invalid.</message>
+</api-error-response>
