@@ -5,7 +5,7 @@ describe 'PostRequests' do
     before { create_api }
     context 'with data params' do
       let(:post_request) do
-        post(api_v1_path('Contacts'),
+        post(v1_path('Contacts'),
           {
             :data => [{'FIRST_NAME' => 'Justin'}],
             :data_encoding_id => default_data_encoding.id
@@ -40,7 +40,7 @@ describe 'PostRequests' do
     end
     context 'with invalid token' do
       it 'returns unauthorized status (401)' do
-        expect(post(api_v1_path('Contacts'),
+        expect(post(v1_path('Contacts'),
           {
             :data => [{'FIRST_NAME' => 'Justin'}],
             :data_encoding_id => default_data_encoding.id
@@ -51,7 +51,7 @@ describe 'PostRequests' do
     end
     context 'with invalid encoding_id' do
       it 'returns unauthorized status (401)' do
-        expect(post(api_v1_path('Contacts'),
+        expect(post(v1_path('Contacts'),
           {
             :data => [{'FIRST_NAME' => 'Justin'}],
             :data_encoding_id => 999
@@ -62,7 +62,7 @@ describe 'PostRequests' do
     end
     context 'when missing data' do
       let(:post_request_missing_data) do
-        post(api_v1_path('Contacts'),
+        post(v1_path('Contacts'),
           {
             :data_encoding_id => default_data_encoding.id
           },
@@ -82,7 +82,7 @@ describe 'PostRequests' do
     end
     context 'with custom encoding' do
       let(:post_request_for_custom) do
-        post(api_v1_path('MyContacts'),
+        post(v1_path('MyContacts'),
           {
             :data => [{'fname' => 'Justin'}],
             :data_encoding_id => custom_data_encoding.id
@@ -115,7 +115,7 @@ describe 'PostRequests' do
         )
       end
       it 'returns unprocessable_entity status (422) for invalid resource' do
-        expect(post(api_v1_path('Contacts'),
+        expect(post(v1_path('Contacts'),
           {
             :data => [{'FIRST_NAME' => 'Justin'}],
             :data_encoding_id => custom_data_encoding.id
@@ -148,7 +148,7 @@ describe 'PostRequests' do
       account.install_api(api)
     end
     let(:post_request) do
-      post(api_v1_path('Contacts'),
+      post(v1_path('Contacts'),
         {
           :data => [{'FIRST_NAME' => 'Justin'}],
           :data_encoding_id => account.data_encodings.last.id

@@ -1,4 +1,5 @@
-class Api::V1::DataEncodingsController < Api::V1::InternalApiController
+class V1::DataEncodingsController < ApiController
+  include V1::ApiAuthorization
 
   def index
     render json: { data_encodings: account.data_encodings}, status: :ok

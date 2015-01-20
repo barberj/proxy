@@ -1,4 +1,4 @@
-module Api::V1::AcceptRequest
+module V1::AcceptRequest
   extend ActiveSupport::Concern
 
 private

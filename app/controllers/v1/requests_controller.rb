@@ -1,6 +1,8 @@
-class Api::V1::RequestsController < Api::V1::InternalApiController
+class V1::RequestsController < ApiController
+  include V1::ApiAuthorization
+
   before_action :authorize_request!
-  include Api::V1::AcceptRequest
+  include V1::AcceptRequest
 
   rescue_from Exceptions::BadRequest do |exception|
     render(

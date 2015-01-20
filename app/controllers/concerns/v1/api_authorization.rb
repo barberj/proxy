@@ -1,6 +1,9 @@
-class Api::V1::InternalApiController < ActionController::Base
-  respond_to :json
-  before_action :authorize_user!
+module V1::ApiAuthorization
+  extend ActiveSupport::Concern
+
+  included do
+    before_action :authorize_user!
+  end
 
 private
 

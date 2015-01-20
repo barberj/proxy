@@ -1,4 +1,5 @@
-class Api::V1::MarketPlaceController < Api::V1::InternalApiController
+class V1::MarketplaceController < ApiController
+  include V1::ApiAuthorization
 
   def index
     render json: { apis: Api.all}, status: :ok

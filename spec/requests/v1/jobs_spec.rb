@@ -18,7 +18,7 @@ describe 'Jobs' do
     let(:job_data) { { job_id: job.id } }
     context 'with valid job id' do
       let(:get_job_request) do
-        get(api_v1_jobs_path, job_data,
+        get(v1_jobs_path, job_data,
           'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
       end
@@ -32,7 +32,7 @@ describe 'Jobs' do
     end
     context 'with invalid job id' do
       let(:get_job_request) do
-        get(api_v1_jobs_path, { job_id: 999 },
+        get(v1_jobs_path, { job_id: 999 },
           'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
       end
@@ -49,7 +49,7 @@ describe 'Jobs' do
     context 'for external user' do
       context 'with invalid job id' do
         let(:get_anothers_job_request) do
-          get(api_v1_jobs_path, job_data,
+          get(v1_jobs_path, job_data,
             'HTTP_AUTHORIZATION' => "Token #{external_user_token}"
           )
         end
@@ -79,7 +79,7 @@ describe 'Jobs' do
           )
         end
         let(:get_job_request) do
-          get(api_v1_jobs_path, job_data,
+          get(v1_jobs_path, job_data,
             'HTTP_AUTHORIZATION' => "Token #{external_user_token}"
           )
         end

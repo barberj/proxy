@@ -18,13 +18,13 @@ render_user = ->
 handle_installs = () ->
   $('.install').click (event) ->
     event.preventDefault()
-    proxy_request('POST', '/api/v1/market_place', { api_id: $(@).data('id') }, ((rsp) =>
+    proxy_request('POST', '/v1/app/marketplace', { api_id: $(@).data('id') }, ((rsp) =>
       installed = rsp.data_encoding
       window.location = "#{installed.install_url}&redirect_uri=#{window.location.origin + window.location.pathname}"
     ))
 
 render_market = ->
-  html = HandlebarsTemplates['market_place/index'](window.App)
+  html = HandlebarsTemplates['marketplace/index'](window.App)
   $('.market-apis').html(html)
   $.event.trigger "market.open"
 
@@ -62,7 +62,7 @@ render_publisher = ->
     $.event.trigger "publisher.show"
 
 get_market = ->
-  proxy_request('GET', '/api/v1/market_place', {}, ((rsp) =>
+  proxy_request('GET', '/v1/app/marketplace', {}, ((rsp) =>
     window.App.market_apis = rsp.apis
     $.event.trigger "populated.market"
   ))
@@ -100,7 +100,7 @@ render_encodings = ->
   handle_encoding_edit()
 
 get_encodings = ->
-  proxy_request('GET', '/api/v1/data_encodings', {}, ((rsp) =>
+  proxy_request('GET', '/v1/app/data_encodings', {}, ((rsp) =>
     window.App.data_encodings = rsp.data_encodings
     $.event.trigger "populated.encodings"
   ))

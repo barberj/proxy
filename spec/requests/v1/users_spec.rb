@@ -16,11 +16,11 @@ describe 'Users' do
       }
     end
     before do
-      expect_any_instance_of(Api::V1::UsersController).
+      expect_any_instance_of(V1::UsersController).
         to receive(:subscribe_user).and_return(12345)
     end
     let(:create_request) do
-      post(api_v1_users_path, user_data, nil)
+      post(v1_users_path, user_data, nil)
     end
     context 'with valid params' do
       it 'creates a user' do

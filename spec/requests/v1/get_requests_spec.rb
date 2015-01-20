@@ -5,9 +5,9 @@ describe 'GetRequests' do
     before { create_api }
     context 'with created_since params' do
       let(:get_created_request) do
-        get(api_v1_path('Contacts'),
+        get(v1_path('Contacts'),
           {
-            :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z'),
+            :created_since    => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z'),
             :data_encoding_id => default_data_encoding.id
           },
           'HTTP_AUTHORIZATION' => "Token #{user_token}"
@@ -40,7 +40,7 @@ describe 'GetRequests' do
     end
     context 'with updated_since params' do
       let(:get_updated_request) do
-        get(api_v1_path('Contacts'),
+        get(v1_path('Contacts'),
           {
             :updated_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z'),
             :data_encoding_id => default_data_encoding.id
@@ -75,7 +75,7 @@ describe 'GetRequests' do
     end
     context 'with identifiers params' do
       let(:get_identifiers_request) do
-        get(api_v1_path('Contacts'),
+        get(v1_path('Contacts'),
           {
             :identifiers => [1],
             :data_encoding_id => default_data_encoding.id
@@ -108,7 +108,7 @@ describe 'GetRequests' do
     end
     context 'with search_by params' do
       let(:get_search_request) do
-        get(api_v1_path('Contacts'),
+        get(v1_path('Contacts'),
           {
             :search_by => {:EMAIL => 'some_user@email.com' },
             :data_encoding_id => default_data_encoding.id
@@ -143,7 +143,7 @@ describe 'GetRequests' do
     end
     context 'with invalid token' do
       it 'returns unauthorized status (401)' do
-        expect(get(api_v1_path('Contacts'),
+        expect(get(v1_path('Contacts'),
           {
             search_by: {EMAIL: 'some_user@email.com' },
             :data_encoding_id => default_data_encoding.id
@@ -154,7 +154,7 @@ describe 'GetRequests' do
     end
     context 'with invalid encoding_id' do
       it 'returns unauthorized status (401)' do
-        expect(get(api_v1_path('Contacts'),
+        expect(get(v1_path('Contacts'),
           {
             search_by: {EMAIL: 'some_user@email.com' },
             :data_encoding_id => 999
@@ -165,7 +165,7 @@ describe 'GetRequests' do
     end
     context 'when missing params' do
       let(:get_request_missing_params) do
-        get(api_v1_path('Contacts'),
+        get(v1_path('Contacts'),
           {
             :data_encoding_id => default_data_encoding.id
           },
@@ -185,7 +185,7 @@ describe 'GetRequests' do
     end
     context 'when given bad params' do
       let(:get_request_with_bad_params) do
-        get(api_v1_path('Contacts'),
+        get(v1_path('Contacts'),
           {
             :updated_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%F %T'),
             :data_encoding_id => default_data_encoding.id
@@ -206,7 +206,7 @@ describe 'GetRequests' do
     end
     context 'with custom encoding' do
       let(:get_request_for_custom) do
-        get(api_v1_path('MyContacts'),
+        get(v1_path('MyContacts'),
           {
             :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z'),
             :data_encoding_id => custom_data_encoding.id
@@ -230,7 +230,7 @@ describe 'GetRequests' do
         expect(get_request_for_custom).to eq 202
       end
       it 'saves encoded params to Job' do
-        get(api_v1_path('MyContacts'),
+        get(v1_path('MyContacts'),
           {
             :search_by => {:email_address => 'some_user@email.com' },
             :data_encoding_id => custom_data_encoding.id
@@ -246,7 +246,7 @@ describe 'GetRequests' do
         })
       end
       it 'returns unprocessable_entity status (422) for invalid resource' do
-        expect(get(api_v1_path('Contacts'),
+        expect(get(v1_path('Contacts'),
           {
             :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z'),
             :data_encoding_id => custom_data_encoding.id
@@ -279,7 +279,7 @@ describe 'GetRequests' do
       account.install_api(api)
     end
     it 'returns unprocessable_entity status (422)' do
-      rsp = get(api_v1_path('Contacts'),
+      rsp = get(v1_path('Contacts'),
         {
           :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z'),
           :data_encoding_id => account.data_encodings.last.id
@@ -290,7 +290,7 @@ describe 'GetRequests' do
       expect(rsp).to eq 422
     end
     it 'returns unsupported action message' do
-      get(api_v1_path('Contacts'),
+      get(v1_path('Contacts'),
         {
           :created_since => Time.new(2014, 12, 29, 0, 0, 0, 0).strftime('%FT%T%z'),
           :data_encoding_id => account.data_encodings.last.id

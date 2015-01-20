@@ -1,4 +1,6 @@
-class Api::V1::JobsController < Api::V1::InternalApiController
+class V1::JobsController < ApiController
+  include V1::ApiAuthorization
+
   before_action :verify_job!
 
   def index

@@ -11,22 +11,30 @@ Rails.application.routes.draw do
 
   get '/signup' => 'users#new'
 
-
-  namespace :api do
-    namespace :v1 do
+  namespace :v1 do
+    scope :app do
       resources :users, :only => [:create]
       resources :jobs, :only => [:index]
       resources :apis, :only => [:index, :create]
-      resources :market_place, :only => [:index, :create]
+      resources :marketplace, :only => [:index, :create]
       resources :data_encodings, :only => [:index, :update]
+    end
 
+    scope :api do
       get "/:encoded_resource"    => 'get_requests#index'
       post "/:encoded_resource"   => 'post_requests#create'
       put "/:encoded_resource"    => 'put_requests#update'
-      patch "/:encoded_resource"    => 'put_requests#update'
+      patch "/:encoded_resource"  => 'put_requests#update'
       delete "/:encoded_resource" => 'delete_requests#destroy'
     end
+
+    get "/:encoded_resource"    => 'get_requests#index'
+    post "/:encoded_resource"   => 'post_requests#create'
+    put "/:encoded_resource"    => 'put_requests#update'
+    patch "/:encoded_resource"  => 'put_requests#update'
+    delete "/:encoded_resource" => 'delete_requests#destroy'
   end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,4 +1,5 @@
-class Api::V1::ApisController < Api::V1::InternalApiController
+class V1::ApisController < ApiController
+  include V1::ApiAuthorization
 
   def index
     render json: { apis: all_apis }, status: :ok

@@ -1,4 +1,4 @@
-class Api::V1::GetRequestsController < Api::V1::RequestsController
+class V1::GetRequestsController < V1::RequestsController
 
   MISSING_PARAM = %q(Get Requests Params must include either created_since, updated_since, identifiers, or search_by.)
 
