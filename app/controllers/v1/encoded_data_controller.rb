@@ -1,4 +1,4 @@
-class V1::RequestsController < ApiController
+class V1::EncodedDataController < ApiController
   include V1::ApiAuthorization
 
   before_action :authorize_request!
@@ -21,7 +21,7 @@ class V1::RequestsController < ApiController
   rescue_from ActionController::ParameterMissing do
     render(
       json: {
-        message: %Q(#{request_method.capitalize} Requests must include data.)
+        message: %Q(#{request_method.capitalize} request must include data.)
       },
       status: :bad_request
     )

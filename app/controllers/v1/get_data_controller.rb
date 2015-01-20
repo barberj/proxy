@@ -1,6 +1,6 @@
-class V1::GetRequestsController < V1::RequestsController
+class V1::GetDataController < V1::EncodedDataController
 
-  MISSING_PARAM = %q(Get Requests Params must include either created_since, updated_since, identifiers, or search_by.)
+  MISSING_PARAM = %q(Get request must include either created_since, updated_since, identifiers, or search_by.)
 
   def index
     case

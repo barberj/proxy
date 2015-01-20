@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'GetRequests' do
+describe 'GetData' do
   context 'for DataEncoding with action' do
     before { create_api }
     context 'with created_since params' do
@@ -179,7 +179,7 @@ describe 'GetRequests' do
         get_request_missing_params
 
         expect(json['message']).to eq(
-          %q(Get Requests Params must include either created_since, updated_since, identifiers, or search_by.)
+          %q(Get request must include either created_since, updated_since, identifiers, or search_by.)
         )
       end
     end

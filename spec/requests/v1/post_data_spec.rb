@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'PostRequests' do
+describe 'PostData' do
   context 'for DataEncoding with action' do
     before { create_api }
     context 'with data params' do
@@ -76,7 +76,7 @@ describe 'PostRequests' do
         post_request_missing_data
 
         expect(json['message']).to eq(
-          %q(Post Requests must include data.)
+          %q(Post request must include data.)
         )
       end
     end

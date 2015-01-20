@@ -21,18 +21,18 @@ Rails.application.routes.draw do
     end
 
     scope :api do
-      get "/:encoded_resource"    => 'get_requests#index'
-      post "/:encoded_resource"   => 'post_requests#create'
-      put "/:encoded_resource"    => 'put_requests#update'
-      patch "/:encoded_resource"  => 'put_requests#update'
-      delete "/:encoded_resource" => 'delete_requests#destroy'
+      get "/:encoded_resource"    => 'get_data#index'
+      post "/:encoded_resource"   => 'post_data#create'
+      put "/:encoded_resource"    => 'put_data#update'
+      patch "/:encoded_resource"  => 'put_data#update'
+      delete "/:encoded_resource" => 'delete_data#destroy'
     end
 
-    get "/:encoded_resource"    => 'get_requests#index'
-    post "/:encoded_resource"   => 'post_requests#create'
-    put "/:encoded_resource"    => 'put_requests#update'
-    patch "/:encoded_resource"  => 'put_requests#update'
-    delete "/:encoded_resource" => 'delete_requests#destroy'
+    get "/:encoded_resource"    => 'get_data#index'
+    post "/:encoded_resource"   => 'post_data#create'
+    put "/:encoded_resource"    => 'put_data#update'
+    patch "/:encoded_resource"  => 'put_data#update'
+    delete "/:encoded_resource" => 'delete_data#destroy'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,4 +1,4 @@
-class V1::PostRequestsController < V1::RequestsController
+class V1::PostDataController < V1::EncodedDataController
   def create
     accept_request(:create, params[:encoded_resource], create_params)
   end
