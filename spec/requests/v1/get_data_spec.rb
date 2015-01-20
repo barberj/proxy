@@ -267,10 +267,10 @@ describe 'GetData' do
           customs_url: 'https://remoteapi.com/customs',
           search_url: 'https://remoteapi.com/search',
           updated_url: 'https://remoteapi.com/updated',
+          read_url: 'https://remoteapi.com/read',
           create_url: 'https://remoteapi.com/create',
           update_url: 'https://remoteapi.com/update',
           delete_url: 'https://remoteapi.com/delete',
-          read_url: 'https://remoteapi.com/read',
           fields_attributes: [{
             dpath: '/first_name'
           }]

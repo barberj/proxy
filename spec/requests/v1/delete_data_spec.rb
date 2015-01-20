@@ -1,48 +1,46 @@
 require 'rails_helper'
 
-describe 'PutData' do
+describe 'DeleteData' do
   context 'for DataEncoding with action' do
     before { create_api }
     context 'with data params' do
-      let(:put_request) do
-        put(v1_path('Contacts'),
+      let(:delete_request) do
+        delete(v1_path('Contacts'),
           {
-            :data => [{'FIRST_NAME' => 'Justin'}],
+            :identifiers => [1],
             :data_encoding_id => default_data_encoding.id
           },
           'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
       end
       it 'returns job id' do
-        put_request
+        delete_request
 
         expect(json['results']['job_id']).to eq Job.first.id
       end
-      it 'creates a UpdateJob' do
+      it 'creates a DeleteJob' do
         expect{
-          put_request
+          delete_request
         }.to change{
-          UpdateJob.count
+          DeleteJob.count
         }.by 1
       end
       it 'returns accepted status (202)' do
-        expect(put_request).to eq 202
+        expect(delete_request).to eq 202
       end
       it 'saves params to Job' do
-        put_request
-        job = UpdateJob.last
+        delete_request
+        job = DeleteJob.last
 
-        expect(job.params).to include('data')
-        expect(job.params['data']).to eq(
-          [{'FIRST_NAME' => 'Justin'}]
-        )
+        expect(job.params).to include('identifiers')
+        expect(job.params['identifiers']).to eq(["1"])
       end
     end
     context 'with invalid token' do
       it 'returns unauthorized status (401)' do
-        expect(put(v1_path('Contacts'),
+        expect(delete(v1_path('Contacts'),
           {
-            :data => [{'FIRST_NAME' => 'Justin'}],
+            :identifiers      => [1],
             :data_encoding_id => default_data_encoding.id
           },
           'HTTP_AUTHORIZATION' => "Token bad_token"
@@ -51,18 +49,18 @@ describe 'PutData' do
     end
     context 'with invalid encoding_id' do
       it 'returns unauthorized status (401)' do
-        expect(put(v1_path('Contacts'),
+        expect(delete(v1_path('Contacts'),
           {
-            :data => [{'FIRST_NAME' => 'Justin'}],
+            :identifiers      => [1],
             :data_encoding_id => 999
           },
           'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )).to eq 401
       end
     end
-    context 'when missing data' do
-      let(:put_request_missing_data) do
-        put(v1_path('Contacts'),
+    context 'when missing identifiers' do
+      let(:delete_request_missing_identifiers) do
+        delete(v1_path('Contacts'),
           {
             :data_encoding_id => default_data_encoding.id
           },
@@ -70,54 +68,52 @@ describe 'PutData' do
         )
       end
       it 'returns bad_request status (400)' do
-        expect(put_request_missing_data).to eq 400
+        expect(delete_request_missing_identifiers).to eq 400
       end
-      it 'returns missing data message' do
-        put_request_missing_data
+      it 'returns missing identifiers message' do
+        delete_request_missing_identifiers
 
         expect(json['message']).to eq(
-          %q(Put request must include data.)
+          %q(Delete request must include identifiers.)
         )
       end
     end
     context 'with custom encoding' do
-      let(:put_request_for_custom) do
-        put(v1_path('MyContacts'),
+      let(:delete_request_for_custom) do
+        delete(v1_path('MyContacts'),
           {
-            :data => [{'fname' => 'Justin'}],
+            :identifiers      => [1],
             :data_encoding_id => custom_data_encoding.id
           },
           'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
       end
       it 'returns job id' do
-        put_request_for_custom
+        delete_request_for_custom
 
         expect(json['results']['job_id']).to eq Job.first.id
       end
-      it 'creates a UpdateJob' do
+      it 'creates a DeleteJob' do
         expect{
-          put_request_for_custom
+          delete_request_for_custom
         }.to change{
-          UpdateJob.count
+          DeleteJob.count
         }.by 1
       end
       it 'returns accepted status (202)' do
-        expect(put_request_for_custom).to eq 202
+        expect(delete_request_for_custom).to eq 202
       end
       it 'saves encoded params to Job' do
-        put_request_for_custom
-        job = UpdateJob.last
+        delete_request_for_custom
+        job = DeleteJob.last
 
-        expect(job.params).to include('data')
-        expect(job.params['data']).to eq(
-          [{'fname' => 'Justin'}]
-        )
+        expect(job.params).to include('identifiers')
+        expect(job.params['identifiers']).to eq(["1"])
       end
       it 'returns unprocessable_entity status (422) for invalid resource' do
-        expect(put(v1_path('Contacts'),
+        expect(delete(v1_path('Contacts'),
           {
-            :data => [{'FIRST_NAME' => 'Justin'}],
+            :identifiers => [1],
             :data_encoding_id => custom_data_encoding.id
           },
           'HTTP_AUTHORIZATION' => "Token #{user_token}"
@@ -139,7 +135,7 @@ describe 'PutData' do
           updated_url: 'https://remoteapi.com/updated',
           read_url: 'https://remoteapi.com/read',
           create_url: 'https://remoteapi.com/create',
-          delete_url: 'https://remoteapi.com/delete',
+          update_url: 'https://remoteapi.com/update',
           fields_attributes: [{
             dpath: '/first_name'
           }]
@@ -147,23 +143,23 @@ describe 'PutData' do
       )
       account.install_api(api)
     end
-    let(:put_request) do
-      put(v1_path('Contacts'),
+    let(:delete_request) do
+      delete(v1_path('Contacts'),
         {
-          :data => [{'FIRST_NAME' => 'Justin'}],
+          :identifiers => [1],
           :data_encoding_id => account.data_encodings.last.id
         },
         'HTTP_AUTHORIZATION' => "Token #{user_token}"
       )
     end
     it 'returns unprocessable_entity status (422)' do
-      expect(put_request).to eq 422
+      expect(delete_request).to eq 422
     end
     it 'returns unsupported action message' do
-      put_request
+      delete_request
 
       expect(json['message']).to eq(
-        "Can not request update for RemoteApi Encoding's Contacts."
+        "Can not request delete for RemoteApi Encoding's Contacts."
       )
     end
   end

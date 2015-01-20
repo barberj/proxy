@@ -137,9 +137,9 @@ describe 'PostData' do
           search_url: 'https://remoteapi.com/search',
           created_url: 'https://remoteapi.com/created',
           updated_url: 'https://remoteapi.com/updated',
+          read_url: 'https://remoteapi.com/read',
           update_url: 'https://remoteapi.com/update',
           delete_url: 'https://remoteapi.com/delete',
-          read_url: 'https://remoteapi.com/read',
           fields_attributes: [{
             dpath: '/first_name'
           }]
