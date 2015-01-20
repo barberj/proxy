@@ -13,9 +13,10 @@ class Job < ActiveRecord::Base
       json.id id
       json.status status
       json.params params
-      json.resource resource.name
       json.api api.name
       json.data_encoding data_encoding.name
+      json.data_encoding_id data_encoding.id
+      json.encoded_resource encoded_resource.name
 
       (results||{}).each do |k, v|
         json.set! k, v
