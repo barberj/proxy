@@ -1,9 +1,9 @@
-module V1::AcceptRequest
+module V1::JobAcceptance
   extend ActiveSupport::Concern
 
 private
 
-  def accept_request(request_type, encoded_name, params)
+  def accept_job(request_type, encoded_name, params)
     if encoded_resource = data_encoding.encoded_resource_for(encoded_name, request_type)
       job = data_encoding.jobs.create(
         type: "#{request_type.to_s.capitalize}Job",
@@ -13,7 +13,7 @@ private
         account_id: data_encoding.account_id
       )
 
-      ProcessRequest.perform_later(job)
+      ProcessJob.perform_later(job)
 
       render(
         json: { results: { job_id: job.id } },

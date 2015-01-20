@@ -1,6 +1,6 @@
 class V1::PostDataController < V1::EncodedDataController
   def create
-    accept_request(:create, params[:encoded_resource], create_params)
+    accept_job(:create, params[:encoded_resource], create_params)
   end
 
 private

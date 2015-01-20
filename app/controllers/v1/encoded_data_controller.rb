@@ -2,7 +2,7 @@ class V1::EncodedDataController < ApiController
   include V1::ApiAuthorization
 
   before_action :authorize_request!
-  include V1::AcceptRequest
+  include V1::JobAcceptance
 
   rescue_from Exceptions::BadRequest do |exception|
     render(

@@ -5,13 +5,13 @@ class V1::GetDataController < V1::EncodedDataController
   def index
     case
     when params[:updated_since]
-      accept_request(:updated, params[:encoded_resource], updated_params)
+      accept_job(:updated, params[:encoded_resource], updated_params)
     when params[:created_since]
-      accept_request(:created, params[:encoded_resource], created_params)
+      accept_job(:created, params[:encoded_resource], created_params)
     when params[:identifiers]
-      accept_request(:read, params[:encoded_resource], identifiers_params)
+      accept_job(:read, params[:encoded_resource], identifiers_params)
     when params[:search_by]
-      accept_request(:search, params[:encoded_resource], search_params)
+      accept_job(:search, params[:encoded_resource], search_params)
     else
       raise Exceptions::BadRequest.new MISSING_PARAM
     end
