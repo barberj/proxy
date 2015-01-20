@@ -15,10 +15,9 @@ describe 'Jobs' do
         }
       )
     end
-    let(:job_data) { { job_id: job.id } }
     context 'with valid job id' do
       let(:get_job_request) do
-        get(v1_jobs_path, job_data,
+        get(v1_job_path(job.id), nil,
           'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
       end
@@ -27,12 +26,11 @@ describe 'Jobs' do
       end
       it 'returns serialized job info' do
         get_job_request
-        puts
       end
     end
     context 'with invalid job id' do
       let(:get_job_request) do
-        get(v1_jobs_path, { job_id: 999 },
+        get(v1_job_path(999), nil,
           'HTTP_AUTHORIZATION' => "Token #{user_token}"
         )
       end
@@ -42,14 +40,14 @@ describe 'Jobs' do
       it 'returns invalid job id message' do
         get_job_request
         expect(json['message']).to eq(
-          'Please provide a valid job_id.'
+          'Please provide a valid id.'
         )
       end
     end
     context 'for external user' do
       context 'with invalid job id' do
         let(:get_anothers_job_request) do
-          get(v1_jobs_path, job_data,
+          get(v1_job_path(job.id), nil,
             'HTTP_AUTHORIZATION' => "Token #{external_user_token}"
           )
         end
@@ -59,7 +57,7 @@ describe 'Jobs' do
         it 'returns invalid job id message' do
           get_anothers_job_request
           expect(json['message']).to eq(
-            'Please provide a valid job_id.'
+            'Please provide a valid id.'
           )
         end
       end
@@ -79,7 +77,7 @@ describe 'Jobs' do
           )
         end
         let(:get_job_request) do
-          get(v1_jobs_path, job_data,
+          get(v1_job_path(job.id), nil,
             'HTTP_AUTHORIZATION' => "Token #{external_user_token}"
           )
         end

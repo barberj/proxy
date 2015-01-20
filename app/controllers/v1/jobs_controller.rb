@@ -3,7 +3,7 @@ class V1::JobsController < ApiController
 
   before_action :verify_job!
 
-  def index
+  def show
     render json: job, status: 200
   end
 
@@ -14,7 +14,7 @@ private
       Job
     else
       account.jobs
-    end.find_by(id: params[:job_id])
+    end.find_by(id: params[:id])
   end
 
   def job
@@ -23,7 +23,7 @@ private
 
   def verify_job!
     render(
-      json: { message: 'Please provide a valid job_id.' },
+      json: { message: 'Please provide a valid id.' },
       status: :bad_request
     ) unless job
   end

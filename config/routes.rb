@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   namespace :v1 do
     scope :app do
       resources :users, :only => [:create]
-      resources :jobs, :only => [:index]
+      resources :jobs, :only => [:show]
       resources :apis, :only => [:index, :create]
       resources :marketplace, :only => [:index, :create]
       resources :data_encodings, :only => [:index, :update]

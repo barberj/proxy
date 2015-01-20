@@ -2,6 +2,10 @@ class GetJob < Job
   def process
     get_data
     encode_data
+  rescue => ex
+    Rails.logger.warn("Errored while processing Job #{self.id}")
+    self.status = 'errored'
+    self.save
   end
 
 private
