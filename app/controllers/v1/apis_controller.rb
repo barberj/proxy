@@ -4,12 +4,12 @@ class V1::ApisController < ApiController
   before_action :verify_api, only: [:destroy]
 
   def index
-    render json: { apis: all_apis }, status: :ok
+    render json: all_apis, status: :ok
   end
 
   def create
     api = account.apis.create(create_params)
-    render json: { api: api }, status: :ok
+    render json: api, status: :ok
   end
 
   def destroy
