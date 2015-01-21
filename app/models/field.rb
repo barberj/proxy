@@ -23,6 +23,7 @@ class Field < ActiveRecord::Base
   def as_json(*args)
     Jbuilder.new do |json|
       json.(self,
+        :id,
         :name,
         :dpath
       )

@@ -30,6 +30,7 @@ class Resource < ActiveRecord::Base
   def as_json(*args)
     Jbuilder.new do |json|
       json.(self,
+        :id,
         :name,
         :customs_url,
         :search_url,
