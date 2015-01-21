@@ -12,14 +12,16 @@ class Job < ActiveRecord::Base
     Jbuilder.new do |json|
       json.id id
       json.status status
-      json.params params
+      json.params params if self.kind_of? GetJob
       json.api api.name
       json.data_encoding data_encoding.name
       json.data_encoding_id data_encoding.id
       json.encoded_resource encoded_resource.name
 
-      (results||{}).each do |k, v|
-        json.set! k, v
+      if self.status == 'processed'
+        (results||{}).each do |k, v|
+          json.set! k, v
+        end
       end
     end.attributes!
   end

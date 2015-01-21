@@ -85,11 +85,38 @@ describe 'Jobs' do
           expect(get_job_request).to eq 200
         end
         it 'returns serialized job info' do
+          job.status = 'processed'
+          job.save
+
           get_job_request
 
           expect(json['results']).to eq(
             [{'first_name' => 'Justin'}]
           )
+
+          expect(json['status']).to eq(
+            'processed'
+          )
+        end
+        it 'does not returns serialized job info before its processed' do
+          get_job_request
+
+          expect(json['status']).to eq(
+            'queued'
+          )
+        end
+        it 'returns params' do
+          get_job_request
+
+          expect(json['params']).to be_present
+        end
+        it 'does not returns params for SetJob' do
+          job.type = 'UpdateJob'
+          job.save
+
+          get_job_request
+
+          expect(json['params']).not_to be_present
         end
       end
     end
