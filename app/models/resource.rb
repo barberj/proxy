@@ -26,4 +26,21 @@ class Resource < ActiveRecord::Base
   def can_request?(request_type)
     send(:"#{request_type}_url").present?
   end
+
+  def as_json(*args)
+    Jbuilder.new do |json|
+      json.(self,
+        :name,
+        :customs_url,
+        :search_url,
+        :created_url,
+        :updated_url,
+        :read_url,
+        :create_url,
+        :update_url,
+        :delete_url
+      )
+      json.fields_attributes fields.map(&:as_json)
+    end.attributes!
+  end
 end

@@ -14,6 +14,7 @@ class Api < ActiveRecord::Base
         :uninstall_url,
         :is_active
       )
+      json.resources_attributes resources.map(&:as_json)
     end.attributes!
   end
 end

@@ -7,7 +7,7 @@ class V1::ApisController < ApiController
 
   def create
     api = account.apis.create(create_params)
-    render json: api, status: :ok
+    render json: { api: api }, status: :ok
   end
 
 private

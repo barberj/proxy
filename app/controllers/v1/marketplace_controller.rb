@@ -2,7 +2,7 @@ class V1::MarketplaceController < ApiController
   include V1::ApiAuthorization
 
   def index
-    render json: { apis: Api.all}, status: :ok
+    render json: { apis: Api.all }, status: :ok
   end
 
   def create

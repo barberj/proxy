@@ -19,4 +19,13 @@ class Field < ActiveRecord::Base
       dpath: self.dpath
     }
   end
+
+  def as_json(*args)
+    Jbuilder.new do |json|
+      json.(self,
+        :name,
+        :dpath
+      )
+    end.attributes!
+  end
 end
