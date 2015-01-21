@@ -1,6 +1,8 @@
 class V1::ApisController < ApiController
   include V1::ApiAuthorization
 
+  before_action :verify_api, only: [:destroy]
+
   def index
     render json: { apis: all_apis }, status: :ok
   end
@@ -8,6 +10,17 @@ class V1::ApisController < ApiController
   def create
     api = account.apis.create(create_params)
     render json: { api: api }, status: :ok
+  end
+
+  def destroy
+    if api.destroy
+      render json: { api: api }, status: :ok
+    else
+      render(
+        json: { message: 'Unable to delete an API which has been installed. Please contact support.' },
+        status: :locked
+      )
+    end
   end
 
 private
@@ -22,6 +35,25 @@ private
     else
       account.apis
     end
+  end
+
+  def get_api
+    if user.internal?
+      Api
+    else
+      account.apis
+    end.find_by(id: params[:id])
+  end
+
+  def api
+    @api ||= get_api
+  end
+
+  def verify_api
+    render(
+      json: { message: 'Please provide a valid id.' },
+      status: :bad_request
+    ) unless api
   end
 
 end

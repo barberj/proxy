@@ -1,7 +1,7 @@
 class V1::JobsController < ApiController
   include V1::ApiAuthorization
 
-  before_action :verify_job!
+  before_action :verify_job
 
   def show
     render json: job, status: 200
@@ -21,7 +21,7 @@ private
     @job ||= get_job
   end
 
-  def verify_job!
+  def verify_job
     render(
       json: { message: 'Please provide a valid id.' },
       status: :bad_request

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     scope :app do
       resources :users, :only => [:create]
       resources :jobs, :only => [:show]
-      resources :apis, :only => [:index, :create]
+      resources :apis, :only => [:index, :create, :destroy]
       resources :marketplace, :only => [:index, :create]
       resources :data_encodings, :only => [:index, :update]
     end

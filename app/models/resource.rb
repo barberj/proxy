@@ -1,6 +1,6 @@
 class Resource < ActiveRecord::Base
   belongs_to :api, inverse_of: :resources
-  has_many :fields, inverse_of: :resource
+  has_many :fields, inverse_of: :resource, dependent: :destroy
 
   validates :name, presence: true,
                    uniqueness: { scope: :api_id }
