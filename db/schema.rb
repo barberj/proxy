@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150119004933) do
+ActiveRecord::Schema.define(version: 20150122211649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,12 @@ ActiveRecord::Schema.define(version: 20150119004933) do
     t.integer  "account_id",                    null: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+  end
+
+  create_table "data_encoding_templates", force: :cascade do |t|
+    t.integer "account_id",         null: false
+    t.integer "api_id",             null: false
+    t.json    "encoded_attributes"
   end
 
   create_table "data_encodings", force: :cascade do |t|

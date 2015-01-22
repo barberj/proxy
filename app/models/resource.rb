@@ -7,14 +7,6 @@ class Resource < ActiveRecord::Base
 
   accepts_nested_attributes_for :fields
 
-  def to_h
-    {
-      id: self.id,
-      name: self.name,
-      fields_attributes: self.fields.map(&:to_h)
-    }
-  end
-
   def to_eh
     {
       resource_id: self.id,

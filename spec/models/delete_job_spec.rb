@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UpdateJob do
+describe DeleteJob do
   let(:default_job) do
     default_data_encoding.jobs.create(
       type: 'DeleteJob',
