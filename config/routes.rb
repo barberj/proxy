@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/signout' => 'sessions#destroy'
 
   get '/docs', to: redirect('http://www.simpleapi.io/docs')
+  get '/privacy-policy', to: redirect('http://www.simpleapi.io/privacy-policy')
 
   get '/signup' => 'users#new'
 
