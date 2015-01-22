@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   post '/signin' => 'sessions#create'
   get '/signout' => 'sessions#destroy'
 
-  get '/docs', to: redirect('http://docs.simpleapi.io')
+  get '/docs', to: redirect('http://www.simpleapi.io/docs')
 
   get '/signup' => 'users#new'
 
