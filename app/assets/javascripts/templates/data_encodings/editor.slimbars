@@ -4,7 +4,7 @@ div class='encoding-edit'
       div class="panel-heading"
         h3 class="panel-title" Edit Data Encoding
       div class="panel-body encoding"
-        form action="/api/v1/data_encodings/{{ id }}"
+        form action="/v1/app/data_encodings/{{ id }}"
           div class="form-group"
             label for="name" Name:
             input class="form-control" name="name" value="{{ name }}"

@@ -1,4 +1,4 @@
-form action="/api/v1/apis" method="POST"
+form action="/v1/app/apis" method="POST"
   div class="form-group"
     label for="name" Name:
     input[

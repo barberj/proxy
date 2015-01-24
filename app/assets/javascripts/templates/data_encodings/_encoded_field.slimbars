@@ -5,21 +5,30 @@ div class="form-group"
     data-target="#encoded_field_{{id}}"
     type="button"
   ]
-    i class="glyphicon glyphicon-resize-vertical"
+    input[
+      type="checkbox"
+      name="encoded_resources_attributes[][encoded_fields_attributes][][is_active]"
+    ] &nbsp;&nbsp;
     span[
       data-toggle="popover"
-      data-content="Update path to change how you receive the {{ field_name }} value. ( {{field_name}}: value )"
+      data-content="Only active fields are returned"
     ]
       | {{ field_name }} &nbsp;
       i class="fa fa-info-circle"
-  div id="encoded_field_{{id}}" class="collapse in"
+    i class="resize glyphicon glyphicon-resize-vertical"
+  div id="encoded_field_{{id}}" class="collapse {{ expandIf is_active }}"
     input[
       class="hidden"
       name="encoded_resources_attributes[][encoded_fields_attributes][][id]"
       value="{{ id }}"
     ]
     div class="form-group"
-      label for="encoded_resources_attributes[][encoded_fields_attributes][][dpath]" Path:
+      label for="encoded_resources_attributes[][encoded_fields_attributes][][dpath]" Path:&nbsp;&nbsp;
+      span[
+        data-toggle="popover"
+        data-content="Update path to change how you receive the {{ field_name }} value. ( {{field_name}}: value )"
+      ]
+        i class="fa fa-info-circle"
       input[
         class="form-control"
         name="encoded_resources_attributes[][encoded_fields_attributes][][dpath]"

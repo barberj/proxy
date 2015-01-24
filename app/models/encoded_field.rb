@@ -29,6 +29,7 @@ class EncodedField < ActiveRecord::Base
         :id,
         :name,
         :dpath,
+        :is_active,
         :field_id,
         :encoded_resource_id
       )
