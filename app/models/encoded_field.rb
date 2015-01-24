@@ -6,7 +6,6 @@ class EncodedField < ActiveRecord::Base
   validates :dpath, presence: true,
                     uniqueness: { scope: :encoded_resource_id }
 
-
   def value_from_api(h)
     Dpaths.dselect(h, self.field.dpath)
   end

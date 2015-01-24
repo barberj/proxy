@@ -7,7 +7,14 @@ div class="form-group"
   ]
     input[
       type="checkbox"
+      class="{{ checkedIf is_active }}"
+      data-target="#encoded_field_{{id}}_active"
+    ] &nbsp;&nbsp;
+    input[
+      id="encoded_field_{{id}}_active"
+      type="hidden"
       name="encoded_resources_attributes[][encoded_fields_attributes][][is_active]"
+      value="{{ is_active }}"
     ] &nbsp;&nbsp;
     span[
       data-toggle="popover"

@@ -85,8 +85,16 @@ handle_encoding_edit = ->
         event.preventDefault()
         $.event.trigger "dashboard.show"
       $('[data-toggle="popover"]').popover(trigger: 'hover')
+      $('.checked').attr('checked', true)
 
       $('.editor-save').click (event) ->
+        for checkbox in $('input[type="checkbox"]')
+          input = $(checkbox).data('target')
+          if $(checkbox).prop('checked')
+            $(input).val(1)
+          else
+            $(input).val(0)
+
         event.preventDefault()
         form = $(@).closest('form')
         data = form.serialize()

@@ -7,7 +7,7 @@ class V1::DataEncodingsController < ApiController
 
   def update
     updated = if encoding = account.data_encodings.find_by(:id => params[:id])
-      encoding.update_attributes(update_params)
+      encoding.update(update_params)
     end
 
     render json: encoding, status: :ok
