@@ -40,7 +40,7 @@ private
     encoded = []
     Array.wrap(self.results['results']).each do |data|
       encoded_datum = {}
-      encoded_resource.encoded_fields.each do |encoded_field|
+      encoded_resource.encoded_fields.where(is_active: true).each do |encoded_field|
         if value = encoded_field.value_from_api(data)
           encoded_field.value_to_user(encoded_datum, value)
         end
