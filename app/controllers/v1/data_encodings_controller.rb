@@ -6,8 +6,17 @@ class V1::DataEncodingsController < ApiController
   end
 
   def update
-    updated = if encoding = account.data_encodings.find_by(:id => params[:id])
-      encoding.update(update_params)
+    if encoding = account.data_encodings.find_by(:id => params[:id])
+      if encoding.update(update_params)
+
+        if params['template']
+          template = account.data_encoding_templates.
+            where(:api_id => encoding.api_id).first_or_create
+
+          template.encoded_attributes = encoding.as_template
+          template.save
+        end
+      end
     end
 
     render json: encoding, status: :ok

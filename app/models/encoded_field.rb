@@ -35,4 +35,14 @@ class EncodedField < ActiveRecord::Base
       json.field_name field.name
     end.attributes!
   end
+
+  def as_template
+    Jbuilder.new do |json|
+      json.(self,
+        :dpath,
+        :is_active,
+        :field_id,
+      )
+    end.attributes!
+  end
 end

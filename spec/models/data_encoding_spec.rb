@@ -23,4 +23,18 @@ describe DataEncoding do
         to include( 'dpath' => '/fname/*' )
     end
   end
+  describe '#as_template' do
+    it 'returns encoded_resources as_template' do
+      expect(custom_data_encoding.as_template.first).
+        to include( 'name' => 'MyContacts' )
+    end
+    it 'returns nested encoded_fields' do
+      expect(
+        custom_data_encoding.as_template.
+          first['encoded_fields_attributes'].
+          first
+      ).
+        to include( 'dpath' => '/fname/*' )
+    end
+  end
 end

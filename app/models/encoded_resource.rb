@@ -18,7 +18,17 @@ class EncodedResource < ActiveRecord::Base
       )
       json.resource_name resource.name
 
-      json.encoded_fields_attributes self.encoded_fields.as_json
+      json.encoded_fields_attributes self.encoded_fields.map(&:as_json)
+    end.attributes!
+  end
+
+  def as_template
+    Jbuilder.new do |json|
+      json.(self,
+        :name,
+        :resource_id
+      )
+      json.encoded_fields_attributes self.encoded_fields.map(&:as_template)
     end.attributes!
   end
 end
