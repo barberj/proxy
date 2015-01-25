@@ -28,20 +28,29 @@ div class="container-fluid"
             aria-controls="Apis"
             role="tab"
             data-toggle="tab"
-          ] Apis
+          ] All APIs
+        li role="presentation"
+          a[
+            href="#published"
+            aria-controls="published"
+            role="tab"
+            data-toggle="tab"
+          ] My APIs
         li role="presentation"
           a[
             href="#publisher"
             aria-controls="Publisher"
             role="tab"
             data-toggle="tab"
-          ] Publisher
+          ] Publish an API
 
       div class="tab-content"
         div class="tab-pane active" id="arcade"
           div class="market-apis"
         div class="tab-pane" id="publisher"
           div class="draft"
+        div class="tab-pane" id="published"
+          div class="my-market"
 
   div class='dashboard app-content'
     div class="encodings" id="encodings"

@@ -2,7 +2,7 @@
 |   {{#if (is_modulus @index 4) }}
 div class="row"
 |   {{/if}}
-|   {{> apis/_show }}
+|   {{> marketplace/_show }}
 | {{else}}
-|   No Apis yet.
+|   No APIs yet.
 | {{/each}}

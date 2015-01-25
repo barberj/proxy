@@ -4,6 +4,10 @@ div class="api"
       span
         | {{{ image }}}
       button[
-        class="btn btn-primary btn-xs api install"
+        class="btn btn-primary btn-xs api edit-api"
         data-id="{{id}}"
-      ] Install
+      ] Edit
+      button[
+        class="btn btn-danger btn-xs api del-api"
+        data-id="{{id}}"
+      ] Delete
