@@ -96,7 +96,13 @@ find_api = (id) ->
     if api.id is casted_id
       return api
 
-handle_encoding_edit = ->
+handle_encoding_actions = ->
+  $('.del-encoding').click (event) ->
+    event.preventDefault()
+    $(@).data('id')
+    proxy_request('DELETE', "/v1/app/data_encodings/#{$(@).data('id')}" , {}, ((rsp) =>
+      $.event.trigger "encoding.updated"
+    ))
   $('.edit-encoding').click (event) ->
     event.preventDefault()
     if window.App.data_encodings
@@ -129,7 +135,7 @@ handle_encoding_edit = ->
 render_encodings = ->
   html = HandlebarsTemplates['data_encodings/index'](window.App)
   $('.encodings').html(html)
-  handle_encoding_edit()
+  handle_encoding_actions()
 
 get_encodings = ->
   proxy_request('GET', '/v1/app/data_encodings', {}, ((rsp) =>

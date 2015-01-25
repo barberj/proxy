@@ -1,8 +1,9 @@
 class V1::MarketplaceController < ApiController
   include V1::ApiAuthorization
+  skip_before_action :authorize_user!, :only => [:index]
 
   def index
-    render json: { apis: Api.all }, status: :ok
+    render json: { apis: Api.where(is_active: true).all }, status: :ok
   end
 
   def create

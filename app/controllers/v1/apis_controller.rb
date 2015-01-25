@@ -33,7 +33,7 @@ class V1::ApisController < ApiController
 
   def destroy
     if api.destroy
-      render json: { api: api }, status: :ok
+      render json: { message: "Deleted API #{api.id}" }, status: :ok
     else
       render(
         json: { message: 'Unable to delete an API which has been installed. Please contact support.' },

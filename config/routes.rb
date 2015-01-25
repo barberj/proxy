@@ -23,7 +23,7 @@ Rails.application.routes.draw do
         get '/image' => :get_image
       end
       resources :marketplace, :only => [:index, :create]
-      resources :data_encodings, :only => [:index, :update]
+      resources :data_encodings, :only => [:index, :update, :destroy]
     end
 
     scope :api do

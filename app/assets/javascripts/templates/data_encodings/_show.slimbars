@@ -4,3 +4,4 @@ div class="encoding"
       span
         | {{{ api.image }}}
         button class="btn btn-primary btn-xs edit-encoding" data-id="{{id}}" Edit
+        button class="btn btn-danger btn-xs del-encoding" data-id="{{id}}" Delete
