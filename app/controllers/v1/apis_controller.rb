@@ -12,6 +12,16 @@ class V1::ApisController < ApiController
     render json: api, status: :ok
   end
 
+  def image
+    image = params['image'].tempfile.read()
+    if api = account.apis.find_by(id: api_id)
+      api.image = image
+      api.save
+    end
+
+    render json: api, status: :ok
+  end
+
   def destroy
     if api.destroy
       render json: { api: api }, status: :ok
@@ -24,6 +34,10 @@ class V1::ApisController < ApiController
   end
 
 private
+
+  def api_id
+    params.require(:api_id)
+  end
 
   def create_params
     params.slice(:name, :install_url, :uninstall_url, :resources_attributes).as_json

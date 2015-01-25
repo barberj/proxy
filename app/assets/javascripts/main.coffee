@@ -3,7 +3,6 @@ load_javascript = (controller) ->
 
 window.App = {}
 window.App.apis = []
-window.App.installed_apis = []
 window.App.data_encodings = []
 
 $ () ->

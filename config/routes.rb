@@ -18,7 +18,9 @@ Rails.application.routes.draw do
     scope :app do
       resources :users, :only => [:create]
       resources :jobs, :only => [:show]
-      resources :apis, :only => [:index, :create, :destroy]
+      resources :apis, :only => [:index, :create, :destroy] do
+        post '/image' => :image
+      end
       resources :marketplace, :only => [:index, :create]
       resources :data_encodings, :only => [:index, :update]
     end

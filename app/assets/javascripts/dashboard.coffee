@@ -29,8 +29,19 @@ render_market = ->
   $.event.trigger "market.open"
 
 show_publisher = (rsp) =>
-  console.log 'here'
   $.event.trigger "publisher.show"
+
+upload_api_image = (api) =>
+  if image = $('input[type="file"]')[0].files[0]
+    fd = new FormData()
+    fd.append('image', image)
+    xhr = new XMLHttpRequest()
+    xhr.open("POST", "/v1/app/apis/#{api.id}/image")
+    xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
+    xhr.onreadystatechange = show_publisher
+    xhr.send(fd)
+  else
+    show_publisher()
 
 render_publisher = ->
   html = HandlebarsTemplates['apis/new']()
@@ -55,8 +66,7 @@ render_publisher = ->
   $('.publisher-save').click (event) ->
     event.preventDefault()
     form = $(@).closest('form')
-    data = form.serialize()
-    proxy_request('POST', form.get(0).action, form.serialize(), show_publisher)
+    proxy_request('POST', form.get(0).action, form.serialize(), upload_api_image)
   $('.publisher-cancel').click (event) ->
     event.preventDefault()
     $.event.trigger "publisher.show"
@@ -147,9 +157,6 @@ $(document).on "dashboard.load", () =>
   get_market()
   get_encodings()
   render_user()
-
-$(document).on "api.installed", () =>
-  get_encodings()
 
 $(document).on "encoding.updated", get_encodings
 
