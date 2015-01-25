@@ -19,7 +19,8 @@ class DataEncoding < ActiveRecord::Base
     Jbuilder.new do |json|
       json.(self,
         :id,
-        :name
+        :name,
+        :api_id
       )
       json.encoded_resources_attributes self.encoded_resources.map(&:as_json)
       json.api api.name

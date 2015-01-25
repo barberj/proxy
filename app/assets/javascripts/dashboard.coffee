@@ -82,6 +82,11 @@ find_encoding = (id) ->
     if encoding.id is id
       return encoding
 
+find_api = (id) ->
+  for api in window.App.market_apis
+    if api.id is id
+      return api
+
 handle_encoding_edit = ->
   $('.edit-encoding').click (event) ->
     event.preventDefault()
@@ -120,6 +125,9 @@ render_encodings = ->
 get_encodings = ->
   proxy_request('GET', '/v1/app/data_encodings', {}, ((rsp) =>
     window.App.data_encodings = rsp.data_encodings
+    for encoding in window.App.data_encodings
+      api = find_api(encoding.api_id)
+      encoding.api = api
     $.event.trigger "populated.encodings"
   ))
 
@@ -154,10 +162,11 @@ $(document).on "dashboard.load", () =>
   $.event.trigger "publisher.show"
 
   setup_handlers()
-  get_market()
-  get_encodings()
   render_user()
+  get_market()
 
+
+$(document).on "market.open", get_encodings
 $(document).on "encoding.updated", get_encodings
 
 $(document).on "populated.encodings", () =>
