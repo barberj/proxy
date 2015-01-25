@@ -17,6 +17,13 @@ form action="/v1/app/apis" method="POST"
       class="form-control"
       name="uninstall_url"
     ]
+  div class="form-group"
+    div class="input-group"
+      span class="input-group-btn"
+        span class="btn btn-primary btn-file"
+          | Image: &nbsp;
+          input name="image" type="file"
+      input[type="text" class="form-control" readonly]
   div class="resources"
   div class="form-group"
     button[

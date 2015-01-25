@@ -9,7 +9,7 @@ div class="form-group resource_{{id}}"
       i class="fa fa-square fa-stack-2x"
       i class="fa fa-times fa-stack-1x text-danger"
     | &nbsp;New Resource
-    i class="glyphicon glyphicon-resize-vertical"
+    i class="resize glyphicon glyphicon-resize-vertical"
 div id="resource_{{id}}" class="collapse in resource_{{id}}"
   div class="form-group"
     label for="resources_attributes[][name]" Name:
