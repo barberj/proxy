@@ -13,7 +13,6 @@ class Api < ActiveRecord::Base
       json.(self,
         :id,
         :name,
-        :image,
         :install_url,
         :uninstall_url,
         :is_active

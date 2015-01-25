@@ -19,7 +19,8 @@ Rails.application.routes.draw do
       resources :users, :only => [:create]
       resources :jobs, :only => [:show]
       resources :apis, :only => [:index, :create, :destroy] do
-        post '/image' => :image
+        post '/image' => :add_image
+        get '/image' => :get_image
       end
       resources :marketplace, :only => [:index, :create]
       resources :data_encodings, :only => [:index, :update]

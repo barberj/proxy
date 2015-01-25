@@ -71,10 +71,18 @@ render_publisher = ->
     event.preventDefault()
     $.event.trigger "publisher.show"
 
+get_market_images = ->
+  for api in window.App.market_apis
+    proxy_request('GET', "/v1/app/apis/#{api.id}/image", {}, ((rsp) ->
+      api = find_api(rsp.api_id)
+      api.image = rsp.image
+      $.event.trigger "populated.market"
+    ))
+
 get_market = ->
   proxy_request('GET', '/v1/app/marketplace', {}, ((rsp) =>
     window.App.market_apis = rsp.apis
-    $.event.trigger "populated.market"
+    $.event.trigger "populated.market_apis"
   ))
 
 find_encoding = (id) ->
@@ -83,8 +91,9 @@ find_encoding = (id) ->
       return encoding
 
 find_api = (id) ->
+  casted_id = parseInt(id)
   for api in window.App.market_apis
-    if api.id is id
+    if api.id is casted_id
       return api
 
 handle_encoding_edit = ->
@@ -174,6 +183,7 @@ $(document).on "populated.encodings", () =>
   render_encodings()
 
 $(document).on "populated.market", render_market
+$(document).on "populated.market_apis", get_market_images
 
 $(document).on "dashboard.show", render_dashboard
 $(document).on "publisher.show", render_publisher

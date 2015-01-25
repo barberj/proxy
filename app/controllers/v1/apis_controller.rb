@@ -12,7 +12,7 @@ class V1::ApisController < ApiController
     render json: api, status: :ok
   end
 
-  def image
+  def add_image
     image = params['image'].tempfile.read()
     if api = account.apis.find_by(id: api_id)
       api.image = image
@@ -20,6 +20,15 @@ class V1::ApisController < ApiController
     end
 
     render json: api, status: :ok
+  end
+
+  def get_image
+    if api = account.apis.find_by(id: api_id)
+      render json: {api_id: api_id, image: api.image}, status: :ok
+    else
+      render json: {message: 'Invalid API'}, status: :bad_request
+    end
+
   end
 
   def destroy
