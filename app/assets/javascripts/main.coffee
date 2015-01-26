@@ -2,7 +2,8 @@ load_javascript = (controller) ->
   $.event.trigger "#{controller}.load"
 
 window.App = {}
-window.App.apis = []
+window.App.published_apis = []
+window.App.market_apis = []
 window.App.data_encodings = []
 
 $ () ->

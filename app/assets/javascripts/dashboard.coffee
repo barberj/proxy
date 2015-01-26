@@ -15,7 +15,7 @@ render_user = ->
   html = HandlebarsTemplates['user/show'](window.App)
   $('.user-settings').html(html)
 
-handle_installs = () ->
+bind_marketplace_handlers = () ->
   $('.install').click (event) ->
     event.preventDefault()
     proxy_request('POST', '/v1/app/marketplace', { api_id: $(@).data('id') }, ((rsp) =>
@@ -26,10 +26,10 @@ handle_installs = () ->
 render_market = ->
   html = HandlebarsTemplates['marketplace/index'](window.App)
   $('.market-apis').html(html)
-  $.event.trigger "market.open"
+  $.event.trigger "opened.market"
 
 show_publisher = (rsp) =>
-  $.event.trigger "publisher.show"
+  $.event.trigger "show.publisher"
 
 upload_api_image = (api) =>
   if image = $('input[type="file"]')[0].files[0]
@@ -69,7 +69,7 @@ render_publisher = ->
     proxy_request('POST', form.get(0).action, form.serialize(), upload_api_image)
   $('.publisher-cancel').click (event) ->
     event.preventDefault()
-    $.event.trigger "publisher.show"
+    $.event.trigger "show.publisher"
 
 get_market_images = ->
   for api in window.App.market_apis
@@ -85,6 +85,33 @@ get_market = ->
     $.event.trigger "populated.market_apis"
   ))
 
+bind_published_handlers = ->
+  $('.del-api').click (event) ->
+    event.preventDefault()
+    remove_api($(@).data('id'))
+    proxy_request('DELETE', "/v1/app/apis/#{$(@).data('id')}", {}, ((rsp) =>
+      $.event.trigger "populated.published_apis"
+    ))
+
+render_published = ->
+  html = HandlebarsTemplates['apis/index'](window.App)
+  $('.my-market-apis').html(html)
+  $.event.trigger "rendered.published"
+
+get_published_images = ->
+  for api in window.App.published_apis
+    proxy_request('GET', "/v1/app/apis/#{api.id}/image", {}, ((rsp) ->
+      api = find_api(rsp.api_id)
+      api.image = rsp.image
+      $.event.trigger "populated.published"
+    ))
+
+get_published = ->
+  proxy_request('GET', '/v1/app/apis', {}, ((rsp) =>
+    window.App.published_apis = rsp.apis
+    $.event.trigger "populated.published_apis"
+  ))
+
 find_encoding = (id) ->
   for encoding in window.App.data_encodings
     if encoding.id is id
@@ -95,6 +122,16 @@ find_api = (id) ->
   for api in window.App.market_apis
     if api.id is casted_id
       return api
+
+remove_api = (id) ->
+  casted_id = parseInt(id)
+  for index, api of window.App.market_apis
+    if api.id is casted_id
+      window.App.market_apis.splice(index, 1)
+
+  for index, api of window.App.published_apis
+    if api.id is casted_id
+      window.App.published_apis.splice(index, 1)
 
 handle_encoding_actions = ->
   $('.del-encoding').click (event) ->
@@ -113,7 +150,7 @@ handle_encoding_actions = ->
       $('.editor').show()
       $('.editor-cancel').click (event) ->
         event.preventDefault()
-        $.event.trigger "dashboard.show"
+        $.event.trigger "show.dashboard"
       $('[data-toggle="popover"]').popover(trigger: 'hover')
       $('.checked').attr('checked', true)
 
@@ -173,25 +210,30 @@ render_dashboard = ->
   $('.dashboard').show()
 
 $(document).on "dashboard.load", () =>
-  $.event.trigger "dashboard.show"
-  $.event.trigger "publisher.show"
+  $.event.trigger "show.dashboard"
+  $.event.trigger "show.publisher"
 
   setup_handlers()
   render_user()
   get_market()
+  get_published()
 
-
-$(document).on "market.open", get_encodings
 $(document).on "encoding.updated", get_encodings
 
 $(document).on "populated.encodings", () =>
   setup_handlers()
   render_encodings()
 
-$(document).on "populated.market", render_market
 $(document).on "populated.market_apis", get_market_images
+$(document).on "populated.market", render_market
+$(document).on "opened.market", () =>
+  bind_marketplace_handlers()
+  get_encodings()
 
-$(document).on "dashboard.show", render_dashboard
-$(document).on "publisher.show", render_publisher
+$(document).on "populated.published_apis", get_published_images
+$(document).on "populated.published", render_published
+$(document).on "rendered.published", bind_published_handlers
 
-$(document).on "market.open", handle_installs
+$(document).on "show.dashboard", render_dashboard
+$(document).on "show.publisher", render_publisher
+

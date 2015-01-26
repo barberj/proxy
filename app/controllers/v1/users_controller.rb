@@ -1,5 +1,6 @@
 class V1::UsersController < ApiController
   include V1::ApiAuthorization
+
   skip_before_action :authorize_user!, :only => [:create]
 
   def create

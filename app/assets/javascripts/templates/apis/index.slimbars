@@ -1,5 +1,8 @@
-div id="apis"
-  | {{#each apis}}
-  div
-    | {{name}}
-  | {{/each}}
+| {{#each published_apis}}
+|   {{#if (is_modulus @index 4) }}
+div class="row"
+|   {{/if}}
+|   {{> apis/_show }}
+| {{else}}
+|   No APIs yet.
+| {{/each}}

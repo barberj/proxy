@@ -1,10 +1,11 @@
 class V1::ApisController < ApiController
   include V1::ApiAuthorization
 
+  skip_before_action :authorize_user!, :only => [:get_image]
   before_action :verify_api, only: [:destroy]
 
   def index
-    render json: all_apis, status: :ok
+    render json: {apis: all_apis}, status: :ok
   end
 
   def create
