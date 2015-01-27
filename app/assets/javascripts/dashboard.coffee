@@ -2,6 +2,15 @@ default_error_cb = (rsp) =>
   #rsp.responseJSON
   console.log "error: #{rsp.responseText}"
 
+bind_upload_image_handlers = () ->
+  $('.btn-file :file').change (event) ->
+    label = $(@).val().replace(/\\/g, '/').replace(/.*\//, '')
+    $(@).trigger('fileselect', label)
+  $('.btn-file :file').on('fileselect', (event, label) ->
+    input = $(@).parents('.input-group').find(':text')
+    input.val(label)
+  )
+
 proxy_request = (method, url, data, done_callback, fail_callback=default_error_cb) ->
   $.ajax(
     url: url,
@@ -32,7 +41,7 @@ show_publisher = (rsp) =>
   $.event.trigger "show.publisher"
 
 upload_api_image = (api, callback) =>
-  if image = $('input[type="file"]')[0].files[0]
+  if image = ($('input[type="file"]')[0].files[0] || $('input[type="file"]')[1].files[0])
     fd = new FormData()
     fd.append('image', image)
     xhr = new XMLHttpRequest()
@@ -43,8 +52,11 @@ upload_api_image = (api, callback) =>
   else
     callback()
 
-upload_new_api_image = (api) =>
+create_api_image = (api) =>
   upload_api_image(api, show_publisher)
+
+update_api_image = (api) =>
+  upload_api_image(api, show_published)
 
 render_publisher = ->
   html = HandlebarsTemplates['apis/new']()
@@ -69,10 +81,12 @@ render_publisher = ->
   $('.publisher-save').click (event) ->
     event.preventDefault()
     form = $(@).closest('form')
-    proxy_request('POST', form.get(0).action, form.serialize(), upload_new_api_image)
+    proxy_request('POST', form.get(0).action, form.serialize(), create_api_image)
   $('.publisher-cancel').click (event) ->
     event.preventDefault()
     $.event.trigger "show.publisher"
+  bind_upload_image_handlers()
+
 
 get_market_images = ->
   for api in window.App.market_apis
@@ -108,13 +122,11 @@ bind_published_handlers = ->
     html = HandlebarsTemplates['apis/editor'](api)
     $('.editor').html(html)
     $('.editor').show()
+    bind_upload_image_handlers()
     $('.editor-save').click (event) ->
       event.preventDefault()
       form = $(@).closest('form')
-      data = form.serialize()
-      proxy_request('PUT', form.get(0).action, form.serialize(), ((rsp) =>
-        show_published()
-      ))
+      proxy_request('PUT', form.get(0).action, form.serialize(), update_api_image)
     $('.editor-cancel').click (event) ->
       event.preventDefault()
       show_publisehd()
