@@ -16,7 +16,7 @@ div class='encoding-edit'
           | {{/each}}
           div class="form-group"
             input type="checkbox" name="template" &nbsp;
-            | Use configuration as template for all future {{ api }} installs
+            | Use configuration as template for all future {{ api.name }} installs
           div class="form-group right-align"
             button class="btn btn-primary btn-xs editor-save" Save
             | &nbsp;
