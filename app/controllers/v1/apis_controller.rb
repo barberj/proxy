@@ -60,7 +60,7 @@ private
   end
 
   def all_apis
-    if account.internal?
+    if internal?
       Api.all
     else
       account.apis
@@ -68,7 +68,7 @@ private
   end
 
   def get_api
-    if user.internal?
+    if internal?
       Api
     else
       account.apis

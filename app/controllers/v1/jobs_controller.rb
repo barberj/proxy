@@ -10,7 +10,7 @@ class V1::JobsController < ApiController
 private
 
   def get_job
-    if user.internal?
+    if internal?
       Job
     else
       account.jobs

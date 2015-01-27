@@ -7,6 +7,9 @@ form action="/v1/app/apis/{{ id }}" method="PUT" enctype="multipart/form-data"
       value="{{ name }}"
     ]
   div class="form-group"
+    label for="id" Id:
+    input class="form-control" name="id" value="{{ id }}" readonly
+  div class="form-group"
     label for="install_url" Install Url:
     input[
       class="form-control"

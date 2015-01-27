@@ -36,7 +36,7 @@ private
   end
 
   def get_data_encoding
-    if user.internal?
+    if internal?
       DataEncoding
     else
       account.data_encodings
