@@ -1,13 +1,18 @@
 div class="api"
   div class="col-xs-12 col-sm-3 col-md-3 col-lg-3"
     div class="api-box"
-      span
+      button[
+        class="btn btn-danger btn-xs btn-del api del-api"
+        data-id="{{id}}"
+      ]
+        i class="fa fa-times"
+      span class="logo"
         | {{{ image }}}
+      button[
+        class="btn btn-success btn-xs api install"
+        data-id="{{id}}"
+      ] Install
       button[
         class="btn btn-primary btn-xs api edit-api"
         data-id="{{id}}"
       ] Edit
-      button[
-        class="btn btn-danger btn-xs api del-api"
-        data-id="{{id}}"
-      ] Delete

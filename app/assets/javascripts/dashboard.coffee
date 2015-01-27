@@ -24,13 +24,16 @@ render_user = ->
   html = HandlebarsTemplates['user/show'](window.App)
   $('.user-settings').html(html)
 
-bind_marketplace_handlers = () ->
+bind_api_install = () ->
   $('.install').click (event) ->
     event.preventDefault()
     proxy_request('POST', '/v1/app/marketplace', { api_id: $(@).data('id') }, ((rsp) =>
       installed = rsp.data_encoding
       window.location = "#{installed.install_url}&redirect_uri=#{window.location.origin + window.location.pathname}"
     ))
+
+bind_marketplace_handlers = () ->
+  bind_api_install()
 
 render_market = ->
   html = HandlebarsTemplates['marketplace/index'](window.App)
@@ -95,6 +98,7 @@ get_market_images = ->
         api.image = rsp.image
       $.event.trigger "populated.market"
     ))
+  $.event.trigger "populated.market"
 
 get_market = ->
   proxy_request('GET', '/v1/app/marketplace', {}, ((rsp) =>
@@ -109,6 +113,7 @@ show_published = ->
   get_published()
 
 bind_published_handlers = ->
+  bind_api_install()
   $('.del-api').click (event) ->
     event.preventDefault()
     remove_api($(@).data('id'))
@@ -259,8 +264,8 @@ $(document).on "dashboard.load", () =>
 $(document).on "encoding.updated", get_encodings
 
 $(document).on "populated.encodings", () =>
-  setup_handlers()
   render_encodings()
+  setup_handlers()
 
 $(document).on "populated.market_apis", get_market_images
 $(document).on "populated.market", render_market

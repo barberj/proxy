@@ -1,3 +1,5 @@
+div class="tab-header"
+  | Install your Published APIs for testing purposes.
 | {{#each published_apis}}
 |   {{#if (is_modulus @index 4) }}
 div class="row"

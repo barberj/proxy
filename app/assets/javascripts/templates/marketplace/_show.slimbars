@@ -4,6 +4,6 @@ div class="api"
       span
         | {{{ image }}}
       button[
-        class="btn btn-primary btn-xs api install"
+        class="btn btn-success btn-xs api install"
         data-id="{{id}}"
       ] Install

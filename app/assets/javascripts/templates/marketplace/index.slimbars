@@ -4,5 +4,7 @@ div class="row"
 |   {{/if}}
 |   {{> marketplace/_show }}
 | {{else}}
-|   No APIs yet.
+|   Sorry no active APIs yet. Perhaps you should&nbsp;
+a data-toggle="tab" href="#publisher" role="tab" publish
+|  one!
 | {{/each}}
