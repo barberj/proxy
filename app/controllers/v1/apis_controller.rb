@@ -2,14 +2,20 @@ class V1::ApisController < ApiController
   include V1::ApiAuthorization
 
   skip_before_action :authorize_user!, :only => [:get_image]
-  before_action :verify_api, only: [:destroy]
+  before_action :verify_api, only: [:update, :destroy]
 
   def index
     render json: {apis: all_apis}, status: :ok
   end
 
   def create
-    api = account.apis.create(create_params)
+    api = account.apis.create(upsert_params)
+    render json: api, status: :ok
+  end
+
+  def update
+    api.update(upsert_params)
+
     render json: api, status: :ok
   end
 
@@ -49,7 +55,7 @@ private
     params.require(:api_id)
   end
 
-  def create_params
+  def upsert_params
     params.slice(:name, :install_url, :uninstall_url, :resources_attributes).as_json
   end
 

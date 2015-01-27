@@ -8,12 +8,18 @@ div class="form-group field_{{id}}"
     span class="fa-stack fa-lg rem-field" data-target=".field_{{id}}"
       i class="fa fa-square fa-stack-2x"
       i class="fa fa-times fa-stack-1x text-danger"
-    | &nbsp;New Field
+    | &nbsp;{{ name }}
     i class="resize glyphicon glyphicon-resize-vertical"
 div id="field_{{id}}" class="collapse in field_{{id}}"
+  input[
+    class="hidden"
+    name="resources_attributes[][fields_attributes][][id]"
+    value="{{ id }}"
+  ]
   div class="form-group"
     label for="resources_attributes[][fields_attributes][][dpath]" Path:
     input[
       class="form-control"
       name="resources_attributes[][fields_attributes][][dpath]"
+      value="{{ dpath }}"
     ]

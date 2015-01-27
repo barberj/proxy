@@ -1,0 +1,84 @@
+div class="form-group resource_{{id}}"
+  button[
+    class="btn btn-primary btn-sm collapsable"
+    data-toggle="collapse"
+    data-target="#resource_{{id}}"
+    type="button"
+  ]
+    span class="fa-stack fa-lg rem-resource" data-target=".resource_{{id}}"
+      i class="fa fa-square fa-stack-2x"
+      i class="fa fa-times fa-stack-1x text-danger"
+    | &nbsp;{{ name }}
+    i class="resize glyphicon glyphicon-resize-vertical"
+div id="resource_{{id}}" class="collapse resource_{{id}}"
+  input[
+    class="hidden"
+    name="resources_attributes[][id]"
+    value="{{ id }}"
+  ]
+  div class="form-group"
+    label for="resources_attributes[][name]" Name:
+    input[
+      class="form-control"
+      name="resources_attributes[][name]"
+      value="{{ name }}"
+    ]
+  div class="form-group"
+    label for="resources_attributes[][customs_url]" Customs Url:
+    input[
+      class="form-control"
+      name="resources_attributes[][customs_url]"
+      value="{{ customs_url }}"
+    ]
+  div class="form-group"
+    label for="resources_attributes[][search_url]" Search Url:
+    input[
+      class="form-control"
+      name="resources_attributes[][search_url]"
+      value="{{ search_url }}"
+    ]
+  div class="form-group"
+    label for="resources_attributes[][created_url]" Created Url:
+    input[
+      class="form-control"
+      name="resources_attributes[][created_url]"
+      value="{{ created_url }}"
+    ]
+  div class="form-group"
+    label for="resources_attributes[][updated_url]" Updated Url:
+    input[
+      class="form-control"
+      name="resources_attributes[][updated_url]"
+      value="{{ updated_url }}"
+    ]
+  div class="form-group"
+    label for="resources_attributes[][read_url]" Read Url:
+    input[
+      class="form-control"
+      name="resources_attributes[][read_url]"
+      value="{{ read_url }}"
+    ]
+  div class="form-group"
+    label for="resources_attributes[][create_url]" Create Url:
+    input[
+      class="form-control"
+      name="resources_attributes[][create_url]"
+      value="{{ create_url }}"
+    ]
+  div class="form-group"
+    label for="resources_attributes[][update_url]" Update Url:
+    input[
+      class="form-control"
+      name="resources_attributes[][update_url]"
+      value="{{ update_url }}"
+    ]
+  div class="resource_{{id}}_fields"
+    | {{#each fields_attributes}}
+    |   {{> apis/_field}}
+    | {{/each}}
+  div class="form-group"
+    button[
+      type="button"
+      data-target=".resource_{{id}}_fields"
+      class="btn btn-info btn-xs add-field"
+    ] Add Field

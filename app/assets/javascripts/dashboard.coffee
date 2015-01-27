@@ -31,17 +31,20 @@ render_market = ->
 show_publisher = (rsp) =>
   $.event.trigger "show.publisher"
 
-upload_api_image = (api) =>
+upload_api_image = (api, callback) =>
   if image = $('input[type="file"]')[0].files[0]
     fd = new FormData()
     fd.append('image', image)
     xhr = new XMLHttpRequest()
     xhr.open("POST", "/v1/app/apis/#{api.id}/image")
     xhr.setRequestHeader "Authorization", "Token #{window.App.token}"
-    xhr.onreadystatechange = show_publisher
+    xhr.onreadystatechange = callback
     xhr.send(fd)
   else
-    show_publisher()
+    callback()
+
+upload_new_api_image = (api) =>
+  upload_api_image(api, show_publisher)
 
 render_publisher = ->
   html = HandlebarsTemplates['apis/new']()
@@ -66,7 +69,7 @@ render_publisher = ->
   $('.publisher-save').click (event) ->
     event.preventDefault()
     form = $(@).closest('form')
-    proxy_request('POST', form.get(0).action, form.serialize(), upload_api_image)
+    proxy_request('POST', form.get(0).action, form.serialize(), upload_new_api_image)
   $('.publisher-cancel').click (event) ->
     event.preventDefault()
     $.event.trigger "show.publisher"
@@ -74,8 +77,8 @@ render_publisher = ->
 get_market_images = ->
   for api in window.App.market_apis
     proxy_request('GET', "/v1/app/apis/#{api.id}/image", {}, ((rsp) ->
-      api = find_api(rsp.api_id)
-      api.image = rsp.image
+      if api = find_api(rsp.api_id, window.App.market_apis)
+        api.image = rsp.image
       $.event.trigger "populated.market"
     ))
 
@@ -85,6 +88,12 @@ get_market = ->
     $.event.trigger "populated.market_apis"
   ))
 
+show_published = ->
+  $(".editor").hide()
+  $('.app-content').hide()
+  $('.marketplace').show()
+  get_published()
+
 bind_published_handlers = ->
   $('.del-api').click (event) ->
     event.preventDefault()
@@ -92,6 +101,23 @@ bind_published_handlers = ->
     proxy_request('DELETE', "/v1/app/apis/#{$(@).data('id')}", {}, ((rsp) =>
       $.event.trigger "populated.published_apis"
     ))
+  $('.edit-api').click (event) ->
+    $('.app-content').hide()
+    event.preventDefault()
+    api = find_api($(@).data('id'), window.App.published_apis)
+    html = HandlebarsTemplates['apis/editor'](api)
+    $('.editor').html(html)
+    $('.editor').show()
+    $('.editor-save').click (event) ->
+      event.preventDefault()
+      form = $(@).closest('form')
+      data = form.serialize()
+      proxy_request('PUT', form.get(0).action, form.serialize(), ((rsp) =>
+        show_published()
+      ))
+    $('.editor-cancel').click (event) ->
+      event.preventDefault()
+      show_publisehd()
 
 render_published = ->
   html = HandlebarsTemplates['apis/index'](window.App)
@@ -101,8 +127,8 @@ render_published = ->
 get_published_images = ->
   for api in window.App.published_apis
     proxy_request('GET', "/v1/app/apis/#{api.id}/image", {}, ((rsp) ->
-      api = find_api(rsp.api_id)
-      api.image = rsp.image
+      if api = find_api(rsp.api_id, window.App.published_apis)
+        api.image = rsp.image
       $.event.trigger "populated.published"
     ))
 
@@ -117,9 +143,9 @@ find_encoding = (id) ->
     if encoding.id is id
       return encoding
 
-find_api = (id) ->
+find_api = (id, collection) ->
   casted_id = parseInt(id)
-  for api in window.App.market_apis
+  for api in collection
     if api.id is casted_id
       return api
 
@@ -178,8 +204,8 @@ get_encodings = ->
   proxy_request('GET', '/v1/app/data_encodings', {}, ((rsp) =>
     window.App.data_encodings = rsp.data_encodings
     for encoding in window.App.data_encodings
-      api = find_api(encoding.api_id)
-      encoding.api = api
+      if api = find_api(encoding.api_id, window.App.market_apis) || find_api(encoding.api_id, window.App.published_apis)
+        encoding.api = api
     $.event.trigger "populated.encodings"
   ))
 

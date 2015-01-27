@@ -1,0 +1,43 @@
+form action="/v1/app/apis/{{ id }}" method="PUT" enctype="multipart/form-data"
+  div class="form-group"
+    label for="name" Name:
+    input[
+      class="form-control"
+      name="name"
+      value="{{ name }}"
+    ]
+  div class="form-group"
+    label for="install_url" Install Url:
+    input[
+      class="form-control"
+      name="install_url"
+      value="{{ install_url }}"
+    ]
+  div class="form-group"
+    label for="uninstall_url" Uninstall Url:
+    input[
+      class="form-control"
+      name="uninstall_url"
+      value="{{ uninstall_url }}"
+    ]
+  div class="form-group"
+    div class="input-group"
+      span class="input-group-btn"
+        span class="btn btn-primary btn-file"
+          | Image: &nbsp;
+          input name="image" type="file"
+      input[type="text" class="form-control" readonly]
+  div class="resources"
+    | {{#each resources_attributes}}
+    |   {{> apis/_resource}}
+    | {{/each}}
+  div class="form-group right-align"
+    button[
+      type="button"
+      class="btn btn-success btn-xs editor-save"
+    ] Update
+    | &nbsp;
+    button[
+      type="button"
+      class="btn btn-danger btn-xs editor-cancel"
+    ] Cancel
