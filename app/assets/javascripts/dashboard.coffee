@@ -216,7 +216,7 @@ get_encodings = ->
   proxy_request('GET', '/v1/app/data_encodings', {}, ((rsp) =>
     window.App.data_encodings = rsp.data_encodings
     for encoding in window.App.data_encodings
-      if api = find_api(encoding.api_id, window.App.market_apis) || find_api(encoding.api_id, window.App.published_apis)
+      if api = (find_api(encoding.api_id, window.App.market_apis) || find_api(encoding.api_id, window.App.published_apis))
         encoding.api = api
     $.event.trigger "populated.encodings"
   ))
@@ -264,13 +264,15 @@ $(document).on "populated.encodings", () =>
 
 $(document).on "populated.market_apis", get_market_images
 $(document).on "populated.market", render_market
-$(document).on "opened.market", () =>
+$(document).on "opened.market", () ->
   bind_marketplace_handlers()
   get_encodings()
 
 $(document).on "populated.published_apis", get_published_images
 $(document).on "populated.published", render_published
-$(document).on "rendered.published", bind_published_handlers
+$(document).on "rendered.published", () ->
+  bind_published_handlers()
+  get_encodings()
 
 $(document).on "show.dashboard", render_dashboard
 $(document).on "show.publisher", render_publisher
