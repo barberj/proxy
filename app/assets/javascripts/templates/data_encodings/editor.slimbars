@@ -10,7 +10,7 @@ div class='encoding-edit'
             input class="form-control" name="name" value="{{ name }}"
           div class="form-group"
             label for="id" Id:
-            input class="form-control" name="id" value="{{ id }}" readonly
+            input[ class="form-control" name="id" value="{{ id }}" readonly ]
           | {{#each encoded_resources_attributes}}
           |   {{> data_encodings/_encoded_resource}}
           | {{/each}}
