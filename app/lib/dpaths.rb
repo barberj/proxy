@@ -1,6 +1,6 @@
 module Dpaths
   def self.add_validator(path)
-    if path.match(%r(^/.*\*))
+    if path.match(%r(^/.*(\*|\[\])))
       path
     else
       "#{path}/*"

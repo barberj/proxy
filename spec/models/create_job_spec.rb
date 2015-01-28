@@ -8,7 +8,10 @@ describe CreateJob do
       encoded_resource_id: default_encoded_resource.id,
       account_id: account.id,
       params: {
-        data: [{ 'FIRST_NAME' => 'Justin' }]
+        data: [{
+          'FIRST_NAME'  => 'Coty',
+          'WORK_EMAILS' => ['coty@ecommhub.com']
+        }]
       }
     )
   end
@@ -19,7 +22,10 @@ describe CreateJob do
       encoded_resource_id: custom_encoded_resource.id,
       account_id: account.id,
       params: {
-        data: [{ 'fname' => 'Justin' }]
+        data: [{
+          'fname'         => 'Coty',
+          'email_address' => 'coty@ecommhub.com'
+        }]
       }
     )
   end
@@ -31,7 +37,10 @@ describe CreateJob do
           'content-type' => 'application/json'
         },
         :body => {
-          data: [{ 'FIRST_NAME' => 'Justin' }]
+          data: [{
+            'FIRST_NAME'  => 'Coty',
+            'WORK_EMAILS' => ['coty@ecommhub.com']
+          }]
         }.to_json
       ).to_return(File.new("spec/webmocks/installed_apis/insightly/a_contact.txt"))
   end
@@ -58,7 +67,8 @@ describe CreateJob do
       results = custom_job.results['results']
       contact = results.first
 
-      expect(contact['fname']).to eq 'Justin'
+      expect(contact['fname']).to eq 'Coty'
+      expect(contact['email_address']).to eq 'coty@ecommhub.com'
     end
   end
 end

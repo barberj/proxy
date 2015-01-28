@@ -137,7 +137,21 @@ describe CreatedJob do
       results = custom_job.results['results']
       contact = results.first
 
-      expect(contact['fname']).to eq 'Justin'
+      expect(contact['fname']).to eq 'Coty'
+      expect(contact['email_address']).to eq 'coty@ecommhub.com'
+    end
+    it 'encodes default data' do
+      stub_resource_request
+      default_job.process
+      results = default_job.results['results']
+      contact = results.first
+
+      expect(contact['FIRST_NAME']).to eq 'Coty'
+      expect(contact['WORK_EMAILS'].first).to include( 'coty@ecommhub.com' )
+      expect(contact['WORK_ADDRESSES'].first).to include(
+        'STREET' => "730 Peachtree St NE #330",
+        'CITY'   => 'Atlanta'
+      )
     end
   end
 end

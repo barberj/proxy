@@ -137,7 +137,7 @@ describe ReadJob do
       results = custom_job.results['results']
       contact = results.first
 
-      expect(contact['fname']).to eq 'Justin'
+      expect(contact['fname']).to eq 'Coty'
     end
   end
 end

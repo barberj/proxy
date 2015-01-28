@@ -24,7 +24,13 @@ module Helpers
             fields_attributes: [{
               dpath: '/FIRST_NAME'
             },{
-              dpath: '/EMAIL'
+              dpath: '/WORK_EMAILS/[]'
+            },{
+              dpath: '/WORK_ADDRESSES//STREET'
+            },{
+              dpath: '/WORK_ADDRESSES//CITY'
+            },{
+              dpath: '/OTHER_ADDRESSES//STREET'
             }]
           }]
         )
@@ -56,8 +62,8 @@ module Helpers
               dpath: '/fname',
               field_id: api.resources.first.fields.first.id
             },{
-              dpath: '/email_address',
-              field_id: api.resources.first.fields.last.id
+              dpath: '/email_address/0',
+              field_id: api.resources.first.fields[1].id
             }]
           }]
         )

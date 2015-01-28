@@ -8,7 +8,7 @@ describe SearchJob do
       encoded_resource_id: default_encoded_resource.id,
       account_id: account.id,
       params: {
-        search_by: { 'FIRST_NAME' => 'Justin' },
+        search_by: { 'FIRST_NAME' => 'Coty' },
         page: 2,
         limit: 50
       }
@@ -21,7 +21,7 @@ describe SearchJob do
       encoded_resource_id: custom_encoded_resource.id,
       account_id: account.id,
       params: {
-        search_by: { 'fname' => 'Justin' },
+        search_by: { 'fname' => 'Coty' },
         page: 2,
         limit: 50
       }
@@ -32,7 +32,7 @@ describe SearchJob do
       .with(
         :headers => { 'Authorization' => "Token #{@remote_token}" },
         :query   => {
-          search_by: { 'FIRST_NAME' => 'Justin' },
+          search_by: { 'FIRST_NAME' => 'Coty' },
           page: 2,
           limit: 50
         }
@@ -61,7 +61,7 @@ describe SearchJob do
         encoded_resource_id: default_encoded_resource.id,
         account_id: account.id,
         params: {
-          search_by: { 'FIRST_NAME' => 'Justin' },
+          search_by: { 'FIRST_NAME' => 'Coty' },
           limit: 50
         }
       )
@@ -70,7 +70,7 @@ describe SearchJob do
         .with(
           :headers => { 'Authorization' => "Token #{@remote_token}" },
           :query   => {
-            search_by: { 'FIRST_NAME' => 'Justin' },
+            search_by: { 'FIRST_NAME' => 'Coty' },
             page: 1,
             limit: 50
           }
@@ -86,7 +86,7 @@ describe SearchJob do
         encoded_resource_id: default_encoded_resource.id,
         account_id: account.id,
         params: {
-          search_by: { 'FIRST_NAME' => 'Justin' },
+          search_by: { 'FIRST_NAME' => 'Coty' },
           page: 2
         }
       )
@@ -95,7 +95,7 @@ describe SearchJob do
         .with(
           :headers => { 'Authorization' => "Token #{@remote_token}" },
           :query   => {
-            search_by: { 'FIRST_NAME' => 'Justin' },
+            search_by: { 'FIRST_NAME' => 'Coty' },
             page: 2,
             limit: 250
           }
@@ -111,7 +111,7 @@ describe SearchJob do
         encoded_resource_id: default_encoded_resource.id,
         account_id: account.id,
         params: {
-          search_by: { 'FIRST_NAME' => 'Justin' },
+          search_by: { 'FIRST_NAME' => 'Coty' },
           page: 2,
           limit: 251
         }
@@ -121,7 +121,7 @@ describe SearchJob do
         .with(
           :headers => { 'Authorization' => "Token #{@remote_token}" },
           :query   => {
-            search_by: { 'FIRST_NAME' => 'Justin' },
+            search_by: { 'FIRST_NAME' => 'Coty' },
             page: 2,
             limit: 250
           }
@@ -137,7 +137,7 @@ describe SearchJob do
       results = custom_job.results['results']
       contact = results.first
 
-      expect(contact['fname']).to eq 'Justin'
+      expect(contact['fname']).to eq 'Coty'
     end
   end
 end
