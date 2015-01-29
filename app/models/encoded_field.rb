@@ -21,13 +21,21 @@ class EncodedField < ActiveRecord::Base
   end
 
   def value_to_user(h, api_value)
-    value = flattens? ? api_value[field_index] : api_value
+    values = flattens? ? api_value[field_index] : api_value
     path = flattens? ? flat_path : self.dpath
-    Dpaths.dput(h, path, value)
+    values = [values] if !collection_path?
+
+    values.each do |value|
+      Dpaths.dput(h, path, value)
+    end
   end
 
   def flat_path
     self.dpath.gsub(%r(/[0-9]+/), '/')
+  end
+
+  def collection_path?
+    self.dpath.match(%r(//.*\*))
   end
 
   def field_index
