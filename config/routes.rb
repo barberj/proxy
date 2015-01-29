@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   namespace :v1 do
     scope :app do
       resources :users, :only => [:create]
-      resources :jobs, :only => [:show]
+      resources :jobs, :only => [:show], :path => 'requests'
       resources :apis, :only => [:index, :create, :update, :destroy] do
         post '/image' => :add_image
         get '/image' => :get_image

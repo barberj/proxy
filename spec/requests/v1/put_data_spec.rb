@@ -16,7 +16,7 @@ describe 'PutData' do
       it 'returns job id' do
         put_request
 
-        expect(json['results']['job_id']).to eq Job.first.id
+        expect(json['results']['request_id']).to eq Job.first.id
       end
       it 'creates a UpdateJob' do
         expect{
@@ -93,7 +93,7 @@ describe 'PutData' do
       it 'returns job id' do
         put_request_for_custom
 
-        expect(json['results']['job_id']).to eq Job.first.id
+        expect(json['results']['request_id']).to eq Job.first.id
       end
       it 'creates a UpdateJob' do
         expect{

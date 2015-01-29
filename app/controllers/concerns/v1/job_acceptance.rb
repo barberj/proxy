@@ -16,7 +16,7 @@ private
       ProcessJob.perform_later(job)
 
       render(
-        json: { results: { job_id: job.id } },
+        json: { results: { request_id: job.id } },
         status: :accepted,
       )
     else

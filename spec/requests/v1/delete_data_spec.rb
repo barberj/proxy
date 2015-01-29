@@ -16,7 +16,7 @@ describe 'DeleteData' do
       it 'returns job id' do
         delete_request
 
-        expect(json['results']['job_id']).to eq Job.first.id
+        expect(json['results']['request_id']).to eq Job.first.id
       end
       it 'creates a DeleteJob' do
         expect{
@@ -91,7 +91,7 @@ describe 'DeleteData' do
       it 'returns job id' do
         delete_request_for_custom
 
-        expect(json['results']['job_id']).to eq Job.first.id
+        expect(json['results']['request_id']).to eq Job.first.id
       end
       it 'creates a DeleteJob' do
         expect{

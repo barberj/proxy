@@ -16,7 +16,7 @@ describe 'PostData' do
       it 'returns job id' do
         post_request
 
-        expect(json['results']['job_id']).to eq Job.first.id
+        expect(json['results']['request_id']).to eq Job.first.id
       end
       it 'creates a CreateJob' do
         expect{
@@ -93,7 +93,7 @@ describe 'PostData' do
       it 'returns job id' do
         post_request_for_custom
 
-        expect(json['results']['job_id']).to eq Job.first.id
+        expect(json['results']['request_id']).to eq Job.first.id
       end
       it 'creates a CreateJob' do
         expect{

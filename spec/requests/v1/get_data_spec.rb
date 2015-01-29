@@ -16,7 +16,7 @@ describe 'GetData' do
       it 'returns job id' do
         get_created_request
 
-        expect(json['results']['job_id']).to eq Job.first.id
+        expect(json['results']['request_id']).to eq Job.first.id
       end
       it 'creates a CreatedJob' do
         expect{
@@ -51,7 +51,7 @@ describe 'GetData' do
       it 'returns job id' do
         get_updated_request
 
-        expect(json['results']['job_id']).to eq Job.first.id
+        expect(json['results']['request_id']).to eq Job.first.id
       end
       it 'creates a UpdatedJob' do
         expect{
@@ -86,7 +86,7 @@ describe 'GetData' do
       it 'returns job id' do
         get_identifiers_request
 
-        expect(json['results']['job_id']).to eq Job.first.id
+        expect(json['results']['request_id']).to eq Job.first.id
       end
       it 'creates a ReadJob' do
         expect{
@@ -119,7 +119,7 @@ describe 'GetData' do
       it 'returns job id' do
         get_search_request
 
-        expect(json['results']['job_id']).to eq Job.first.id
+        expect(json['results']['request_id']).to eq Job.first.id
       end
       it 'creates a ReadJob' do
         expect{
@@ -217,7 +217,7 @@ describe 'GetData' do
       it 'returns job id' do
         get_request_for_custom
 
-        expect(json['results']['job_id']).to eq Job.first.id
+        expect(json['results']['request_id']).to eq Job.first.id
       end
       it 'creates a CreatedJob' do
         expect{
