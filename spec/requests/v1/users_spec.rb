@@ -5,19 +5,11 @@ describe 'Users' do
   context 'post' do
     let(:user_data) do
       {
-        'first_name'  => 'John',
-        'last_name'   => 'Doe',
-        'email'       => 'john.doe@gmail.com',
-        'password'    => 'letmein',
-        'credit_card' => {
-          'number'          => '4111111111111111',
-          'expiration_date' => '01/2015',
-        }
+        'first_name' => 'John',
+        'last_name'  => 'Doe',
+        'email'      => 'john.doe@gmail.com',
+        'password'   => 'letmein',
       }
-    end
-    before do
-      expect_any_instance_of(V1::UsersController).
-        to receive(:subscribe_user).and_return(12345)
     end
     let(:create_request) do
       post(v1_users_path, user_data, nil)

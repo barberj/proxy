@@ -4,16 +4,13 @@ class V1::UsersController < ApiController
   skip_before_action :authorize_user!, :only => [:create]
 
   def create
-    if billing_id = subscribe_user
-      user = User.new(create_params.merge(billing_id: billing_id))
-      status = if user.valid?
-        user.account = Account.create
-        user.save
-        :created
-      else
-        :bad_request
-      end
+    user = User.new(create_params)
+    status = if user.valid?
+      user.account = Account.create
+      user.save
+      :created
     else
+      :bad_request
     end
 
     render json: user.errors, status: status
@@ -41,8 +38,6 @@ private
   end
 
   def create_params
-    params.require(:first_name)
-    params.require(:last_name)
     params.require(:email)
     params.require(:password)
 
