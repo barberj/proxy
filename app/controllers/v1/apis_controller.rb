@@ -30,7 +30,7 @@ class V1::ApisController < ApiController
   end
 
   def get_image
-    if api = account.apis.find_by(id: api_id)
+    if api = Api.find_by(id: api_id)
       render json: {api_id: api_id, image: api.image}, status: :ok
     else
       render json: {message: 'Invalid API'}, status: :bad_request
