@@ -16,9 +16,11 @@ module SessionsHelper
   end
 
   def current_user_token
-    if current_user
-      current_user.token
-    end
+    current_user.token if current_user
+  end
+
+  def current_user_id
+    current_user.id if current_user
   end
 
   def signed_in?

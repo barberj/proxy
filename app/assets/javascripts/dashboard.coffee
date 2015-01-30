@@ -23,6 +23,19 @@ proxy_request = (method, url, data, done_callback, fail_callback=default_error_c
 render_user = ->
   html = HandlebarsTemplates['user/show'](window.App)
   $('.user-settings').html(html)
+  $.event.trigger "rendered.user"
+  $('.user-update').click (event) ->
+    event.preventDefault()
+    form = $(@).closest('form')
+    proxy_request('PUT', form.get(0).action, form.serialize(), ((rsp) =>
+      $.event.trigger "updated.user"
+    ))
+
+get_user = ->
+  proxy_request('GET', "/v1/app/users/#{window.App.user_id}", {}, ((rsp) =>
+    window.App.user = rsp.user
+    $.event.trigger "populated.user"
+  ))
 
 bind_api_install = () ->
   $('.install').click (event) ->
@@ -257,7 +270,7 @@ $(document).on "dashboard.load", () =>
   $.event.trigger "show.publisher"
 
   setup_handlers()
-  render_user()
+  get_user()
   get_market()
   get_published()
 
@@ -266,6 +279,8 @@ $(document).on "encoding.updated", get_encodings
 $(document).on "populated.encodings", () =>
   render_encodings()
   setup_handlers()
+
+$(document).on "populated.user", render_user
 
 $(document).on "populated.market_apis", get_market_images
 $(document).on "populated.market", render_market

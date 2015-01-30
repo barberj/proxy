@@ -3,6 +3,10 @@ class V1::UsersController < ApiController
 
   skip_before_action :authorize_user!, :only => [:create]
 
+  def show
+    render json: {user: user}, status: :ok
+  end
+
   def create
     user = User.new(create_params)
     status = if user.valid?
@@ -14,6 +18,11 @@ class V1::UsersController < ApiController
     end
 
     render json: user.errors, status: status
+  end
+
+  def update
+    user.update(update_params)
+    render json: user, status: status
   end
 
 private
@@ -41,6 +50,16 @@ private
     params.require(:email)
     params.require(:password)
 
+    params.permit(
+      :first_name,
+      :last_name,
+      :email,
+      :password,
+      :interested_api
+    )
+  end
+
+  def update_params
     params.permit(
       :first_name,
       :last_name,

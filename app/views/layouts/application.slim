@@ -6,6 +6,7 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
     meta name='token' content = current_user_token
+    meta name='user_id' content = current_user_id
   body data-controller = controller_name
     = render 'shared/ga'
     header class="site-header"

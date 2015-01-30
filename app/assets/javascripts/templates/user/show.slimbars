@@ -1,1 +1,24 @@
-| Token: {{ token }}
+form action="/v1/app/users/{{ user_id }}" method="PUT"
+  div class="form-group"
+    label for="token" Token:
+    input[
+      class="form-control"
+      value="{{ token }}"
+      readonly
+    ]
+  div class="form-group"
+    label for="first_name" First Name:
+    input[
+      class="form-control"
+      name="first_name"
+      value="{{ user.first_name }}"
+    ]
+  div class="form-group"
+    label for="last_name" Last Name:
+    input[
+      class="form-control"
+      name="last_name"
+      value="{{ user.last_name }}"
+    ]
+  div class="form-group right-align"
+    button class="btn btn-primary btn-xs user-update" Update
