@@ -9,10 +9,10 @@ Rails.application.routes.draw do
   post '/signin' => 'sessions#create'
   get '/signout' => 'sessions#destroy'
 
-  get '/pricing', to: redirect('http://www.simpleapi.io/pricing')
-  get '/blog', to: redirect('http://www.simpleapi.io/blog')
-  get '/docs', to: redirect('http://www.simpleapi.io/docs')
-  get '/privacy-policy', to: redirect('http://www.simpleapi.io/privacy-policy')
+  get '/pricing', to: redirect('https://simpleapi-io.github.io/pricing')
+  get '/blog', to: redirect('https://simpleapi-io.github.io/blog')
+  get '/docs', to: redirect('https://simpleapi-io.github.io/docs')
+  get '/privacy-policy', to: redirect('https://simpleapi-io.github.io/privacy-policy')
 
   get '/signup' => 'users#new'
 
