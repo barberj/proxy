@@ -1,24 +1,76 @@
-form action="/v1/app/users/{{ user_id }}" method="PUT"
-  div class="form-group"
-    label for="token" Token:
-    input[
-      class="form-control"
-      value="{{ token }}"
-      readonly
-    ]
-  div class="form-group"
-    label for="first_name" First Name:
-    input[
-      class="form-control"
-      name="first_name"
-      value="{{ user.first_name }}"
-    ]
-  div class="form-group"
-    label for="last_name" Last Name:
-    input[
-      class="form-control"
-      name="last_name"
-      value="{{ user.last_name }}"
-    ]
-  div class="form-group right-align"
-    button class="btn btn-primary btn-xs user-update" Update
+div role="tabpanel"
+  ul class="nav nav-tabs" role="tablist"
+    li role="presentation" class="active"
+      a[
+        href="#account-info"
+        aria-controls="account-info"
+        role="tab"
+        data-toggle="tab"
+      ] Account Info
+    li role="presentation"
+      a[
+        href="#update-password"
+        aria-controls="update-password"
+        role="tab"
+        data-toggle="tab"
+      ] Change password
+    li role="presentation"
+      a[
+        href="#billing"
+        aria-controls="billing"
+        role="tab"
+        data-toggle="tab"
+      ] Billing
+
+  div class="tab-content"
+    div class="tab-pane active" id="account-info"
+      div class="form-group"
+        label for="token" Token:
+        input[
+          class="form-control"
+          value="{{ token }}"
+          readonly
+        ]
+      form action="/v1/app/users/{{ user_id }}" method="PUT"
+        div class="form-group"
+          label for="first_name" First Name:
+          input[
+            class="form-control"
+            name="first_name"
+            value="{{ user.first_name }}"
+          ]
+        div class="form-group"
+          label for="last_name" Last Name:
+          input[
+            class="form-control"
+            name="last_name"
+            value="{{ user.last_name }}"
+          ]
+        div class="form-group right-align"
+          button class="btn btn-primary btn-xs user-update" Update
+
+    div class="tab-pane" id="update-password"
+      form action="/v1/app/users/{{ user_id }}" method="PUT"
+        div class="form-group"
+          label for="old_password" Old password:
+          input[
+            type="password"
+            class="form-control"
+            name="old_password"
+          ]
+        div class="form-group"
+          label for="new_password" New password:
+          input[
+            type="password"
+            class="form-control"
+            name="new_password"
+          ]
+        div class="form-group"
+          label for="confirm_password" Confirm new password:
+          input[
+            type="password"
+            class="form-control"
+            name="confirm_password"
+          ]
+        div class="form-group right-align"
+          button class="btn btn-primary btn-xs user-update" Update password

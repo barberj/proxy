@@ -29,7 +29,7 @@ form action="/v1/app/apis/{{ id }}" method="PUT" enctype="multipart/form-data"
         span class="btn btn-primary btn-file"
           | Image: &nbsp;
           input name="image" type="file"
-      input[type="text" class="form-control" readonly]
+      input[type="text" class="file-name form-control" readonly]
   div class="resources"
     | {{#each resources_attributes}}
     |   {{> apis/_resource}}

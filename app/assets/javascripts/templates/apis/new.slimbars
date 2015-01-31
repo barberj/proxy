@@ -23,7 +23,7 @@ form action="/v1/app/apis" method="POST" enctype="multipart/form-data"
         span class="btn btn-primary btn-file"
           | Image: &nbsp;
           input name="image" type="file"
-      input[type="text" class="form-control" readonly]
+      input[type="text" class="file-name form-control" readonly]
   div class="resources"
   div class="form-group"
     button[
