@@ -64,6 +64,9 @@ module Helpers
             },{
               dpath: '/email_address/0',
               field_id: api.resources.first.fields[1].id
+            },{
+              dpath: '/WORK_ADDRESSES//STREET',
+              field_id: api.resources.first.fields[2].id
             }]
           }]
         )

@@ -9,8 +9,11 @@ describe CreateJob do
       account_id: account.id,
       params: {
         data: [{
-          'FIRST_NAME'  => 'Coty',
-          'WORK_EMAILS' => ['coty@ecommhub.com']
+          'FIRST_NAME'     => 'Coty',
+          'WORK_EMAILS'    => ['coty@ecommhub.com'],
+          'WORK_ADDRESSES' => [{
+            'STREET' => '123 Street'
+          }]
         }]
       }
     )
@@ -24,7 +27,10 @@ describe CreateJob do
       params: {
         data: [{
           'fname'         => 'Coty',
-          'email_address' => 'coty@ecommhub.com'
+          'email_address' => 'coty@ecommhub.com',
+          'WORK_ADDRESSES' => [{
+            'STREET' => '123 Street'
+          }]
         }]
       }
     )
@@ -39,7 +45,10 @@ describe CreateJob do
         :body => {
           data: [{
             'FIRST_NAME'  => 'Coty',
-            'WORK_EMAILS' => ['coty@ecommhub.com']
+            'WORK_EMAILS' => ['coty@ecommhub.com'],
+            'WORK_ADDRESSES' => [{
+              'STREET' => '123 Street'
+            }]
           }]
         }.to_json
       ).to_return(File.new("spec/webmocks/installed_apis/insightly/a_contact.txt"))

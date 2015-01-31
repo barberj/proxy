@@ -42,7 +42,7 @@ private
               encoded_field.value_to_api(decoded_datum, value)
             end
           end
-        decoded << decoded_datum if decoded_datum.present?
+          decoded << decoded_datum if decoded_datum.present?
         end
       end
     }.to_json

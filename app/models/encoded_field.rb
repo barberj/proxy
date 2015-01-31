@@ -12,7 +12,12 @@ class EncodedField < ActiveRecord::Base
 
   def value_from_user(h)
     path = flattens? ? flat_path : self.dpath
-    Dpaths.dselect(h, path)
+    value = Dpaths.dselect(h, path)
+    if value && collection_path?
+      value.first
+    else
+      value
+    end
   end
 
   def value_to_api(h, user_value)
