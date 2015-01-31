@@ -27,9 +27,13 @@ render_user = ->
   $('.user-update').click (event) ->
     event.preventDefault()
     form = $(@).closest('form')
-    proxy_request('PUT', form.get(0).action, form.serialize(), ((rsp) =>
-      $.event.trigger "updated.user"
-    ))
+    if new FormValidator(form).is_valid()
+      console.log('valid')
+      proxy_request('PUT', form.get(0).action, form.serialize(), ((rsp) =>
+        $.event.trigger "updated.user"
+      ))
+    else
+      console.log('invalid')
 
 get_user = ->
   proxy_request('GET', "/v1/app/users/#{window.App.user_id}", {}, ((rsp) =>

@@ -62,15 +62,14 @@ div role="tabpanel"
           label for="new_password" New password:
           input[
             type="password"
-            class="form-control required"
+            class="form-control required confirm"
             name="new_password"
           ]
         div class="form-group"
           label for="confirm_password" Confirm new password:
           input[
-            type="password required"
-            class="form-control"
-            name="confirm_password"
+            type="password"
+            class="form-control required confirm_new_password"
           ]
         div class="form-group right-align"
           button class="btn btn-primary btn-xs user-update" Update password
