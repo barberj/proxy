@@ -50,25 +50,25 @@ div role="tabpanel"
           button class="btn btn-primary btn-xs user-update" Update
 
     div class="tab-pane" id="update-password"
-      form action="/v1/app/users/{{ user_id }}" method="PUT"
+      form action="/users/{{ user_id }}" method="PUT"
         div class="form-group"
           label for="old_password" Old password:
           input[
             type="password"
-            class="form-control"
-            name="old_password"
+            class="form-control required"
+            name="current_password"
           ]
         div class="form-group"
           label for="new_password" New password:
           input[
             type="password"
-            class="form-control"
+            class="form-control required"
             name="new_password"
           ]
         div class="form-group"
           label for="confirm_password" Confirm new password:
           input[
-            type="password"
+            type="password required"
             class="form-control"
             name="confirm_password"
           ]

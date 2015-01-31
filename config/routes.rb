@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   root 'users#new'
   resources :dashboard, :only => [:index]
+  resources :users, :only => [:update]
 
   get '/signin' => 'sessions#new'
   post '/signin' => 'sessions#create'
