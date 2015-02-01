@@ -59,13 +59,13 @@ module Helpers
             name: 'MyContacts',
             resource_id: api.resources.first.id,
             encoded_fields_attributes: [{
-              dpath: '/fname',
+              dpath: '/fname/[]',
               field_id: api.resources.first.fields.first.id
             },{
               dpath: '/email_address/0',
               field_id: api.resources.first.fields[1].id
             },{
-              dpath: '/WORK_ADDRESSES//STREET',
+              dpath: '/WORK_ADDRESSES/0/STREET',
               field_id: api.resources.first.fields[2].id
             }]
           }]

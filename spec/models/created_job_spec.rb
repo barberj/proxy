@@ -137,7 +137,7 @@ describe CreatedJob do
       results = custom_job.results['results']
       contact = results.first
 
-      expect(contact['fname']).to eq 'Coty'
+      expect(contact['fname']).to eq ['Coty']
       expect(contact['email_address']).to eq 'coty@ecommhub.com'
     end
     it 'encodes default data' do

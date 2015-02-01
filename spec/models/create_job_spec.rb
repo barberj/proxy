@@ -26,11 +26,47 @@ describe CreateJob do
       account_id: account.id,
       params: {
         data: [{
+          'fname'         => ['Coty'],
+          'email_address' => 'coty@ecommhub.com',
+          'WORK_ADDRESSES' => {
+            'STREET' => '123 Street'
+          }
+        }]
+      }
+    )
+  end
+  let(:custom_two_job) do
+    api = default_data_encoding.api
+    custom_encoding = account.data_encodings.create(
+      api_id: api.id,
+      name: 'Custom Encoding Two',
+      encoded_resources_attributes: [{
+        name: 'MyContacts',
+        resource_id: api.resources.first.id,
+        encoded_fields_attributes: [{
+          dpath: '/fname/*',
+          field_id: api.resources.first.fields.first.id
+        },{
+          dpath: '/email_address/0',
+          field_id: api.resources.first.fields[1].id
+        },{
+          dpath: '/street/0',
+          field_id: api.resources.first.fields[2].id
+        }]
+      }]
+    )
+    @remote_token = custom_encoding.token
+    stub_resource_request
+    custom_encoding.jobs.create(
+      type: 'CreateJob',
+      resource_id: custom_encoding.encoded_resources.first.resource_id,
+      encoded_resource_id: custom_encoding.encoded_resources.first.id,
+      account_id: account.id,
+      params: {
+        data: [{
           'fname'         => 'Coty',
           'email_address' => 'coty@ecommhub.com',
-          'WORK_ADDRESSES' => [{
-            'STREET' => '123 Street'
-          }]
+          'street'        => '123 Street'
         }]
       }
     )
@@ -76,8 +112,18 @@ describe CreateJob do
       results = custom_job.results['results']
       contact = results.first
 
+      expect(contact['fname']).to eq ['Coty']
+      expect(contact['email_address']).to eq 'coty@ecommhub.com'
+    end
+    it 'decodes data, encodes results' do
+      stub_resource_request
+      custom_two_job.process
+      results = custom_two_job.results['results']
+      contact = results.first
+
       expect(contact['fname']).to eq 'Coty'
       expect(contact['email_address']).to eq 'coty@ecommhub.com'
+      expect(contact['street']).to eq '123 Street'
     end
   end
 end

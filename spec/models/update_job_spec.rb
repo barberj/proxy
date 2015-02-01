@@ -19,7 +19,7 @@ describe UpdateJob do
       encoded_resource_id: custom_encoded_resource.id,
       account_id: account.id,
       params: {
-        data: [{ 'fname' => 'Coty' }]
+        data: [{ 'fname' => ['Coty'] }]
       }
     )
   end
@@ -58,7 +58,7 @@ describe UpdateJob do
       results = custom_job.results['results']
       contact = results.first
 
-      expect(contact['fname']).to eq 'Coty'
+      expect(contact['fname']).to eq ['Coty']
     end
   end
 end

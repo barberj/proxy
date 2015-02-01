@@ -20,7 +20,7 @@ describe DataEncoding do
           first['encoded_fields_attributes'].
           first
       ).
-        to include( 'dpath' => '/fname/*' )
+        to include( 'dpath' => '/fname/[]' )
     end
   end
   describe '#as_template' do
@@ -34,7 +34,7 @@ describe DataEncoding do
           first['encoded_fields_attributes'].
           first
       ).
-        to include( 'dpath' => '/fname/*' )
+        to include( 'dpath' => '/fname/[]' )
     end
   end
 end

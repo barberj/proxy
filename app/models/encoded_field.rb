@@ -13,7 +13,7 @@ class EncodedField < ActiveRecord::Base
   def value_from_user(h)
     path = flattens? ? flat_path : self.dpath
     value = Dpaths.dselect(h, path)
-    if value && collection_path?
+    if value && value.kind_of?(Array) && value_should_be_individual?
       value.first
     else
       value
@@ -28,7 +28,8 @@ class EncodedField < ActiveRecord::Base
   def value_to_user(h, api_value)
     values = flattens? ? api_value[field_index] : api_value
     path = flattens? ? flat_path : self.dpath
-    values = [values] if !collection_path?
+    values = Array.wrap(values) if collection?
+    values = [values] if !is_nested_in_a_collection?
 
     values.each do |value|
       Dpaths.dput(h, path, value)
@@ -39,8 +40,12 @@ class EncodedField < ActiveRecord::Base
     self.dpath.gsub(%r(/[0-9]+/), '/')
   end
 
-  def collection_path?
-    self.dpath.match(%r(//.*\*))
+  def value_should_be_individual?
+    (
+      is_nested_in_a_collection?  || !self.field.is_nested_in_a_collection?
+    ) && (
+      !self.field.collection?
+    )
   end
 
   def field_index
@@ -48,7 +53,7 @@ class EncodedField < ActiveRecord::Base
   end
 
   def flattens?
-    field_index.present?
+    field_index.present? && !self.field.is_nested_in_a_collection?
   end
 
   def as_json(*args)
