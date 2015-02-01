@@ -1,5 +1,5 @@
 default_error_cb = (rsp) =>
-  alertify.error(rsp.resposneText)
+  alertify.error(rsp.responseText)
 
 bind_upload_image_handlers = () ->
   $('.btn-file :file').change (event) ->

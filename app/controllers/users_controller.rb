@@ -9,8 +9,11 @@ class UsersController < AuthenticatedController
   def update
     if user.authenticate(current_password)
       user.password = new_password
-      user.save
-      render json: {message: 'Updated password'}, status: :ok
+      if user.save
+        render json: {message: 'Updated password'}, status: :ok
+      else
+        render json: user.errors, status: :bad_request
+      end
     else
       render json: {message: 'Invalid password'}, status: :unauthorized
     end
