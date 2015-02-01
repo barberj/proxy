@@ -11,10 +11,9 @@ class EncodedField < ActiveRecord::Base
   end
 
   def value_from_user(h)
-    path = flattens? ? flat_path : self.dpath
-    value = Dpaths.dselect(h, path)
-    if value && value.kind_of?(Array) && !self.field.collection?
-      value.first
+    value = Dpaths.dselect(h, self.dpath)
+    if !self.field.collection?
+      Array.wrap(value).first
     else
       value
     end
@@ -25,39 +24,13 @@ class EncodedField < ActiveRecord::Base
   end
 
   def value_to_user(h, api_value)
-    value, path = if flattens?
-      [api_value[field_index], flat_path]
+    value = if !collection?
+      Array.wrap(api_value).first
     else
-      [api_value, self.dpath]
+      Array.wrap(api_value)
     end
 
-    value = Array.wrap(value) if collection?
-    values = !is_nested_in_a_collection? ? [value] : value
-
-    #binding.pry if values == [['730 Peachtree St NE #330']]
-    values.each do |value|
-      Dpaths.dput(h, path, value)
-    end
-  end
-
-  def flat_path
-    self.dpath.gsub(%r(/[0-9]+/), '/')
-  end
-
-  def value_should_be_individual?
-    (
-      is_nested_in_a_collection?  || !self.field.is_nested_in_a_collection?
-    ) && (
-      !self.field.collection?
-    )
-  end
-
-  def field_index
-    @field_index ||= Integer(self.dpath.match(%r(/([0-9]+)/))[1]) rescue nil
-  end
-
-  def flattens?
-    field_index.present? && !self.field.is_nested_in_a_collection?
+    Dpaths.dput(h, self.dpath, value)
   end
 
   def as_json(*args)

@@ -47,7 +47,7 @@ describe CreateJob do
           dpath: '/fname/*',
           field_id: api.resources.first.fields.first.id
         },{
-          dpath: '/email_address/0',
+          dpath: '/email_address/*',
           field_id: api.resources.first.fields[1].id
         },{
           dpath: '/street/*',

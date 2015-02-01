@@ -13,6 +13,6 @@ module FieldDpath
   end
 
   def collection?
-    self.dpath.match(%r(\[\]$)).present?
+    self.dpath.ends_with?('[]')
   end
 end
