@@ -1,6 +1,5 @@
 default_error_cb = (rsp) =>
-  #rsp.responseJSON
-  console.log "error: #{rsp.responseText}"
+  alertify.error(rsp.resposneText)
 
 bind_upload_image_handlers = () ->
   $('.btn-file :file').change (event) ->
@@ -28,12 +27,12 @@ render_user = ->
     event.preventDefault()
     form = $(@).closest('form')
     if new FormValidator(form).is_valid()
-      console.log('valid')
       proxy_request('PUT', form.get(0).action, form.serialize(), ((rsp) =>
         $.event.trigger "updated.user"
+        alertify.success("Successfully updated.")
       ))
     else
-      console.log('invalid')
+      alertify.error("Your submission is invalid. Please verify and re-try.")
 
 get_user = ->
   proxy_request('GET', "/v1/app/users/#{window.App.user_id}", {}, ((rsp) =>

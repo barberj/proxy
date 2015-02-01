@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/rudionrails/alertify-rails
+  revision: 88a9a124391ce30d37f25f64f07068f1f65b91e7
+  specs:
+    alertify-rails (0.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -258,6 +264,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  alertify-rails!
   bcrypt (~> 3.1.7)
   bootstrap-sass (~> 3.2.0)
   braintree

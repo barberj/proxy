@@ -39,6 +39,7 @@ gem 'handlebars_assets'
 gem 'fancybox2-rails'
 gem "font-awesome-rails"
 gem 'braintree'
+gem 'alertify-rails', :git => 'https://github.com/rudionrails/alertify-rails'
 
 # Use Unicorn as the app server
 #gem 'unicorn'
