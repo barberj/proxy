@@ -1,6 +1,6 @@
 module Dpaths
   def self.add_validator(path)
-    if path.match(%r(^/.*(\*|\[\])))
+    if path.ends_with?('*') || path.ends_with?('[]')
       path
     else
       "#{path}/*"
@@ -91,7 +91,7 @@ module Dpaths
     [key, fields[1], query.gsub(/^\/*#{Regexp.escape(key)}/,'')]
   end
 
-  def self.dput(target, query = '/*', value)
+  def self.dstore(target, query, value)
     key, next_key, new_query = keys_and_remaining(query)
 
     if is_validator?(key)
@@ -101,7 +101,7 @@ module Dpaths
       when (key == '[]' || key == '*') && target.is_a?(Array)
         target << value
       else
-        raise "dput target validation failed"
+        raise "dstore target validation failed"
       end
 
     elsif is_validator?(next_key)
@@ -122,7 +122,7 @@ module Dpaths
       end
 
       target.each do |new_target|
-        dput(new_target, new_query, value)
+        dstore(new_target, new_query, value)
       end
     elsif into_an_array?(key)
       key = key.to_i
@@ -130,7 +130,7 @@ module Dpaths
         target.insert(key, (next_key.empty? || into_arrays?(next_key)) ? [] : {})
       end
 
-      dput(target[key], new_query, value)
+      dstore(target[key], new_query, value)
     else
       key = key.to_sym if target.keys.include? key.to_sym
       if next_key && (into_arrays?(next_key) || into_an_array?(next_key))
@@ -139,10 +139,19 @@ module Dpaths
         target[key] ||= {}
       end
 
-      dput(target[key], new_query, value)
+      dstore(target[key], new_query, value)
     end
 
     target
   rescue NoMethodError => ex
+  end
+
+  def self.storing_collection?(query)
+    query.ends_with?('[]')
+  end
+
+  def self.dput(target, query = '/*', value)
+    value = Array.wrap(value) if storing_collection?(query)
+    dstore(target, query, value)
   end
 end

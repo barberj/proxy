@@ -50,7 +50,7 @@ describe CreateJob do
           dpath: '/email_address/0',
           field_id: api.resources.first.fields[1].id
         },{
-          dpath: '/street/0',
+          dpath: '/street/*',
           field_id: api.resources.first.fields[2].id
         }]
       }]
@@ -114,16 +114,16 @@ describe CreateJob do
 
       expect(contact['fname']).to eq ['Coty']
       expect(contact['email_address']).to eq 'coty@ecommhub.com'
+      expect(contact['WORK_ADDRESSES']['STREET']).to eq '730 Peachtree St NE #330'
     end
     it 'decodes data, encodes results' do
-      stub_resource_request
       custom_two_job.process
       results = custom_two_job.results['results']
       contact = results.first
 
       expect(contact['fname']).to eq 'Coty'
       expect(contact['email_address']).to eq 'coty@ecommhub.com'
-      expect(contact['street']).to eq '123 Street'
+      expect(contact['street']).to eq '730 Peachtree St NE #330'
     end
   end
 end
