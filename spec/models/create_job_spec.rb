@@ -155,15 +155,24 @@ describe CreateJob do
             'FIRST_NAME'     => 'Coty',
             'WORK_EMAILS'    => ['coty@ecommhub.com'],
             'WORK_ADDRESSES' => [{
-              'STREET' => '123 Street',
+              'STREET' => '123 Street'
             },{
-              'STREET' => '234 Street',
+              'STREET' => '234 Street'
             }]
           }]
         }
       )
 
       job.process
+      results = job.results['results']
+      contact = results.first
+      expect(contact['WORK_ADDRESSES'].count).to eq 2
+      expect(contact['WORK_ADDRESSES'].first).to include(
+        'STREET' => '730 Peachtree St NE #330'
+      )
+      expect(contact['WORK_ADDRESSES'].last).to include(
+        'STREET' => '865 Peachtree St NE #330'
+      )
     end
   end
 end

@@ -7,30 +7,39 @@ class EncodedField < ActiveRecord::Base
                     uniqueness: { scope: :encoded_resource_id }
 
   def value_from_api(h)
-    Dpaths.dselect(h, self.field.dpath)
-  end
-
-  def value_from_user(h)
-    value = Dpaths.dselect(h, self.dpath)
-    if !self.field.collection?
+    value = Dpaths.dselect(h, self.field.dpath)
+    value = if !collection? && !is_nested_in_a_collection?
       Array.wrap(value).first
     else
       value
     end
+
+    Array.wrap(value)
   end
 
-  def value_to_api(h, value)
-    Dpaths.dput(h, self.field.dpath, value)
-  end
-
-  def value_to_user(h, api_value)
-    value = if !collection?
-      Array.wrap(api_value).first
+  def value_from_user(h)
+    value = Dpaths.dselect(h, self.dpath)
+    value = if !self.field.collection? && !self.field.is_nested_in_a_collection?
+      Array.wrap(value).first
     else
-      Array.wrap(api_value)
+      value
     end
 
-    Dpaths.dput(h, self.dpath, value)
+    Array.wrap(value)
+  end
+
+  def value_to_api(h, values)
+    Array.wrap(values).each_with_index do |value, index|
+      next unless value
+      Dpaths.dput(h, self.field.dpath_for(index), value)
+    end
+  end
+
+  def value_to_user(h, values)
+    Array.wrap(values).each_with_index do |value, index|
+      next unless value
+      Dpaths.dput(h, self.dpath_for(index), value)
+    end
   end
 
   def as_json(*args)

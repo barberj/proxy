@@ -15,4 +15,12 @@ module FieldDpath
   def collection?
     self.dpath.ends_with?('[]')
   end
+
+  def dpath_for(index)
+    self.dpath.gsub('//', "/#{index}/")
+  end
+
+  def is_nested_in_a_collection?
+    self.dpath.include?('//')
+  end
 end
