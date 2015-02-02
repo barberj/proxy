@@ -125,5 +125,45 @@ describe CreateJob do
       expect(contact['email_address']).to eq 'coty@ecommhub.com'
       expect(contact['street']).to eq '730 Peachtree St NE #330'
     end
+    it 'handles collection nested fields' do
+      stub_request(:post, 'https://remoteapi.com/create')
+        .with(
+          :headers => {
+            'Authorization' => "Token #{@remote_token}",
+            'content-type' => 'application/json'
+          },
+          :body => {
+            data: [{
+              'FIRST_NAME'  => 'Coty',
+              'WORK_EMAILS' => ['coty@ecommhub.com'],
+              'WORK_ADDRESSES' => [{
+                'STREET' => '123 Street',
+              },{
+                'STREET' => '234 Street',
+              }]
+            }]
+          }.to_json
+        ).to_return(File.new("spec/webmocks/installed_apis/insightly/a_contact.txt"))
+
+      job = default_data_encoding.jobs.create(
+        type: 'CreateJob',
+        resource_id: default_encoded_resource.resource_id,
+        encoded_resource_id: default_encoded_resource.id,
+        account_id: account.id,
+        params: {
+          data: [{
+            'FIRST_NAME'     => 'Coty',
+            'WORK_EMAILS'    => ['coty@ecommhub.com'],
+            'WORK_ADDRESSES' => [{
+              'STREET' => '123 Street',
+            },{
+              'STREET' => '234 Street',
+            }]
+          }]
+        }
+      )
+
+      job.process
+    end
   end
 end
