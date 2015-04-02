@@ -6,7 +6,7 @@ describe 'Describe' do
 
       expect(json['versions']).to include(
         'url' => '/v1',
-        'version' => '1.0'
+        'label' => '1.0'
       )
   end
 end
