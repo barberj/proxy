@@ -2,7 +2,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
 
-  root 'users#new'
+  root 'describe#show'
   resources :dashboard, :only => [:index]
   resources :users, :only => [:update]
 
